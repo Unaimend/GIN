@@ -10,6 +10,11 @@ library(ggplot2)
 library(reshape2)
 library(tidyr)
 library(caret)
+
+
+OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
+OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
+
 two_rxn <- read.csv("../data/rxn_correlations_2M.csv")
 two_sig_rxn <- two_rxn %>% filter(p.adj < 0.05)
 nine_rxn <- read.csv("../data/rxn_correlations_9M.csv")
@@ -20,6 +25,7 @@ twentyfour_rxn <- read.csv("../data/rxn_correlations_24M.csv")
 twentyfour_sig_rxn <- twentyfour_rxn %>% filter(p.adj < 0.05)
 thirty_rxn <- read.csv("../data/rxn_correlations_30M.csv")
 thirty_sig_rxn <- thirty_rxn %>% filter(p.adj < 0.05)
+
 
 ### load normalized reaction data
 cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
@@ -103,13 +109,31 @@ fifteen_mag = read.csv("../data/mag_correlation_15M.csv")
 twentyfour_mag = read.csv("../data/mag_correlation_24M.csv")
 thirty_mag = read.csv("../data/mag_correlation_30M.csv")
 
-two_mag_sig = two_mag %>% filter(p.adj < 0.05)
+taxonomyHQ = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
+taxonomyHQ = taxonomyHQ %>% select(c(1 : 8))
 
 two_mag_sig = two_mag %>% filter(p.adj < 0.05)
+two_mag_sig = merge(two_mag_sig, OTUtoMAG, by.x = "OTU", by.y = "V1" )
+two_mag_sig = merge(two_mag_sig, taxonomyHQ, by.x = "V2", by.y = "user_genome" )
 nine_mag_sig = nine_mag %>% filter(p.adj < 0.05)
+nine_mag_sig = merge(nine_mag_sig, OTUtoMAG, by.x = "OTU", by.y = "V1" )
+nine_mag_sig = merge(nine_mag_sig, taxonomyHQ, by.x = "V2", by.y = "user_genome" )
 fifteen_mag_sig = fifteen_mag %>% filter(p.adj < 0.05)
+fifteen_mag_sig = merge(fifteen_mag_sig, OTUtoMAG, by.x = "OTU", by.y = "V1" )
+fifteen_mag_sig = merge(fifteen_mag_sig, taxonomyHQ, by.x = "V2", by.y = "user_genome" )
 twentyfour_mag_sig = twentyfour_mag %>% filter(p.adj < 0.05)
+twentyfour_mag_sig = merge(twentyfour_mag_sig, OTUtoMAG, by.x = "OTU", by.y = "V1" )
+twentyfour_mag_sig = merge(twentyfour_mag_sig, taxonomyHQ, by.x = "V2", by.y = "user_genome" )
 thirty_mag_sig = thirty_mag %>% filter(p.adj < 0.05)
+thirty_mag_sig = merge(thirty_mag_sig, OTUtoMAG, by.x = "OTU", by.y = "V1" )
+thirty_mag_sig = merge(thirty_mag_sig, taxonomyHQ, by.x = "V2", by.y = "user_genome" )
+
+write.csv(two_mag_sig, "../data/sig_mags_2M.csv")
+write.csv(nine_mag_sig, "../data/sig_mags_9M.csv")
+write.csv(fifteen_mag_sig, "../data/sig_mags_15M.csv")
+write.csv(twentyfour_mag_sig, "../data/sig_mags_24M.csv")
+write.csv(thirty_mag_sig, "../data/sig_mags_30M.csv")
+
 ```
 
 
