@@ -6,6 +6,8 @@ library(caret)
 library(lmerTest)
 metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
 count_data <- read.csv("../data/otu_count_clean.csv", sep = ",", row.names = 1, check.names = F)
+OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
+OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
 
 # Returns normalized count data for a specific organ
 filter_per_organ = function (metadata, countdata, organ) {
@@ -13,7 +15,13 @@ filter_per_organ = function (metadata, countdata, organ) {
   filtered_count_data = countdata[, metadata_organ$PatID]
   filtered_count_data <- apply(filtered_count_data, 2, function(col) {col/sum(col)})
   colnames(filtered_count_data) = gsub("_.", "", colnames(filtered_count_data))
-  return(filtered_count_data)
+  result = merge(filtered_count_data, OTUtoMAG, by.x = 0, by.y = "V1")
+  result2 <- as.matrix(result%>%
+                            group_by(Row.names) %>%
+                            summarize(across(matches(".*/"), sum, .names = "Sum_{.col}")) %>%
+                            column_to_rownames("Row.names") 
+                           )
+  return(result2)
 }
 
 
@@ -71,7 +79,6 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 #Two_month <- calculate_p_values(cecum_counts, colon_counts, stool_counts)
 
 # Load 16S to MAG mapping
-OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F)
 cecumMAGCounts <- cecum_counts[rownames(cecum_counts) %in% OTUtoMAG$V1, ]
 cecumMAGCounts <- apply(cecumMAGCounts, 2, function(col) {col/sum(col)})
 
