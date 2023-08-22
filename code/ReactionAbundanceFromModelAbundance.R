@@ -25,10 +25,6 @@ for(str_modelName in names(obj_metabolicModelsMouse)) {
 #mtx_rxnInModels <- prop.table(mtx_rxnInModels,2)
 #colSums(mtx_rxnInModels)
 
-# 
-# ##Or alternatively load incidence matrix of only ACTIVE reactions (more resembling transcriptomics)- predicted from FVA by Stefano
-# mtx_rxnInModels <- read.table(file = "~/Dropbox/0_Work/0_Projects/01_Ageing/R/metagenome/activeReactionsFromFVA99IncidenceMatrix_StefanoFlor2022-03.csv",
-
 library(dplyr)
 library(ggplot2)
 library(reshape2)
@@ -65,7 +61,7 @@ colonMAGCounts <- colon_counts[rownames(colon_counts) %in% OTUtoMAG$V1, ]
 stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
  
 
-calculateRXNAbundances <- function (organMAGCounts, otu_to_mag)
+calculateRXNAbundances <- function (organMAGCounts)
 {
   organOTUtoMAG <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1") %>% select("Row.names", "V2")
   length(unique(organOTUtoMAG$V2)) == length(organOTUtoMAG$V2)
@@ -86,4 +82,10 @@ calculateRXNAbundances <- function (organMAGCounts, otu_to_mag)
   return(organFinalActivateOTUCount)
 }
 
-cecum = calculateRXNAbundances(cecum_counts, OTUtoMAG)
+cecum = calculateRXNAbundances(cecum_counts)
+stool = calculateRXNAbundances(stool_counts)
+colon = calculateRXNAbundances(colon_counts)
+
+write.csv(cecum, "../data/cecum_rxn_abundance.csv")
+write.csv(colon, "../data/colon_rxn_abundance.csv")
+write.csv(stool, "../data/stool_rxn_abundance.csv")

@@ -1,0 +1,115 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(tidyr)
+library(caret)
+two_rxn <- read.csv("../data/rxn_correlations_2M.csv")
+two_sig_rxn <- two_rxn %>% filter(p.adj < 0.05)
+nine_rxn <- read.csv("../data/rxn_correlations_9M.csv")
+nine_sig_rxn <- nine_rxn %>% filter(p.adj < 0.05)
+fifteen_rxn <- read.csv("../data/rxn_correlations_15M.csv")
+fifteen_sig_rxn <- fifteen_rxn %>% filter(p.adj < 0.05)
+twentyfour_rxn <- read.csv("../data/rxn_correlations_24M.csv")
+twentyfour_sig_rxn <- twentyfour_rxn %>% filter(p.adj < 0.05)
+thirty_rxn <- read.csv("../data/rxn_correlations_30M.csv")
+thirty_sig_rxn <- thirty_rxn %>% filter(p.adj < 0.05)
+
+### load normalized reaction data
+cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
+cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
+
+
+colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
+colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
+colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
+
+stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
+stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
+stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
+
+metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
+
+
+getTableForOtu <- function(counts1, counts2, counts3, otu, age = 2)
+{
+    current_otu = as.data.frame(counts1[otu, ])
+    current_otu2 = merge(current_otu,  as.data.frame(counts2[otu, ]) , by.x = 0, by.y = 0 )
+    current_otu3 = merge(current_otu2,  as.data.frame(counts3[otu, ]) , by.x = "Row.names", by.y = 0 )
+    colnames(current_otu3) <- c("patID", "cecum_count", "colon_count", "stool_count")
+    rownames(current_otu3) <- gsub(".*/", "", current_otu3$patID)
+    temp_meta = metadata %>% select(c(Age, ID))
+    temp_meta$ID =  gsub("_.", "", temp_meta$ID)
+    temp_meta = unique(temp_meta)
+    current_otu4 = merge(current_otu3, temp_meta,  by.x = 0, by.y = "ID")
+    current_otu4 = current_otu4[current_otu4$Age == age, ]
+    rownames(current_otu4) = current_otu4$Row.names
+    current_otu4 = current_otu4[-c(1)]
+    colnames(current_otu4) <- c("ID", "1_","2_","3_","Age")
+    long_data <- pivot_longer(
+      data = current_otu4,
+      cols = ends_with("_"),
+      names_to = "Organ",
+      values_to = "Count"
+    )
+    return(long_data)
+}
+
+t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn01134_c0")
+ggplot(t, aes(x = Organ, y = Count)) +
+  geom_boxplot() +
+  labs(title = "Example", x = "Groups", y = "Values")
+```
+
+
+```{r}
+amount_sig_reac = data.frame(count_pos = numeric(), count_neg = numeric(),  age= numeric())
+amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(two_sig_rxn[two_sig_rxn$coefficient >= 0, ]),nrow(two_sig_rxn[two_sig_rxn$coefficient < 0, ]), 2)
+amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(nine_sig_rxn[nine_sig_rxn$coefficient >= 0, ]), nrow(nine_sig_rxn[nine_sig_rxn$coefficient < 0, ]), 9)
+amount_sig_reac_long$value = as.numeric(amount_sig_reac_long$value)
+
+amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(fifteen_sig_rxn[fifteen_sig_rxn$coefficient >= 0, ]), nrow(fifteen_sig_rxn[fifteen_sig_rxn$coefficient < 0, ]), 15)
+
+
+amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(twentyfour_sig_rxn[twentyfour_sig_rxn$coefficient >= 0, ]), nrow(twentyfour_sig_rxn[twentyfour_sig_rxn$coefficient < 0, ]), 24)
+
+
+amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(thirty_sig_rxn[thirty_sig_rxn$coefficient >= 0, ]), nrow(thirty_sig_rxn[thirty_sig_rxn$coefficient < 0, ]), 30)
+
+amount_sig_reac_long <- melt(amount_sig_reac, id.vars = "age")
+ggplot(amount_sig_reac_long, aes(x = age, y = value, fill = variable)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("count_pos" = "blue", "count_neg" = "orange")) +
+  scale_x_discrete(
+    limits = c(2, 9, 15, 24, 30) # Specify the desired order of categories
+  ) 
+  theme_minimal()
+```
+
+
+
+```{r}
+
+two_mag = read.csv("../data/mag_correlation_2M.csv")
+nine_mag = read.csv("../data/mag_correlation_9M.csv")
+fifteen_mag = read.csv("../data/mag_correlation_15M.csv")
+twentyfour_mag = read.csv("../data/mag_correlation_24M.csv")
+thirty_mag = read.csv("../data/mag_correlation_30M.csv")
+
+two_mag_sig = two_mag %>% filter(p.adj < 0.05)
+
+two_mag_sig = two_mag %>% filter(p.adj < 0.05)
+nine_mag_sig = nine_mag %>% filter(p.adj < 0.05)
+fifteen_mag_sig = fifteen_mag %>% filter(p.adj < 0.05)
+twentyfour_mag_sig = twentyfour_mag %>% filter(p.adj < 0.05)
+thirty_mag_sig = thirty_mag %>% filter(p.adj < 0.05)
+```
+
+

@@ -19,11 +19,8 @@ filter_per_organ = function (metadata, countdata, organ) {
 
 
 cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
-cecum_counts = cecum_counts[-nearZeroVar(t(cecum_counts)), ]
 colon_counts = filter_per_organ(metadata, count_data, "Colon")
-colon_counts = colon_counts[-nearZeroVar(t(colon_counts)), ]
 stool_counts = filter_per_organ(metadata, count_data, "stool")
-stool_counts = stool_counts[-nearZeroVar(t(stool_counts)), ]
 
 calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 {
@@ -31,7 +28,7 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
   commons = intersect(commons, rownames(counts3))
   models =  list()
   ps =  list()
-  data = data.frame(OTU = character(), p.val = numeric()) 
+  data = data.frame(OTU = character(), coefficient = numeric(),  p.val = numeric()) 
   for(otu in unique((commons)))
   {
     current_otu = as.data.frame(counts1[otu, ])
@@ -60,14 +57,13 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
     if(otu %in% forbidden_fruits) {
       next
     }
-    print(otu)
     model = lmer(Count ~ Organ +(1|ID) , data = long_data)
     model_sm = summary(model)
     models[[otu]] = model_sm
-    ps[[otu]] = model_sm$coefficients[, "Pr(>|t|)"][[2]]
-    data[nrow(data)+1, ] <- c((otu),  ps[[otu]] )
+    ps[[otu]] = model_sm$coefficients[, c("Estimate", "Pr(>|t|)")][2, ]
+    data[nrow(data)+1, ] <- c((otu),  ps[[otu]][[1]], ps[[otu]][[2]] )
   }
-  adjustNonNaNOTUS = p.adjust(ps, method = "BH")
+  adjustNonNaNOTUS = p.adjust(data$p.val, method = "BH")
   data$p.adj = adjustNonNaNOTUS
   return(data)
 }
@@ -77,8 +73,17 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 # Load 16S to MAG mapping
 OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F)
 cecumMAGCounts <- cecum_counts[rownames(cecum_counts) %in% OTUtoMAG$V1, ]
+cecumMAGCounts <- apply(cecumMAGCounts, 2, function(col) {col/sum(col)})
+
 colonMAGCounts <- colon_counts[rownames(colon_counts) %in% OTUtoMAG$V1, ]
+colonMAGCounts <- apply(colonMAGCounts, 2, function(col) {col/sum(col)})
+
 stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
+stoolMAGCounts <- apply(stoolMAGCounts, 2, function(col) {col/sum(col)})
+
+cecumMAGCounts = cecumMAGCounts[-nearZeroVar(t(cecumMAGCounts)), ]
+colonMAGCounts = colonMAGCounts[-nearZeroVar(t(colonMAGCounts)), ]
+stoolMAGCounts = stoolMAGCounts[-nearZeroVar(t(stoolMAGCounts)), ]
 
 ### Check if we have the same MAGs in all three communities
 all.equal(rownames(stoolMAGCounts), rownames(colonMAGCounts))
@@ -90,9 +95,36 @@ Fifteen_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stool_co
 TwentyFour_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stool_counts, age = "24")
 Thirty_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stool_counts, age = "30")
 
-#current_otu = as.data.frame(cecum_counts["Zotu3", ])
-#rownames(current_otu) = gsub(".*/", "", rownames(current_otu))
-#current_otu = merge(current_otu, metadata %>% select(Age, ID), by.x = 0, by.y = "ID")
-#colnames(current_otu) <- c("ID", "count", "Age")
 
-#  
+write.csv(Two_month_MAG, "../data/mag_correlation_2M.csv")
+write.csv(Nine_month_MAG, "../data/mag_correlation_9M.csv")
+write.csv(Fifteen_month_MAG, "../data/mag_correlation_15M.csv")
+write.csv(TwentyFour_month_MAG, "../data/mag_correlation_24M.csv")
+write.csv(Thirty_month_MAG, "../data/mag_correlation_30M.csv")
+
+cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
+cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
+
+colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
+colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
+colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
+
+stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
+stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
+stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
+
+Two_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts)
+write.csv(Two_month_RXN, "../data/rxn_correlations_2M.csv")
+
+Nine_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "9")
+write.csv(Nine_month_RXN, "../data/rxn_correlations_9M.csv")
+
+Fifteen_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "15")
+write.csv(Fifteen_month_RXN, "../data/rxn_correlations_15M.csv")
+
+TwentyFour_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "24")
+write.csv(TwentyFour_month_RXN, "../data/rxn_correlations_24M.csv")
+
+Thirty_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "30")
+write.csv(Thirty_month_RXN, "../data/rxn_correlations_30M.csv")
