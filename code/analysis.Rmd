@@ -14,9 +14,14 @@ library(caret)
 
 OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
 OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
+rxn_annot = readRDS("../data/df_rxnAnnotation.rds")
+
 
 two_rxn <- read.csv("../data/rxn_correlations_2M.csv")
 two_sig_rxn <- two_rxn %>% filter(p.adj < 0.05)
+two_sig_rxn  = merge(two_sig_rxn, rxn_annot, by.x = "OTU", by.y = 0) %>% select(-RxnID)
+
+
 nine_rxn <- read.csv("../data/rxn_correlations_9M.csv")
 nine_sig_rxn <- nine_rxn %>% filter(p.adj < 0.05)
 fifteen_rxn <- read.csv("../data/rxn_correlations_15M.csv")
@@ -68,18 +73,31 @@ getTableForOtu <- function(counts1, counts2, counts3, otu, age = 2)
     return(long_data)
 }
 
-t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn01134_c0")
-ggplot(t, aes(x = Organ, y = Count)) +
+t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0")
+trp1= ggplot(t, aes(x = Organ, y = Count)) +
   geom_boxplot() +
-  labs(title = "Example", x = "Groups", y = "Values")
+  labs(title = "Tryptophanase", x = "Groups", y = "Values")
+
+
+```
+
+```{r}
+library(patchwork)
+r <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "EX_cpd00065_e0")
+trp2= ggplot(r, aes(x = Organ, y = Count)) +
+  geom_boxplot() +
+  labs(title = "Tryptophan excretion", x = "Groups", y = "Values")
+trp1 | trp2
 ```
 
 
 ```{r}
 amount_sig_reac = data.frame(count_pos = numeric(), count_neg = numeric(),  age= numeric())
 amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(two_sig_rxn[two_sig_rxn$coefficient >= 0, ]),nrow(two_sig_rxn[two_sig_rxn$coefficient < 0, ]), 2)
+
 amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(nine_sig_rxn[nine_sig_rxn$coefficient >= 0, ]), nrow(nine_sig_rxn[nine_sig_rxn$coefficient < 0, ]), 9)
-amount_sig_reac_long$value = as.numeric(amount_sig_reac_long$value)
+
+#amount_sig_reac = as.numeric(amount_sig_reac$value)
 
 amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(fifteen_sig_rxn[fifteen_sig_rxn$coefficient >= 0, ]), nrow(fifteen_sig_rxn[fifteen_sig_rxn$coefficient < 0, ]), 15)
 
@@ -95,19 +113,20 @@ ggplot(amount_sig_reac_long, aes(x = age, y = value, fill = variable)) +
   scale_fill_manual(values = c("count_pos" = "blue", "count_neg" = "orange")) +
   scale_x_discrete(
     limits = c(2, 9, 15, 24, 30) # Specify the desired order of categories
-  ) 
+  )  + 
   theme_minimal()
 ```
 
 
 
 ```{r}
-
-two_mag = read.csv("../data/mag_correlation_2M.csv")
-nine_mag = read.csv("../data/mag_correlation_9M.csv")
-fifteen_mag = read.csv("../data/mag_correlation_15M.csv")
-twentyfour_mag = read.csv("../data/mag_correlation_24M.csv")
-thirty_mag = read.csv("../data/mag_correlation_30M.csv")
+OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
+OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
+two_mag = read.csv("../data/mag_correlation_2M.csv", row.names = 1)
+nine_mag = read.csv("../data/mag_correlation_9M.csv", row.names = 1)
+fifteen_mag = read.csv("../data/mag_correlation_15M.csv", row.names = 1)
+twentyfour_mag = read.csv("../data/mag_correlation_24M.csv", row.names = 1)
+thirty_mag = read.csv("../data/mag_correlation_30M.csv", row.names = 1)
 
 taxonomyHQ = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
 taxonomyHQ = taxonomyHQ %>% select(c(1 : 8))
@@ -136,4 +155,178 @@ write.csv(thirty_mag_sig, "../data/sig_mags_30M.csv")
 
 ```
 
+```{r}
+library(vegan)
+source("utils.R")
+cecum_mag_counts = t(read.table("../data/cecum_mag_counts.csv", sep = ",", header = T, row.names = 1))
+cecum_16S_counts = t(filter_per_organ(metadata, count_data, "Cecum", normalize = F, map_to_mags = F))
+#colon_mag_counts = t(read.table("../data/colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
+#stool_mag_counts = t(read.table("../data/stool_mag_counts.csv", sep = ",", header =T, row.names = 1))
 
+
+
+# calculate evenness index using vegan package
+#data_richness <- as.data.frame(t(estimateR(cecum_mag_counts)))
+#data_richness$grp = "MAG"
+### Most sample have more then 80 observations
+#data_richness2 <- as.data.frame(t(estimateR(cecum_16S_counts)))
+#data_richness2$grp = "16S"
+#
+#overall_rich = rbind(data_richness, data_richness2)
+#p<-ggplot(overall_rich, aes(x=S.obs, color = grp)) + 
+#  geom_histogram(fill="white", alpha = 0.5, position="identity")
+#p
+##### Most 16S samples had around 300 observations after mapping to MAGs most have around 80
+#### Some were of course merged but some also just did not map (make an overview of this)
+
+mag_shannon <- as.data.frame(diversity(cecum_mag_counts, index = "shannon"))                          
+mag_shannon$grp = "MAG"
+ss_shannon <- as.data.frame(diversity(cecum_16S_counts, index = "shannon"))                          
+ss_shannon$grp = "16S"
+colnames(mag_shannon)= c("alpha", "grp")
+colnames(ss_shannon)= c("alpha", "grp")
+overall_shannon = rbind(mag_shannon, ss_shannon)
+p<-ggplot(overall_shannon, aes(y=alpha, x= grp)) + 
+  geom_boxplot() +
+  ggtitle("16S vs MAG abundances across all samples") 
+p
+
+
+# calculate Shannon index using vegan package
+```
+
+```{r}
+library(vegan)
+library(ggplot2)
+library(patchwork)
+source("utils.R")
+
+cecum_mag_2M_counts  = load_and_calc("../data/cecum_mag_counts.csv", "2\\.", 1)
+colon_mag_2M_counts  = load_and_calc("../data/colon_mag_counts.csv", "2\\.", 2)
+stool_mag_2M_counts  = load_and_calc("../data/stool_mag_counts.csv", "2\\.", 3)
+overall_mag_2M_counts = rbind(cecum_mag_2M_counts, colon_mag_2M_counts,stool_mag_2M_counts)
+p1<-ggplot(overall_mag_2M_counts, aes(y=alpha, group= grp)) + 
+  geom_boxplot() +
+  ggtitle("MAG abundances")
+
+cecum_16S_counts = load_and_calc(as.data.frame(t(filter_per_organ(metadata, count_data, "Cecum", normalize = F, map_to_mags = F))), "2/", 1)
+colon_16S_counts = load_and_calc(as.data.frame(t(filter_per_organ(metadata, count_data, "Colon", normalize = F, map_to_mags = F))), "2/", 2)
+stool_16S_counts =  load_and_calc(as.data.frame(t(filter_per_organ(metadata, count_data, "stool", normalize = F, map_to_mags = F))), "2/", 3)
+overall_16S_counts = rbind(cecum_16S_counts, colon_16S_counts,stool_16S_counts)
+rm(cecum_16S_counts, colon_16S_counts,stool_16S_counts)
+rm(cecum_mag_2M_counts, colon_mag_2M_counts,stool_mag_2M_counts)
+
+p2<-ggplot(overall_16S_counts, aes(y=alpha, group= grp)) + 
+  geom_boxplot() + 
+  ggtitle("16S Abundances")
+p3 = p1 | p2 +  plot_annotation(title = "2M alpha-diversity along cecum, prox. col., dist. col. ")
+print(p3)
+
+## 16S data shows a diversity trajectory that is more in line with literature
+```
+```{r}
+# OTU OverlapM
+library(VennDiagram)
+source("utils.R")
+otus_in_cecum = rownames(filter_per_organ(metadata, count_data, "Cecum", normalize = F, map_to_mags=F)  %>%
+    mutate(all_positive = rowSums(. > 0) == ncol(.)) %>%
+    filter(all_positive == F))
+
+otus_in_colon = rownames(filter_per_organ(metadata, count_data, "Colon", normalize = F, map_to_mags = F) %>%
+    mutate(all_positive = rowSums(. > 0) == ncol(.)) %>% 
+    filter(all_positive == F))
+
+otus_in_stool = rownames(filter_per_organ(metadata, count_data, "stool", normalize = F, map_to_mags = F) %>%
+    mutate(all_positive = rowSums(. > 0) == ncol(.)) %>% 
+    filter(all_positive == F))
+
+sym_diff <- function(a,b) setdiff(union(a,b), intersect(a,b))
+sym_diff(otus_in_cecum, otus_in_stool)
+library(ggvenn)
+x = list(Cecum = otus_in_cecum, Proximal = otus_in_colon, Distal = otus_in_stool)
+ggvenn(
+  x, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF"),
+  stroke_size = 0.5, set_name_size = 4,
+  show_percentage = F
+  )
+```
+
+```{r}
+cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+filtered_df_cecum <- as.data.frame(cecumRxNCounts) %>%
+     filter_all(any_vars(. != 0))
+colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
+filtered_df_colon <- as.data.frame(colonRxNCounts) %>%
+     filter_all(any_vars(. != 0))
+stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
+filtered_df_stool <- as.data.frame(stoolRxNCounts) %>%
+     filter_all(any_vars(. != 0))
+present_reactions_cecum = rownames(filtered_df_cecum)
+present_reactions_colon = rownames(filtered_df_colon)
+present_reactions_stool = rownames(filtered_df_stool)
+
+
+
+
+present_reactions_ONLY_in_proximal =as.data.frame((setdiff(present_reactions_colon, union(present_reactions_cecum, present_reactions_stool))))
+present_reactions_IN_proximal_and_distal = as.data.frame(setdiff(intersect(present_reactions_colon, present_reactions_stool), present_reactions_cecum))
+
+colnames(present_reactions_ONLY_in_proximal) = c("rxn")
+colnames(present_reactions_IN_proximal_and_distal) = c("rxn")
+rxn_annot = readRDS("../data/df_rxnAnnotation.rds")
+present_reactions_ONLY_in_proximal = merge(present_reactions_ONLY_in_proximal, rxn_annot, by.x = "rxn", by.y = "RxnID", all.x =T)
+present_reactions_IN_proximal_and_distal = merge(present_reactions_IN_proximal_and_distal, rxn_annot, by.x = "rxn", by.y = "RxnID", all.x =T)
+library(ggvenn)
+x = list(Cecum = present_reactions_cecum, Proximal = present_reactions_colon, Distal = present_reactions_stool)
+ggvenn(
+  x, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF"),
+  stroke_size = 0.5, set_name_size = 4,
+  show_percentage = F
+  )
+```
+
+```{r}
+source("utils.R")
+cecum_16S_counts = as.data.frame(t(filter_per_organ(metadata, count_data, "Cecum", normalize = T, map_to_mags = F)))
+cecum_16S_counts$group = 1
+colon_16S_counts = as.data.frame(t(filter_per_organ(metadata, count_data, "Colon", normalize = T, map_to_mags = F)))
+colon_16S_counts$group = 2
+stool_16S_counts = as.data.frame(t(filter_per_organ(metadata, count_data, "stool", normalize = T, map_to_mags = F)))
+stool_16S_counts$group = 3
+rm(OTUtoMAG)
+rm(metadata)
+rm(count_data)
+all.equal(colnames(cecum_16S_counts), colnames(colon_16S_counts))
+all.equal(colnames(cecum_16S_counts), colnames(stool_16S_counts))
+column_names =  colnames(cecum_16S_counts)
+empty_df <- setNames(data.frame(matrix(ncol = length(column_names))), column_names)
+empty_df = t(rbind(cecum_16S_counts, colon_16S_counts, stool_16S_counts))
+groups = as.data.frame(empty_df["group", ])
+# TODO FIX
+#empty_df = empty_df[-nearZeroVar(t(empty_df)), ]
+
+
+### OTU wise PCA
+library(ggplot2)
+pca_result <- prcomp(empty_df[c(1:(nrow(empty_df))-1), ], scale = T)
+pca_df <- as.data.frame(pca_result$x[, 1:2])
+#pca_df$group <- groups
+ggplot(pca_df, aes(x = PC1, y = PC2)) +
+  geom_point() +
+  labs(title = "PCA Plot with Groups", x = "PC1", y = "PC2") +
+  theme_minimal()
+
+
+
+
+
+
+
+```
+
+```{r}
+taxonomyHQ =                                  # calculate richness and Chao1 using vegan package
+
+```

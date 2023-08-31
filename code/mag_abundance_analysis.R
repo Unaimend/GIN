@@ -4,31 +4,29 @@ library(reshape2)
 library(tidyr)
 library(caret)
 library(lmerTest)
-metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
-count_data <- read.csv("../data/otu_count_clean.csv", sep = ",", row.names = 1, check.names = F)
-OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
-OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
-
-# Returns normalized count data for a specific organ
-filter_per_organ = function (metadata, countdata, organ) {
-  metadata_organ = metadata %>% filter(TissueID == organ)
-  filtered_count_data = countdata[, metadata_organ$PatID]
-  filtered_count_data <- apply(filtered_count_data, 2, function(col) {col/sum(col)})
-  colnames(filtered_count_data) = gsub("_.", "", colnames(filtered_count_data))
-  result = merge(filtered_count_data, OTUtoMAG, by.x = 0, by.y = "V1")
-  result2 <- as.matrix(result%>%
-                            group_by(Row.names) %>%
-                            summarize(across(matches(".*/"), sum, .names = "Sum_{.col}")) %>%
-                            column_to_rownames("Row.names") 
-                           )
-  return(result2)
-}
-
-
+library(tidyverse)
+source("utils.R")
 
 cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
 colon_counts = filter_per_organ(metadata, count_data, "Colon")
 stool_counts = filter_per_organ(metadata, count_data, "stool")
+
+#cecum_counts = filter_per_organ(metadata, count_data, "Cecum", map_to_mags = F)
+#colon_counts = filter_per_organ(metadata, count_data, "Colon", map_to_mags = F)
+#stool_counts = filter_per_organ(metadata, count_data, "stool", map_to_mags = F)
+#cecum_counts = cecum_counts[-nearZeroVar(t(cecum_counts)), ]
+#colon_counts = colon_counts[-nearZeroVar(t(colon_counts)), ]
+#stool_counts = stool_counts[-nearZeroVar(t(stool_counts)), ]
+
+absolute_cecum_counts = filter_per_organ(metadata, count_data, "Cecum", normalize = F)
+absolute_colon_counts = filter_per_organ(metadata, count_data, "Colon", normalize = F)
+absolute_stool_counts = filter_per_organ(metadata, count_data, "stool", normalize = F)
+write.csv(absolute_cecum_counts, file = "../data/cecum_mag_counts.csv")
+write.csv(absolute_colon_counts, file = "../data/colon_mag_counts.csv")
+write.csv(absolute_stool_counts, file = "../data/stool_mag_counts.csv")
+
+
+
 
 calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 {
@@ -79,14 +77,14 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 #Two_month <- calculate_p_values(cecum_counts, colon_counts, stool_counts)
 
 # Load 16S to MAG mapping
+# 173 -> 173
 cecumMAGCounts <- cecum_counts[rownames(cecum_counts) %in% OTUtoMAG$V1, ]
-cecumMAGCounts <- apply(cecumMAGCounts, 2, function(col) {col/sum(col)})
 
+# 173 -> 173
 colonMAGCounts <- colon_counts[rownames(colon_counts) %in% OTUtoMAG$V1, ]
-colonMAGCounts <- apply(colonMAGCounts, 2, function(col) {col/sum(col)})
 
+# 173 -> 173
 stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
-stoolMAGCounts <- apply(stoolMAGCounts, 2, function(col) {col/sum(col)})
 
 cecumMAGCounts = cecumMAGCounts[-nearZeroVar(t(cecumMAGCounts)), ]
 colonMAGCounts = colonMAGCounts[-nearZeroVar(t(colonMAGCounts)), ]
@@ -95,6 +93,10 @@ stoolMAGCounts = stoolMAGCounts[-nearZeroVar(t(stoolMAGCounts)), ]
 ### Check if we have the same MAGs in all three communities
 all.equal(rownames(stoolMAGCounts), rownames(colonMAGCounts))
 all.equal(rownames(cecumMAGCounts), rownames(colonMAGCounts))
+
+write.csv(cecumMAGCounts, file = "../data/filtered_relative_cecum_mag_counts.csv")
+write.csv(colonMAGCounts, file = "../data/filtered_relative_colon_mag_counts.csv")
+write.csv(stoolMAGCounts, file = "../data/filtered_relative_stool_mag_counts.csv")
 
 Two_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stool_counts)
 Nine_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stool_counts, age = "9")
