@@ -8,6 +8,7 @@ obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_MetamouseHQB
 lst_allRxns <- c()
 for(obj_model in obj_metabolicModelsMouse){
   lst_allRxns <- union(lst_allRxns, obj_model$active)
+
 }
 
 ##Build incidence matrix of reactions in each model

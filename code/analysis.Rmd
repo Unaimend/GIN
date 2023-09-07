@@ -78,7 +78,94 @@ trp1= ggplot(t, aes(x = Organ, y = Count)) +
   geom_boxplot() +
   labs(title = "Tryptophanase", x = "Groups", y = "Values")
 
+enrichment_map = readRDS("../data/subsysMap-cognition-cohort.RDS")
+all_cecum_reaction_names = rownames(cecumRxNCounts)
+all_colon_reaction_names = rownames(colonRxNCounts)
+all_stool_reaction_names = rownames(stoolRxNCounts)
 
+# I think because we are drawing from all three sites we have to take the union as a universe
+all_reaction_names = union(all_cecum_reaction_names, all_colon_reaction_names)
+all_reaction_names = union(all_reaction_names, all_stool_reaction_names)
+
+## Alternatively use FVA reactions
+obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_MetamouseHQBins20211001.RDS")
+
+##Get list of all reactions contained in the models
+lst_allRxns <- c()
+for(obj_model in obj_metabolicModelsMouse){
+  lst_allRxns <- union(lst_allRxns, obj_model$active)
+}
+
+# All reactions taht have a subsystem reaction, note that these are not all of them.
+# We lost 2173 - 2124 
+universe = lst_allRxns#Amount of all active reactions  #enrichment_map[names(enrichment_map) %in% all_reaction_names]
+# Now the we assign subsystems to the significant reaction 
+up = two_sig_rxn[two_sig_rxn$coefficient > 0, ]
+down = two_sig_rxn[two_sig_rxn$coefficient < 0, ]
+significant_reactions = enrichment_map[names(enrichment_map) %in% up$OTU]
+all_terms = unique(unlist(significant_reactions))
+pvals = data.frame(name = as.character(), pval = as.numeric())
+# We want to test all terms for enrichment #TODO Figure out if those should only be the sign.
+for(t in all_terms) {
+  #t = "pectin degradation II"
+  upper_left  = 0
+  lower_left  = 0
+  upper_right  = 0
+  lower_right  = 0
+  # Go through all sig. reaction and count how of t occurs as a term
+  for(r in names(significant_reactions))
+  {
+    # Get the associated terms
+    sig_terms = enrichment_map[[r]]
+    if(t %in% sig_terms) {
+      upper_left = upper_left +  1
+    }
+  }
+  
+  non_sig = setdiff(universe, names(significant_reactions))
+  # Go through all non sig. reactions and count how of t does not occurs as a term
+  # CHECK IF lower_left+upper_left equals the occurences of the term in stefanos model
+  # NOT IN THE translation map 
+  for(r in  non_sig)
+  {
+    terms = enrichment_map[[r]]
+    if((t %in% terms)) {
+      lower_left = lower_left +  1
+    }
+  }
+  
+  # Go through all sig. reactions and count how of t does not occur as a term
+  non_sig = setdiff(universe, names(significant_reactions))
+  for(r in names(significant_reactions))
+  {
+    terms = enrichment_map[[r]]
+    if(!(t %in% terms)) {
+      upper_right = upper_right +  1
+    }
+  }
+  # Go through all non-sig. reactions and count how of t does not occur as a term
+  for(r in non_sig )
+  {
+    terms = enrichment_map[[r]]
+    if(!(t %in% terms)) {
+      lower_right = lower_right +  1
+    }
+  }
+  print(t)
+  
+  totalA1 = upper_left + upper_right
+  totalA = upper_left + lower_left
+  totalB = upper_right + lower_right
+  cat(upper_left, " ", upper_right, "\n")
+  cat(lower_left,  " ", lower_right, "\n")
+  cat("----------------------------------", "\n")
+  cont = matrix(c(upper_left, lower_left, upper_right, lower_right), nrow = 2, ncol = 2)
+  cat("+++++++++++++++++++++++++++++++++++++++", "\n")
+  pp_value2 = fisher.test(cont)#phyper(upper_left-1, totalA1 , totalA1 - totalA, totalB, lower.tail = FALSE )
+  pvals[nrow(pvals) + 1, ] = c(t, pp_value2$p.value)
+}
+pvals$p.adj = p.adjust(pvals$pval, method = "BH")
+pvals = pvals[pvals$p.adj < 0.05, ]
 ```
 
 ```{r}
@@ -327,6 +414,9 @@ ggplot(pca_df, aes(x = PC1, y = PC2)) +
 ```
 
 ```{r}
-taxonomyHQ =                                  # calculate richness and Chao1 using vegan package
+library(clusterProfiler)
+enricher(gene = unique(df_corInternRxnFluxToAge[df_corInternRxnFluxToAge$p.adj <= 0.05 &
+                                                                          df_corInternRxnFluxToAge$Spearman_rho > 0,"RxnFlux"]),
+                      universe = rownames(df_internalReactionFluxes))# calculate richness and Chao1 using vegan package
 
 ```
