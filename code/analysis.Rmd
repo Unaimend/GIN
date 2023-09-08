@@ -102,7 +102,8 @@ universe = lst_allRxns#Amount of all active reactions  #enrichment_map[names(enr
 # Now the we assign subsystems to the significant reaction 
 up = two_sig_rxn[two_sig_rxn$coefficient > 0, ]
 down = two_sig_rxn[two_sig_rxn$coefficient < 0, ]
-significant_reactions = enrichment_map[names(enrichment_map) %in% up$OTU]
+calc_terms <- function(up_down) {
+significant_reactions = enrichment_map[names(enrichment_map) %in% up_down$OTU]
 all_terms = unique(unlist(significant_reactions))
 pvals = data.frame(name = as.character(), pval = as.numeric())
 # We want to test all terms for enrichment #TODO Figure out if those should only be the sign.
@@ -151,21 +152,26 @@ for(t in all_terms) {
       lower_right = lower_right +  1
     }
   }
-  print(t)
+ # print(t)
   
   totalA1 = upper_left + upper_right
   totalA = upper_left + lower_left
   totalB = upper_right + lower_right
-  cat(upper_left, " ", upper_right, "\n")
-  cat(lower_left,  " ", lower_right, "\n")
-  cat("----------------------------------", "\n")
+  #cat(upper_left, " ", upper_right, "\n")
+  #cat(lower_left,  " ", lower_right, "\n")
+  #cat("----------------------------------", "\n")
   cont = matrix(c(upper_left, lower_left, upper_right, lower_right), nrow = 2, ncol = 2)
-  cat("+++++++++++++++++++++++++++++++++++++++", "\n")
+  #cat("+++++++++++++++++++++++++++++++++++++++", "\n")
   pp_value2 = fisher.test(cont)#phyper(upper_left-1, totalA1 , totalA1 - totalA, totalB, lower.tail = FALSE )
   pvals[nrow(pvals) + 1, ] = c(t, pp_value2$p.value)
 }
 pvals$p.adj = p.adjust(pvals$pval, method = "BH")
 pvals = pvals[pvals$p.adj < 0.05, ]
+return(pvals)
+}
+terms_up = calc_terms(up)
+terms_down = calc_terms(down)
+both = intersect(terms_down$name, terms_up$name)
 ```
 
 ```{r}
