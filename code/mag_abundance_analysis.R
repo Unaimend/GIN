@@ -63,11 +63,19 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
     if(otu %in% forbidden_fruits) {
       next
     }
-    model = lmer(Count ~ Organ +(1|ID) , data = long_data)
-    model_sm = summary(model)
-    models[[otu]] = model_sm
-    ps[[otu]] = model_sm$coefficients[, c("Estimate", "Pr(>|t|)")][2, ]
-    data[nrow(data)+1, ] <- c((otu),  ps[[otu]][[1]], ps[[otu]][[2]] )
+    out <- tryCatch(
+    {
+        model = lmer(Count ~ Organ +(1|ID) , data = long_data)
+        model_sm = summary(model)
+        models[[otu]] = model_sm
+        ps[[otu]] = model_sm$coefficients[, c("Estimate", "Pr(>|t|)")][2, ]
+        data[nrow(data)+1, ] <- c((otu),  ps[[otu]][[1]], ps[[otu]][[2]] )
+    }, 
+    error=function(e)
+      {
+      print("ERROR")
+      print(otu)
+      })
   }
   adjustNonNaNOTUS = p.adjust(data$p.val, method = "BH")
   data$p.adj = adjustNonNaNOTUS

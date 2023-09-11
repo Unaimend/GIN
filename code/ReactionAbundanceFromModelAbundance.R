@@ -36,8 +36,11 @@ count_data <- read.csv("../data/otu_count_clean.csv", sep = ",", row.names = 1, 
 
 # Returns normalized count data for a specific organ
 filter_per_organ = function (metadata, countdata, organ) {
+  # Get only the organ specific data
   metadata_organ = metadata %>% filter(TissueID == organ)
+  # Get only the count data for the organ
   filtered_count_data = countdata[, metadata_organ$PatID]
+  # Normalize OTU abundances
   filtered_count_data <- apply(filtered_count_data, 2, function(col) {col/sum(col)})
   colnames(filtered_count_data) = gsub("_.", "", colnames(filtered_count_data))
   return(filtered_count_data)
@@ -87,6 +90,6 @@ cecum = calculateRXNAbundances(cecum_counts)
 stool = calculateRXNAbundances(stool_counts)
 colon = calculateRXNAbundances(colon_counts)
 
-write.csv(cecum, "../data/cecum_rxn_abundance.csv")
-write.csv(colon, "../data/colon_rxn_abundance.csv")
-write.csv(stool, "../data/stool_rxn_abundance.csv")
+#write.csv(cecum, "../data/cecum_rxn_abundance.csv")
+#write.csv(colon, "../data/colon_rxn_abundance.csv")
+#write.csv(stool, "../data/stool_rxn_abundance.csv")
