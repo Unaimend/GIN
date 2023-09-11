@@ -162,7 +162,9 @@ for(t in all_terms) {
   #cat("----------------------------------", "\n")
   cont = matrix(c(upper_left, lower_left, upper_right, lower_right), nrow = 2, ncol = 2)
   #cat("+++++++++++++++++++++++++++++++++++++++", "\n")
-  pp_value2 = fisher.test(cont)#phyper(upper_left-1, totalA1 , totalA1 - totalA, totalB, lower.tail = FALSE )
+  # TODO ONE SIDED OR TWO SIDE. PRETTY SURE IT SHOULD BE ONE SIDED
+  pp_value2 = fisher.test(cont, one)
+  #phyper(upper_left-1, totalA1 , totalA1 - totalA, totalB, lower.tail = FALSE )
   pvals[nrow(pvals) + 1, ] = c(t, pp_value2$p.value)
 }
 pvals$p.adj = p.adjust(pvals$pval, method = "BH")
@@ -174,6 +176,78 @@ terms_down = calc_terms(down)
 both = intersect(terms_down$name, terms_up$name)
 ```
 
+```{r}
+map = data.frame(rxn = as.character(), subs = as.character())
+
+for(t in terms_up$name)
+{
+  # DO I WANT TO INCLUDE ALL REACTIONS THAT ARE IN A SUBSYSTEM?, maybe just active ones
+  for(r in names(enrichment_map))
+  {
+    if(t %in% enrichment_map[[r]])
+    {
+      # DO I WANT TO INCLUDE ALL ACTIVE REACTIONS OR JUST THE SIGNIFICANT ASSOC ONES
+      if( r %in% lst_allRxns)
+      {
+        map[nrow(map) +1, ] = c(r, t)
+      }
+    }
+  }
+}
+```
+
+```{r}
+subs =unique(map$subs)
+subs = gsub(",", ":", subs)
+overlap = matrix(nrow = length(subs), ncol = length(subs))
+rownames(overlap) = subs
+colnames(overlap) = subs
+c  = 0
+for(s1 in subs) {
+  for(s2 in subs) {
+    r1 = map[map$subs == s1,]
+    r2 = map[map$subs == s2,]
+    overlap[s1, s2] = length(intersect(r1$rxn, r2$rxn))
+    if(s1 == s2)
+    { 
+      overlap[s1, s2]  = 0
+    }
+  }
+}
+library(zoom)
+#overlap[overlap L> ] <- 0
+# SHARED REACTIONS BETWEEN SUBSYSTEMS
+g <- graph_from_adjacency_matrix(overlap, mode = "undirected", weighted = TRUE)
+layout <- layout.auto(g)
+node.size= c(10)
+plot(g, layout = layout, vertex.size=node.size, vertex.label.cex = 0.6)
+```
+
+
+```{r}
+library(igraph)
+
+g = graph_from_data_frame(map)
+
+layout <- layout.norm(layout)
+
+plot(g, layout = layout_with_kk, edge.arrow.size = 0.1, vertex.size = 0.2, vertex.label.dist = 2, vertex.label.cex = 0.7, edge.label = 0)
+```
+
+
+```{r}
+# "aerobic respiration I (cytochrome c)"
+reacs = map[map$subs == "aerobic respiration I (cytochrome c)", ]
+# use only the sig. assoc reactions
+reacs = reacs[reacs$rxn %in% two_sig_rxn$OTU, ]
+reacs = merge(reacs, two_sig_rxn, by.x  = "rxn", by.y = "OTU")
+t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn08976_c0")
+trp1= ggplot(t, aes(x = Organ, y = Count)) +
+  geom_boxplot() +
+  labs(title = "Tryptophanase", x = "Groups", y = "Values")
+trp1
+```
+  
 ```{r}
 library(patchwork)
 r <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "EX_cpd00065_e0")
