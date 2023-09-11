@@ -90,6 +90,7 @@ all_reaction_names = union(all_reaction_names, all_stool_reaction_names)
 ## Alternatively use FVA reactions
 obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_MetamouseHQBins20211001.RDS")
 
+
 ##Get list of all reactions contained in the models
 lst_allRxns <- c()
 for(obj_model in obj_metabolicModelsMouse){
@@ -100,12 +101,21 @@ for(obj_model in obj_metabolicModelsMouse){
 # We lost 2173 - 2124 
 universe = lst_allRxns#Amount of all active reactions  #enrichment_map[names(enrichment_map) %in% all_reaction_names]
 # Now the we assign subsystems to the significant reaction 
-up = two_sig_rxn[two_sig_rxn$coefficient > 0, ]
-down = two_sig_rxn[two_sig_rxn$coefficient < 0, ]
+up_2M = two_sig_rxn[two_sig_rxn$coefficient > 0, ]
+down_2M = two_sig_rxn[two_sig_rxn$coefficient < 0, ]
+
+
+up_9M = nine_sig_rxn[nine_sig_rxn$coefficient > 0, ]
+down_9M = nine_sig_rxn[nine_sig_rxn$coefficient < 0, ]
+
+up_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient > 0, ]
+down_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient < 0, ]
+# calculate significantly enriched subsytems
 calc_terms <- function(up_down) {
 significant_reactions = enrichment_map[names(enrichment_map) %in% up_down$OTU]
 all_terms = unique(unlist(significant_reactions))
-pvals = data.frame(name = as.character(), pval = as.numeric())
+# Count is sig. in-term
+pvals = data.frame(name = as.character(), pval = as.numeric(), count = as.integer())
 # We want to test all terms for enrichment #TODO Figure out if those should only be the sign.
 for(t in all_terms) {
   #t = "pectin degradation II"
@@ -165,59 +175,126 @@ for(t in all_terms) {
   # TODO ONE SIDED OR TWO SIDE. PRETTY SURE IT SHOULD BE ONE SIDED
   pp_value2 = fisher.test(cont, one)
   #phyper(upper_left-1, totalA1 , totalA1 - totalA, totalB, lower.tail = FALSE )
-  pvals[nrow(pvals) + 1, ] = c(t, pp_value2$p.value)
+  pvals[nrow(pvals) + 1, ] = c(t, pp_value2$p.value, upper_left)
 }
 pvals$p.adj = p.adjust(pvals$pval, method = "BH")
 pvals = pvals[pvals$p.adj < 0.05, ]
 return(pvals)
 }
-terms_up = calc_terms(up)
-terms_down = calc_terms(down)
-both = intersect(terms_down$name, terms_up$name)
+terms_up_2M = calc_terms(up_2M)
+terms_down_2M = calc_terms(down_2M)
+write.csv(terms_up_2M, "../data/upregulated_terms_2M.csv")
+write.csv(terms_down_2M, "../data/downregulated_terms_2M.csv")
+both = intersect(terms_down_2M$name, terms_up_2M$name)
+write.csv(both, "../data/up_and_down_terms_2M.csv")
+
+
+terms_up_9M = calc_terms(up_9M)
+terms_down_9M = calc_terms(down_9M)
+write.csv(terms_up_9M, "../data/upregulated_terms_9M.csv")
+write.csv(terms_down_9M, "../data/downregulated_terms_9M.csv")
+both = intersect(terms_down_9M$name, terms_up_9M$name)
+write.csv(both, "../data/up_and_down_terms_9M.csv")
+
+terms_up_15M = calc_terms(up_15M)
+terms_down_15M = calc_terms(down_15M)
+write.csv(terms_up_15M, "../data/upregulated_terms_15M.csv")
+write.csv(terms_down_15M, "../data/downregulated_terms_15M.csv")
+both = intersect(terms_down_15M$name, terms_up_15M$name)
+write.csv(both, "../data/up_and_down_terms_15M.csv")
+
+
+
+
 ```
 
 ```{r}
-map = data.frame(rxn = as.character(), subs = as.character())
+library(ggplot2)
+ggplot(terms_up_2M, aes(x = name, y = count)) +
+  geom_bar(stat = "identity", fill = "blue", width = 0.8, position = position_dodge2(2)) + 
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    title = "Barplot Example",
+    x = "Categories",
+    y = "Values"
+  )
+ggsave("test.png", height = 14)
+```
 
-for(t in terms_up$name)
+
+```{r}
+create_network_reac_overlap = function(data)
 {
-  # DO I WANT TO INCLUDE ALL REACTIONS THAT ARE IN A SUBSYSTEM?, maybe just active ones
-  for(r in names(enrichment_map))
+  enrichment_map = readRDS("../data/subsysMap-cognition-cohort.RDS")
+  map = data.frame(rxn = as.character(), subs = as.character())
+  obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_MetamouseHQBins20211001.RDS")
+  ##Get list of all reactions contained in the models
+  lst_allRxns <- c()
+  for(obj_model in obj_metabolicModelsMouse){
+    lst_allRxns <- union(lst_allRxns, obj_model$active)
+  }
+  # Go through all sign reaction
+  for(t in data$name)
   {
-    if(t %in% enrichment_map[[r]])
+    # DO I WANT TO INCLUDE ALL REACTIONS THAT ARE IN A SUBSYSTEM?, maybe just active ones
+    for(r in names(enrichment_map))
     {
-      # DO I WANT TO INCLUDE ALL ACTIVE REACTIONS OR JUST THE SIGNIFICANT ASSOC ONES
-      if( r %in% lst_allRxns)
+      # Check if the current reaction is the current subsystem, if yes
+      if(t %in% enrichment_map[[r]])
       {
-        map[nrow(map) +1, ] = c(r, t)
+        # Make an entry that list r as a member of t
+        if( r %in% lst_allRxns)
+        {
+          map[nrow(map) +1, ] = c(r, t)
+        }
       }
     }
   }
+  
+  # Create overlap matrix
+  subs =unique(map$subs)
+  subs = gsub(",", ":", subs)
+  overlap = matrix(nrow = length(subs), ncol = length(subs))
+  rownames(overlap) = subs
+  colnames(overlap) = subs
+  c  = 0
+  for(s1 in subs) {
+    for(s2 in subs) {
+      r1 = map[map$subs == s1,]
+      r2 = map[map$subs == s2,]
+      overlap[s1, s2] = length(intersect(r1$rxn, r2$rxn))
+      if(s1 == s2)
+      { 
+        overlap[s1, s2]  = 0
+      }
+    }
+  }
+  return(overlap)
 }
+
+data = read.csv("../data/upregulated_terms_2M.csv")
+up_network_2M = create_network_reac_overlap(data)
+write.csv(up_network_2M, "../data/cytoscpae/up_network_2M.mat",row.names = F)
+
+data = read.csv("../data/downregulated_terms_2M.csv")
+down_network_2M = create_network_reac_overlap(data)
+write.csv(down_network_2M, "../data/cytoscpae/down_network_2M.mat",row.names = F)
+
+data = read.csv("../data/upregulated_terms_9M.csv")
+up_network_9M = create_network_reac_overlap(data)
+write.csv(up_network_9M, "../data/cytoscpae/up_network_9M.mat",row.names = F)
+
+data = read.csv("../data/downregulated_terms_9M.csv")
+down_network_9M = create_network_reac_overlap(data)
+write.csv(down_network_9M, "../data/cytoscpae/down_network_9M.mat",row.names = F)
 ```
 
 ```{r}
-subs =unique(map$subs)
-subs = gsub(",", ":", subs)
-overlap = matrix(nrow = length(subs), ncol = length(subs))
-rownames(overlap) = subs
-colnames(overlap) = subs
-c  = 0
-for(s1 in subs) {
-  for(s2 in subs) {
-    r1 = map[map$subs == s1,]
-    r2 = map[map$subs == s2,]
-    overlap[s1, s2] = length(intersect(r1$rxn, r2$rxn))
-    if(s1 == s2)
-    { 
-      overlap[s1, s2]  = 0
-    }
-  }
-}
 library(zoom)
 #overlap[overlap L> ] <- 0
 # SHARED REACTIONS BETWEEN SUBSYSTEMS
-g <- graph_from_adjacency_matrix(overlap, mode = "undirected", weighted = TRUE)
+g <- graph_from_adjacency_matrix(up_network_2M, mode = "undirected", weighted = TRUE)
 layout <- layout.auto(g)
 node.size= c(10)
 plot(g, layout = layout, vertex.size=node.size, vertex.label.cex = 0.6)
@@ -325,40 +402,38 @@ write.csv(thirty_mag_sig, "../data/sig_mags_30M.csv")
 ```{r}
 library(vegan)
 source("utils.R")
+
 cecum_mag_counts = t(read.table("../data/cecum_mag_counts.csv", sep = ",", header = T, row.names = 1))
 cecum_16S_counts = t(filter_per_organ(metadata, count_data, "Cecum", normalize = F, map_to_mags = F))
-#colon_mag_counts = t(read.table("../data/colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
-#stool_mag_counts = t(read.table("../data/stool_mag_counts.csv", sep = ",", header =T, row.names = 1))
 
 
 
-# calculate evenness index using vegan package
-#data_richness <- as.data.frame(t(estimateR(cecum_mag_counts)))
-#data_richness$grp = "MAG"
-### Most sample have more then 80 observations
-#data_richness2 <- as.data.frame(t(estimateR(cecum_16S_counts)))
-#data_richness2$grp = "16S"
-#
-#overall_rich = rbind(data_richness, data_richness2)
-#p<-ggplot(overall_rich, aes(x=S.obs, color = grp)) + 
-#  geom_histogram(fill="white", alpha = 0.5, position="identity")
-#p
-##### Most 16S samples had around 300 observations after mapping to MAGs most have around 80
-#### Some were of course merged but some also just did not map (make an overview of this)
+colon_mag_counts = t(read.table("../data/colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
+colon_16S_counts = t(filter_per_organ(metadata, count_data, "Colon", normalize = F, map_to_mags = F))
 
-mag_shannon <- as.data.frame(diversity(cecum_mag_counts, index = "shannon"))                          
-mag_shannon$grp = "MAG"
-ss_shannon <- as.data.frame(diversity(cecum_16S_counts, index = "shannon"))                          
-ss_shannon$grp = "16S"
-colnames(mag_shannon)= c("alpha", "grp")
-colnames(ss_shannon)= c("alpha", "grp")
-overall_shannon = rbind(mag_shannon, ss_shannon)
-p<-ggplot(overall_shannon, aes(y=alpha, x= grp)) + 
-  geom_boxplot() +
-  ggtitle("16S vs MAG abundances across all samples") 
-p
+mag_vs_16s_alpha = function(mag_counts, sixteenS_counts, organ) {
+  mag_shannon <- as.data.frame(diversity(mag_counts, index = "shannon"))                          
+  mag_shannon$grp = "MAG"
+  ss_shannon <- as.data.frame(diversity(sixteenS_counts, index = "shannon"))                          
+  ss_shannon$grp = "16S"
+  colnames(mag_shannon)= c("alpha", "grp")
+  colnames(ss_shannon)= c("alpha", "grp")
+  overall_shannon = rbind(mag_shannon, ss_shannon)
+  p<-ggplot(overall_shannon, aes(y=alpha, x= grp)) + 
+    geom_boxplot() +
+    ggtitle(paste("16S vs MAG abundances across all samples across all ages in ", organ)) 
+  return(p)
+}
+
+cecum_16s_vs_mag = mag_vs_16s_alpha(cecum_mag_counts, cecum_16S_counts, "cecum")
+cecum_16s_vs_mag
+
+colon_16s_vs_mag = mag_vs_16s_alpha(colon_mag_counts, colon_16S_counts, "colon")
+colon_16s_vs_mag
 
 
+colon_16s_vs_mag = mag_vs_16s_alpha(colon_mag_counts, colon_16S_counts, "colon")
+colon_16s_vs_mag
 # calculate Shannon index using vegan package
 ```
 
@@ -490,13 +565,5 @@ ggplot(pca_df, aes(x = PC1, y = PC2)) +
 
 
 
-
-```
-
-```{r}
-library(clusterProfiler)
-enricher(gene = unique(df_corInternRxnFluxToAge[df_corInternRxnFluxToAge$p.adj <= 0.05 &
-                                                                          df_corInternRxnFluxToAge$Spearman_rho > 0,"RxnFlux"]),
-                      universe = rownames(df_internalReactionFluxes))# calculate richness and Chao1 using vegan package
 
 ```

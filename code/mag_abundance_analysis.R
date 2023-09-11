@@ -132,16 +132,17 @@ stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
 stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
 
 Two_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts)
-write.csv(Two_month_RXN, "../data/rxn_correlations_2M.csv")
+#write.csv(Two_month_RXN, "../data/rxn_correlations_2M.csv")
 
 Nine_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "9")
-write.csv(Nine_month_RXN, "../data/rxn_correlations_9M.csv")
+#write.csv(Nine_month_RXN, "../data/rxn_correlations_9M.csv")
 
 Fifteen_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "15")
-write.csv(Fifteen_month_RXN, "../data/rxn_correlations_15M.csv")
+#write.csv(Fifteen_month_RXN, "../data/rxn_correlations_15M.csv")
 
 TwentyFour_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "24")
-write.csv(TwentyFour_month_RXN, "../data/rxn_correlations_24M.csv")
+#write.csv(TwentyFour_month_RXN, "../data/rxn_correlations_24M.csv")
 
 Thirty_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "30")
-write.csv(Thirty_month_RXN, "../data/rxn_correlations_30M.csv")
+#write.csv(Thirty_month_RXN, "../data/rxn_correlations_30M.csv")
+#
