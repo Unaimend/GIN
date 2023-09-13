@@ -411,6 +411,11 @@ cecum_16S_counts = t(filter_per_organ(metadata, count_data, "Cecum", normalize =
 colon_mag_counts = t(read.table("../data/colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
 colon_16S_counts = t(filter_per_organ(metadata, count_data, "Colon", normalize = F, map_to_mags = F))
 
+
+stool_mag_counts = t(read.table("../data/stool_mag_counts.csv", sep = ",", header = T, row.names = 1))
+stool_16S_counts = t(filter_per_organ(metadata, count_data, "stool", normalize = F, map_to_mags = F))
+# TODO FITLER BY MONTH
+
 mag_vs_16s_alpha = function(mag_counts, sixteenS_counts, organ) {
   mag_shannon <- as.data.frame(diversity(mag_counts, index = "shannon"))                          
   mag_shannon$grp = "MAG"
@@ -432,8 +437,8 @@ colon_16s_vs_mag = mag_vs_16s_alpha(colon_mag_counts, colon_16S_counts, "colon")
 colon_16s_vs_mag
 
 
-colon_16s_vs_mag = mag_vs_16s_alpha(colon_mag_counts, colon_16S_counts, "colon")
-colon_16s_vs_mag
+stool_16s_vs_mag = mag_vs_16s_alpha(stool_mag_counts, stool_16S_counts, "stool")
+stool_16s_vs_mag
 # calculate Shannon index using vegan package
 ```
 
@@ -450,7 +455,7 @@ overall_mag_2M_counts = rbind(cecum_mag_2M_counts, colon_mag_2M_counts,stool_mag
 p1<-ggplot(overall_mag_2M_counts, aes(y=alpha, group= grp)) + 
   geom_boxplot() +
   ggtitle("MAG abundances")
-
+p1
 cecum_16S_counts = load_and_calc(as.data.frame(t(filter_per_organ(metadata, count_data, "Cecum", normalize = F, map_to_mags = F))), "2/", 1)
 colon_16S_counts = load_and_calc(as.data.frame(t(filter_per_organ(metadata, count_data, "Colon", normalize = F, map_to_mags = F))), "2/", 2)
 stool_16S_counts =  load_and_calc(as.data.frame(t(filter_per_organ(metadata, count_data, "stool", normalize = F, map_to_mags = F))), "2/", 3)
@@ -471,16 +476,16 @@ print(p3)
 library(VennDiagram)
 source("utils.R")
 otus_in_cecum = rownames(filter_per_organ(metadata, count_data, "Cecum", normalize = F, map_to_mags=F)  %>%
-    mutate(all_positive = rowSums(. > 0) == ncol(.)) %>%
-    filter(all_positive == F))
+    mutate(all_positive = rowSums(. > 0)) %>%
+    filter(all_positive != 0))
 
 otus_in_colon = rownames(filter_per_organ(metadata, count_data, "Colon", normalize = F, map_to_mags = F) %>%
-    mutate(all_positive = rowSums(. > 0) == ncol(.)) %>% 
-    filter(all_positive == F))
+    mutate(all_positive = rowSums(. > 0)) %>% 
+    filter(all_positive != 0))
 
 otus_in_stool = rownames(filter_per_organ(metadata, count_data, "stool", normalize = F, map_to_mags = F) %>%
-    mutate(all_positive = rowSums(. > 0) == ncol(.)) %>% 
-    filter(all_positive == F))
+    mutate(all_positive = rowSums(. > 0)) %>% 
+    filter(all_positive != 0))
 
 sym_diff <- function(a,b) setdiff(union(a,b), intersect(a,b))
 sym_diff(otus_in_cecum, otus_in_stool)

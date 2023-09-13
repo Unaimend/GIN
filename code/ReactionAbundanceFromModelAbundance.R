@@ -1,4 +1,9 @@
-
+library(dplyr)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(tidyr)
+library(caret)
 
 ####################
 ## Alternatively use FVA reactions
@@ -26,11 +31,7 @@ for(str_modelName in names(obj_metabolicModelsMouse)) {
 #mtx_rxnInModels <- prop.table(mtx_rxnInModels,2)
 #colSums(mtx_rxnInModels)
 
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-library(tidyr)
-library(lmerTest)
+
 metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
 count_data <- read.csv("../data/otu_count_clean.csv", sep = ",", row.names = 1, check.names = F)
 
@@ -67,6 +68,7 @@ stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
 
 calculateRXNAbundances <- function (organMAGCounts)
 {
+  # Merge otu and mag information
   organOTUtoMAG <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1") %>% select("Row.names", "V2")
   length(unique(organOTUtoMAG$V2)) == length(organOTUtoMAG$V2)
   organMAGCounts <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1") 
@@ -81,7 +83,7 @@ calculateRXNAbundances <- function (organMAGCounts)
   organFinalOTUCount = result[result$Row.names %in% colnames(mtx_rxnInModels), ]
   rownames(organFinalOTUCount) = organFinalOTUCount$Row.names
   organFinalOTUCount = as.matrix(organFinalOTUCount %>% select(-Row.names))
-  organFinalActivateOTUCount = mtx_rxnInModels %*% organFinalOTUCount 
+  organFinalActivateOTUCount = mtx_rxnInModels %*% organFinalOTUCount
   colnames(organFinalActivateOTUCount) = gsub("Sum_", "", colnames(organFinalActivateOTUCount))
   return(organFinalActivateOTUCount)
 }
