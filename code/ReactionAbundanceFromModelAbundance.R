@@ -92,20 +92,6 @@ calculateRXNAbundances <- function (organMAGCounts)
 cecum = calculateRXNAbundances(cecum_counts)
 stool = calculateRXNAbundances(stool_counts)
 colon = calculateRXNAbundances(colon_counts)
-write.csv(cecum, "../data/cecum_rxn_abundance2.csv", row.names = 0)
-write.csv(colon, "../data/colon_rxn_abundance2.csv", row.names = 0)
-write.csv(stool, "../data/stool_rxn_abundance2.csv", row.names = 0)
-cecum_org = read.csv("../data/cecum_rxn_abundance.csv")
-colon_org = read.csv("../data/colon_rxn_abundance.csv")
-stool_org = read.csv("../data/stool_rxn_abundance.csv")
-all.equal(rownames(cecum), cecum_org$X)
-
-compare_row_with_itself <- function(i, df, df2) {
-  result <- identical(df[i, ], df2[i, ])
-  return(result)
-}
-
-for(i in 0: nrow(cecum)) {
-  print(i)
-  print(compare_row_with_itself(i, cecum_org, cecum))
-}
+write.csv(cecum, "../data/cecum_rxn_abundance.csv", row.names = F)
+write.csv(colon, "../data/colon_rxn_abundance.csv", row.names = F)
+write.csv(stool, "../data/stool_rxn_abundance.csv", row.names = F)
