@@ -119,15 +119,15 @@ write.csv(Fifteen_month_MAG, "../data/mag_correlation_15M.csv")
 write.csv(TwentyFour_month_MAG, "../data/mag_correlation_24M.csv")
 write.csv(Thirty_month_MAG, "../data/mag_correlation_30M.csv")
 
-cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance2.csv", check.names = F, row.names = 1))
 cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
 cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
 
-colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
+colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance2.csv", check.names = F, row.names = 1))
 colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
 colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
 
-stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
+stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance2.csv", check.names = F, row.names = 1))
 stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
 stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
 

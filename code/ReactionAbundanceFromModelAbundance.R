@@ -72,13 +72,16 @@ calculateRXNAbundances <- function (organMAGCounts)
   organMAGCounts <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1")
   organMAGCounts$Row.names = organMAGCounts$V2
   organMAGCounts = organMAGCounts %>% select(-V2)
+  # Sum up same MAGs (150 MAGs left)
   result <- as.data.frame(organMAGCounts%>%
     group_by(Row.names) %>%
     summarize(across(matches(".*/"), sum, .names = "Sum_{.col}")))
   
-  # Subset incidence matrix
-  mtx_rxnInModels <- as.matrix(as.data.frame(mtx_rxnInModels)[, colnames(mtx_rxnInModels) %in% result$Row.names] %>% mutate_all(as.numeric))
-  organFinalOTUCount = result[result$Row.names %in% colnames(mtx_rxnInModels), ]
+  # The rows of the counts should be the same as the columns as the  activity matrix
+  int = intersect(result$Row.names, colnames(mtx_rxnInModels))
+  mtx_rxnInModels <- as.matrix(as.data.frame(mtx_rxnInModels)[int] %>% mutate_all(as.numeric))
+  organFinalOTUCount = result[result$Row.names %in% int, ]
+  print(all.equal(organFinalOTUCount$Row.names, colnames(mtx_rxnInModels)))
   rownames(organFinalOTUCount) = organFinalOTUCount$Row.names
   organFinalOTUCount = as.matrix(organFinalOTUCount %>% select(-Row.names))
   organFinalActivateOTUCount = mtx_rxnInModels %*% organFinalOTUCount
@@ -89,7 +92,20 @@ calculateRXNAbundances <- function (organMAGCounts)
 cecum = calculateRXNAbundances(cecum_counts)
 stool = calculateRXNAbundances(stool_counts)
 colon = calculateRXNAbundances(colon_counts)
+write.csv(cecum, "../data/cecum_rxn_abundance2.csv", row.names = 0)
+write.csv(colon, "../data/colon_rxn_abundance2.csv", row.names = 0)
+write.csv(stool, "../data/stool_rxn_abundance2.csv", row.names = 0)
+cecum_org = read.csv("../data/cecum_rxn_abundance.csv")
+colon_org = read.csv("../data/colon_rxn_abundance.csv")
+stool_org = read.csv("../data/stool_rxn_abundance.csv")
+all.equal(rownames(cecum), cecum_org$X)
 
-#write.csv(cecum, "../data/cecum_rxn_abundance.csv")
-#write.csv(colon, "../data/colon_rxn_abundance.csv")
-#write.csv(stool, "../data/stool_rxn_abundance.csv")
+compare_row_with_itself <- function(i, df, df2) {
+  result <- identical(df[i, ], df2[i, ])
+  return(result)
+}
+
+for(i in 0: nrow(cecum)) {
+  print(i)
+  print(compare_row_with_itself(i, cecum_org, cecum))
+}
