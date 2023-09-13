@@ -69,9 +69,7 @@ stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
 calculateRXNAbundances <- function (organMAGCounts)
 {
   # Merge otu and mag information
-  organOTUtoMAG <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1") %>% select("Row.names", "V2")
-  length(unique(organOTUtoMAG$V2)) == length(organOTUtoMAG$V2)
-  organMAGCounts <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1") 
+  organMAGCounts <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1")
   organMAGCounts$Row.names = organMAGCounts$V2
   organMAGCounts = organMAGCounts %>% select(-V2)
   result <- as.data.frame(organMAGCounts%>%
