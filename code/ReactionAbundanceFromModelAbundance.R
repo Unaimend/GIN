@@ -84,6 +84,10 @@ calculateRXNAbundances <- function (organMAGCounts)
   print(all.equal(organFinalOTUCount$Row.names, colnames(mtx_rxnInModels)))
   rownames(organFinalOTUCount) = organFinalOTUCount$Row.names
   organFinalOTUCount = as.matrix(organFinalOTUCount %>% select(-Row.names))
+  # Small example to check if the math works out
+  #mtx_test = mtx_rxnInModels[1:5, 1:5]
+  #organCount = organFinalOTUCount[1:5, 1:5]
+  #res_test = mtx_test %*% organCount
   organFinalActivateOTUCount = mtx_rxnInModels %*% organFinalOTUCount
   colnames(organFinalActivateOTUCount) = gsub("Sum_", "", colnames(organFinalActivateOTUCount))
   return(organFinalActivateOTUCount)
@@ -92,6 +96,6 @@ calculateRXNAbundances <- function (organMAGCounts)
 cecum = calculateRXNAbundances(cecum_counts)
 stool = calculateRXNAbundances(stool_counts)
 colon = calculateRXNAbundances(colon_counts)
-write.csv(cecum, "../data/cecum_rxn_abundance.csv", row.names = F)
-write.csv(colon, "../data/colon_rxn_abundance.csv", row.names = F)
-write.csv(stool, "../data/stool_rxn_abundance.csv", row.names = F)
+write.csv(cecum, "../data/cecum_rxn_abundance.csv", row.names = T)
+write.csv(colon, "../data/colon_rxn_abundance.csv", row.names = T)
+write.csv(stool, "../data/stool_rxn_abundance.csv", row.names = T)
