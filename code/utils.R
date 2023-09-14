@@ -6,7 +6,7 @@ OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, che
 OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
 
 # Returns normalized count data for a specific organ
-filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_mags = T) {
+filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_mags = TRUE) {
   metadata_organ = metadata %>% filter(TissueID == organ)
   filtered_count_data = countdata[, metadata_organ$PatID]
   # Normalize data
@@ -17,11 +17,8 @@ filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_m
   colnames(filtered_count_data) = gsub("_.", "", colnames(filtered_count_data))
   if(map_to_mags) {
     result = merge(filtered_count_data, OTUtoMAG, by.x = 0, by.y = "V1")
-    result2 <- as.matrix(result%>%
-                           group_by(Row.names) %>%
-                           summarize(across(matches(".*/"), sum, .names = "Sum_{.col}")) %>%
-                           column_to_rownames("Row.names") 
-    )
+    result2 <- result %>% group_by(V2) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
+    result2 = as.data.frame(result2) %>% column_to_rownames("V2")
   } else
   {
     result2 = filtered_count_data

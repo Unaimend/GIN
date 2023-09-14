@@ -11,7 +11,6 @@ cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
 colon_counts = filter_per_organ(metadata, count_data, "Colon")
 stool_counts = filter_per_organ(metadata, count_data, "stool")
 
-#cecum_counts = filter_per_organ(metadata, count_data, "Cecum", map_to_mags = F)
 #colon_counts = filter_per_organ(metadata, count_data, "Colon", map_to_mags = F)
 #stool_counts = filter_per_organ(metadata, count_data, "stool", map_to_mags = F)
 #cecum_counts = cecum_counts[-nearZeroVar(t(cecum_counts)), ]
@@ -30,16 +29,24 @@ write.csv(absolute_stool_counts, file = "../data/stool_mag_counts.csv")
 
 calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 {
+  counts1 = as.data.frame(counts1)
+  counts2 = as.data.frame(counts2)
+  counts3 = as.data.frame(counts3)
   commons = intersect(rownames(counts1), rownames(counts2))
   commons = intersect(commons, rownames(counts3))
+  print(age)
+  print(length(commons))
   models =  list()
   ps =  list()
   data = data.frame(OTU = character(), coefficient = numeric(),  p.val = numeric()) 
   for(otu in unique((commons)))
   {
-    current_otu = as.data.frame(counts1[otu, ])
-    current_otu2 = merge(current_otu,  as.data.frame(counts2[otu, ]) , by.x = 0, by.y = 0 )
-    current_otu3 = merge(current_otu2,  as.data.frame(counts3[otu, ]) , by.x = "Row.names", by.y = 0 )
+    d1 =  as.data.frame(t(counts1[otu, ]))
+    d2 =  as.data.frame(t(counts2[otu, ]))
+    d3 =  as.data.frame(t(counts3[otu, ]))
+    current_otu = d1
+    current_otu2 = merge(current_otu, d2   , by.x = 0, by.y = 0 )
+    current_otu3 = merge(current_otu2, d3  , by.x = "Row.names", by.y = 0 )
     colnames(current_otu3) <- c("patID", "cecum_count", "colon_count", "stool_count")
     rownames(current_otu3) <- gsub(".*/", "", current_otu3$patID)
     temp_meta = metadata %>% select(c(Age, ID))
@@ -85,14 +92,14 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 #Two_month <- calculate_p_values(cecum_counts, colon_counts, stool_counts)
 
 # Load 16S to MAG mapping
-# 173 -> 173
-cecumMAGCounts <- cecum_counts[rownames(cecum_counts) %in% OTUtoMAG$V1, ]
+# 161
+cecumMAGCounts <- cecum_counts
 
-# 173 -> 173
-colonMAGCounts <- colon_counts[rownames(colon_counts) %in% OTUtoMAG$V1, ]
+# 161
+colonMAGCounts <- colon_counts
 
-# 173 -> 173
-stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
+# 161
+stoolMAGCounts <- stool_counts
 
 cecumMAGCounts = cecumMAGCounts[-nearZeroVar(t(cecumMAGCounts)), ]
 colonMAGCounts = colonMAGCounts[-nearZeroVar(t(colonMAGCounts)), ]
@@ -146,3 +153,4 @@ write.csv(TwentyFour_month_RXN, "../data/rxn_correlations_24M.csv")
 Thirty_month_RXN <- calculate_p_values(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "30")
 write.csv(Thirty_month_RXN, "../data/rxn_correlations_30M.csv")
 #
+

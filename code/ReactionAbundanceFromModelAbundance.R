@@ -36,7 +36,7 @@ metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
 count_data <- read.csv("../data/otu_count_clean.csv", sep = ",", row.names = 1, check.names = F)
 
 # Returns normalized count data for a specific organ
-filter_per_organ = function (metadata, countdata, organ) {
+filter_per_organ2 = function (metadata, countdata, organ) {
   # Get only the organ specific data
   metadata_organ = metadata %>% filter(TissueID == organ)
   # Get only the count data for the organ
@@ -49,11 +49,11 @@ filter_per_organ = function (metadata, countdata, organ) {
 
 
 
-cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
+cecum_counts = filter_per_organ2(metadata, count_data, "Cecum")
 cecum_counts = cecum_counts[-nearZeroVar(t(cecum_counts)), ]
-colon_counts = filter_per_organ(metadata, count_data, "Colon")
+colon_counts = filter_per_organ2(metadata, count_data, "Colon")
 colon_counts = colon_counts[-nearZeroVar(t(colon_counts)), ]
-stool_counts = filter_per_organ(metadata, count_data, "stool")
+stool_counts = filter_per_organ2(metadata, count_data, "stool")
 stool_counts = stool_counts[-nearZeroVar(t(stool_counts)), ]
 
 # Load 16S to MAG mapping
