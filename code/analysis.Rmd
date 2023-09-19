@@ -112,6 +112,7 @@ down_9M = nine_sig_rxn[nine_sig_rxn$coefficient < 0, ]
 up_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient > 0, ]
 down_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient < 0, ]
 df_rxn2subsys = readRDS("../data/df_rxn2subsys20230711MetaMouse.rds")
+
 calc_terms = function (differnt_regulated_reactions) {
   terms_enriched = enricher(gene = unique( differnt_regulated_reactions$OTU),
                          minGSSize = 3, maxGSSize = 500, pAdjustMethod = "BH",
@@ -120,12 +121,18 @@ calc_terms = function (differnt_regulated_reactions) {
                          universe = universe)
   result = data.frame(terms_enriched$Description,
                       terms_enriched$pvalue,
-                      terms_enriched$p.adjust)
-  colnames(result) = c("name", "pval", "p.adj")
-  return(result)
+                      terms_enriched$p.adjust,
+                      terms_enriched$Count
+  )
+  p = dotplot(terms_enriched, showCategory=20)
+  ggsave("../data/plots/enrichment_plot.pdf", p)
 
+
+  colnames(result) = c("name", "pval", "p.adj", "count")
+  return(result)
 }
-terms_up_2M = calc_terms(up_2M)
+
+terms_up_2M  = calc_terms(up_2M)
 terms_down_2M = calc_terms(down_2M)
 write.csv(terms_up_2M, "../data/upregulated_terms_2M.csv")
 write.csv(terms_down_2M, "../data/downregulated_terms_2M.csv")
