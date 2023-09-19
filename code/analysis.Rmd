@@ -10,6 +10,7 @@ library(ggplot2)
 library(reshape2)
 library(tidyr)
 library(caret)
+library(clusterProfiler)
 
 
 OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
@@ -110,78 +111,19 @@ down_9M = nine_sig_rxn[nine_sig_rxn$coefficient < 0, ]
 
 up_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient > 0, ]
 down_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient < 0, ]
-# calculate significantly enriched subsytems
-calc_terms <- function(up_down) {
-significant_reactions = enrichment_map[names(enrichment_map) %in% up_down$OTU]
-all_terms = unique(unlist(significant_reactions))
-# Count is sig. in-term
-pvals = data.frame(name = as.character(), pval = as.numeric(), count = as.integer())
-# We want to test all terms for enrichment #TODO Figure out if those should only be the sign.
-for(t in all_terms) {
-  #t = "pectin degradation II"
-  upper_left  = 0
-  lower_left  = 0
-  upper_right  = 0
-  lower_right  = 0
-  # Go through all sig. reaction and count how of t occurs as a term
-  for(r in names(significant_reactions))
-  {
-    # Get the associated terms
-    sig_terms = enrichment_map[[r]]
-    if(t %in% sig_terms) {
-      upper_left = upper_left +  1
-    }
-  }
-  
-  non_sig = setdiff(universe, names(significant_reactions))
-  # Go through all non sig. reactions and count how of t does not occurs as a term
-  # CHECK IF lower_left+upper_left equals the occurences of the term in stefanos model
-  # NOT IN THE translation map 
-  for(r in  non_sig)
-  {
-    terms = enrichment_map[[r]]
-    if((t %in% terms)) {
-      upper_right = upper_right +  1
-    }
-  }
-  
-  # Go through all sig. reactions and count how of t does not occur as a term
-  non_sig = setdiff(universe, names(significant_reactions))
-  for(r in names(significant_reactions))
-  {
-    terms = enrichment_map[[r]]
-    if(!(t %in% terms)) {
-      lower_left = lower_left +  1
-    }
-  }
-  # Go through all non-sig. reactions and count how of t does not occur as a term
-  for(r in non_sig )
-  {
-    terms = enrichment_map[[r]]
-    if(!(t %in% terms)) {
-      lower_right = lower_right +  1
-    }
-  }
- # print(t)
-  
-  totalA1 = upper_left + upper_right
-  totalA = upper_left + lower_left
-  totalB = upper_right + lower_right
-  #cat(upper_left, " ", upper_right, "\n")
-  #cat(lower_left,  " ", lower_right, "\n")
-  #cat("----------------------------------", "\n")
-  cont = matrix(c(upper_left, lower_left, upper_right, lower_right), nrow = 2, ncol = 2)
-  #cat("+++++++++++++++++++++++++++++++++++++++", "\n")
-  # TODO ONE SIDED OR TWO SIDE. PRETTY SURE IT SHOULD BE ONE SIDED
-  #clusterProfiler suggests alternative = "greater"
-  # NOTE cluster profiler uses a ddifferent oder of the contigency table
-  pp_value2 = fisher.test(cont, one)
-  #phyper(upper_left-1, totalA1 , totalA1 - totalA, totalB, lower.tail = FALSE )
-  pvals[nrow(pvals) + 1, ] = c(t, pp_value2$p.value, upper_left)
-}
-pvals$p.adj = p.adjust(pvals$pval, method = "BH")
-pvals = pvals[pvals$p.adj < 0.05, ]
-return(pvals)
+df_rxn2subsys = readRDS("../data/df_rxn2subsys20230711MetaMouse.rds")
+calc_terms = function (differnt_regulated_reactions) {
+  terms_enriched = enricher(gene = unique( differnt_regulated_reactions$OTU),
+                         minGSSize = 3, maxGSSize = 500, pAdjustMethod = "BH",
+                         TERM2GENE = df_rxn2subsys[,c(1,2)],
+                         TERM2NAME = df_rxn2subsys[,c(1,3)],
+                         universe = universe)
+  result = data.frame(terms_enriched$Description,
+                      terms_enriched$pvalue,
+                      terms_enriched$p.adjust)
+  colnames(result) = c("name", "pval", "p.adj")
+  return(result)
+
 }
 terms_up_2M = calc_terms(up_2M)
 terms_down_2M = calc_terms(down_2M)
