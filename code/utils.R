@@ -1,5 +1,6 @@
 
 library(dplyr)
+library(tidyverse)
 metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
 count_data <- read.csv("../data/otu_count_clean.csv", sep = ",", row.names = 1, check.names = F)
 OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)

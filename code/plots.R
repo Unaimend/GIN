@@ -94,16 +94,66 @@ ggsave(final_rxn, filename = "../data/plots/rxn_alpha_div_along_sites.pdf", widt
 }
 
 
-taxonomy = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
-
 cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
 colon_counts = filter_per_organ(metadata, count_data, "Colon")
 stool_counts = filter_per_organ(metadata, count_data, "stool")
 
-cecum_count_mag_an = merge(OTUtoMAG, cecum_counts, by.x = "V1", by.y = 0)
+
+taxonomy = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
+phylum = taxonomy %>% select(user_genome, Phylum )
 
 
-cecum_count_mag_an = cecum_count_mag_an %>% select(-V1)
-length(cecum_count_mag_an$V2)
-length(unique(cecum_count_mag_an$V2))
-length(cecum_count_mag_an$V2) == length(unique(cecum_count_mag_an$V2))
+
+rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label = F) {
+  cecum = filter_per_organ(metadata, count_data, "Cecum")
+  cecum = cecum %>% select(matches(pattern))
+  cecum = merge(cecum, phylum, by.x = 0, by.y = "user_genome")
+  cecum <- cecum %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
+  cecum = cecum %>%  pivot_longer(cols = starts_with("Sum_"),    # Specify the columns to pivot
+                                  names_to = "variable",         # Name of the new variable column
+                                  values_to = "value")
+
+  cecum$organ = "Cecum"
+
+  colon = filter_per_organ(metadata, count_data, "Colon")
+  colon = colon %>% select(matches(pattern))
+  colon = merge(colon, phylum, by.x = 0, by.y = "user_genome")
+  colon <- colon %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
+  colon = colon %>%  pivot_longer(cols = starts_with("Sum_"),    # Specify the columns to pivot
+                                  names_to = "variable",         # Name of the new variable column
+                                  values_to = "value")
+  colon$organ = "Proximal C."
+
+
+  stool = filter_per_organ(metadata, count_data, "stool")
+  stool = stool %>% select(matches(pattern))
+  stool = merge(stool, phylum, by.x = 0, by.y = "user_genome")
+  stool <- stool %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
+  stool = stool %>%  pivot_longer(cols = starts_with("Sum_"),    # Specify the columns to pivot
+                                  names_to = "variable",         # Name of the new variable column
+                                  values_to = "value")
+  stool$organ = "Distal C."
+
+  overall = data.frame(Phylum = as.character(), variable = as.character(), value = as.character(), organ = as.character())
+  overall = overall %>% rbind(cecum) %>% rbind(colon) %>% rbind(stool)
+  overall$organ = factor(overall$organ, levels = c("Cecum", "Proximal C.", "Distal C."))
+
+  p1 <- overall %>%
+    ggplot(aes(x = variable, y = value)) +
+    geom_bar(aes(fill = Phylum), stat = "identity", position = "fill") +
+    facet_grid(~organ, scales = "free_x") +
+    ylab(if(show_label) { "Relative Abundance"}) +
+    xlab("Sample") +
+    ggtitle(paste0(age, " month")) +
+    if(color_desc) {  theme(axis.text.x = element_text(angle = 90))} else { theme(axis.text.x = element_text(angle = 90), legend.position = "none") }
+  return(p1)
+}
+
+two_month = rel_tax(cecum_counts, colon_counts, stool_counts, "2", "2/", show_label = T)
+nine_month = rel_tax(cecum_counts, colon_counts, stool_counts, "9", "9/")
+fifteen_month = rel_tax(cecum_counts, colon_counts, stool_counts, "15", "15/", color_desc = T)
+
+final_tax = two_month | nine_month | fifteen_month
+ggsave(final_tax, filename = "../data/plots/rel_tax.pdf", width = 12, height = 10)
+
+
