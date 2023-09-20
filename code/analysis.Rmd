@@ -12,7 +12,7 @@ library(tidyr)
 library(caret)
 library(clusterProfiler)
 
-
+setwd("/home/td/Projects/Aging/Baseline/GIN/code")
 OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
 OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
 rxn_annot = readRDS("../data/df_rxnAnnotation.rds")
@@ -52,6 +52,7 @@ metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
 
 getTableForOtu <- function(counts1, counts2, counts3, otu, age = 2)
 {
+    metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
     current_otu = as.data.frame(counts1[otu, ])
     current_otu2 = merge(current_otu,  as.data.frame(counts2[otu, ]) , by.x = 0, by.y = 0 )
     current_otu3 = merge(current_otu2,  as.data.frame(counts3[otu, ]) , by.x = "Row.names", by.y = 0 )
@@ -113,50 +114,142 @@ up_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient > 0, ]
 down_15M = fifteen_sig_rxn[fifteen_sig_rxn$coefficient < 0, ]
 df_rxn2subsys = readRDS("../data/df_rxn2subsys20230711MetaMouse.rds")
 
-calc_terms = function (differnt_regulated_reactions) {
+calc_terms = function (differnt_regulated_reactions, month) {
   terms_enriched = enricher(gene = unique( differnt_regulated_reactions$OTU),
                          minGSSize = 3, maxGSSize = 500, pAdjustMethod = "BH",
                          TERM2GENE = df_rxn2subsys[,c(1,2)],
                          TERM2NAME = df_rxn2subsys[,c(1,3)],
                          universe = universe)
+
+  saveRDS(terms_enriched, paste0("../data/enricher_", month, ".RDS"))
   result = data.frame(terms_enriched$Description,
                       terms_enriched$pvalue,
                       terms_enriched$p.adjust,
                       terms_enriched$Count
   )
-  p = dotplot(terms_enriched, showCategory=20)
-  ggsave("../data/plots/enrichment_plot.pdf", p)
 
 
   colnames(result) = c("name", "pval", "p.adj", "count")
+  result = result[result$p.adj < 0.05, ]
   return(result)
 }
 
-terms_up_2M  = calc_terms(up_2M)
-terms_down_2M = calc_terms(down_2M)
-write.csv(terms_up_2M, "../data/upregulated_terms_2M.csv")
-write.csv(terms_down_2M, "../data/downregulated_terms_2M.csv")
+terms_up_2M  = calc_terms(up_2M, "up_2M")
+terms_down_2M = calc_terms(down_2M, "down_2M")
+write.csv(terms_up_2M, "../data/upregulated_terms_2M.csv", row.names = F)
+write.csv(terms_down_2M, "../data/downregulated_terms_2M.csv", row.names = F)
 both = intersect(terms_down_2M$name, terms_up_2M$name)
-write.csv(both, "../data/up_and_down_terms_2M.csv")
+write.csv(both, "../data/up_and_down_terms_2M.csv", row.names = F)
 
 
-terms_up_9M = calc_terms(up_9M)
-terms_down_9M = calc_terms(down_9M)
-write.csv(terms_up_9M, "../data/upregulated_terms_9M.csv")
-write.csv(terms_down_9M, "../data/downregulated_terms_9M.csv")
+terms_up_9M = calc_terms(up_9M, "up_9M")
+terms_down_9M = calc_terms(down_9M, "down_9M")
+write.csv(terms_up_9M, "../data/upregulated_terms_9M.csv", row.names = F)
+write.csv(terms_down_9M, "../data/downregulated_terms_9M.csv", row.names = F)
 both = intersect(terms_down_9M$name, terms_up_9M$name)
-write.csv(both, "../data/up_and_down_terms_9M.csv")
+write.csv(both, "../data/up_and_down_terms_9M.csv", row.names = F)
 
-terms_up_15M = calc_terms(up_15M)
-terms_down_15M = calc_terms(down_15M)
-write.csv(terms_up_15M, "../data/upregulated_terms_15M.csv")
-write.csv(terms_down_15M, "../data/downregulated_terms_15M.csv")
+terms_up_15M = calc_terms(up_15M, "up_15M")
+terms_down_15M = calc_terms(down_15M, "down_15M")
+write.csv(terms_up_15M, "../data/upregulated_terms_15M.csv", row.names = F)
+write.csv(terms_down_15M, "../data/downregulated_terms_15M.csv", row.names = F)
 both = intersect(terms_down_15M$name, terms_up_15M$name)
-write.csv(both, "../data/up_and_down_terms_15M.csv")
+write.csv(both, "../data/up_and_down_terms_15M.csv", row.names = F)
 
 
 
 
+```
+
+```{r}
+library(dplyr)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(tidyr)
+library(caret)
+library(clusterProfiler)
+
+#ss_up_9M  = read.csv("../data/upregulated_ss_9M.csv")
+#ss_up_15M = read.csv("../data/upregulated_ss_15M.csv")
+#
+#ss_down_9M  = read.csv("../data/downregulated_ss_9M.csv")
+#ss_down_15M = read.csv("../data/downregulated_ss_15M.csv")
+#
+#ss_all_9M = rbind(ss_up_9M, ss_down_9M)
+#ss_all_15M = rbind(ss_up_15M, ss_down_15M)
+#
+#common_ss_up1 = Reduce(intersect, list(ss_all_2M$name, ss_all_9M$name))
+#common_ss_up2 = Reduce(intersect, list(ss_all_2M$name, ss_all_15M$name))
+#common_ss_up3 = Reduce(intersect, list(ss_all_9M$name, ss_all_15M$name))
+#
+#in_at_least_two = unique(c(common_ss_up1, common_ss_up2, common_ss_up3))
+#if(length(in_at_least_two) != 112) {
+#  stop()
+#}
+
+setwd("/home/td/Projects/Aging/Baseline/GIN/code")
+cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
+cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
+
+
+colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
+colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
+colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
+
+stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
+stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
+stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
+
+
+
+ss_up_2M  = read.csv("../data/upregulated_terms_2M.csv")
+ss_down_2M  = read.csv("../data/downregulated_terms_2M.csv")
+ss_all_2M = rbind(ss_up_2M, ss_down_2M)
+
+# TODO Restrict to the "in at least two genes"
+enricher_up_2M = readRDS("../data/enricher_up_2M.RDS")@result
+enricher_down_2M = readRDS("../data/enricher_down_2M.RDS")@result
+enricher_up_2M = enricher_up_2M[enricher_up_2M$p.adjust < 0.05, ]
+enricher_down_2M = enricher_down_2M[enricher_down_2M$p.adjust < 0.05, ]
+enricher_all_2M = rbind(enricher_up_2M, enricher_down_2M)
+# Get all gene ids in all sub subsytems
+t = as.data.frame(enricher_all_2M$geneID)
+s = c()
+# gene all reactions
+for(i in 1:nrow(t)){
+  s = c(s, strsplit(t[i, ], "/"))
+}
+#TODO now we can figure out what kind of reactions are in the geneID column
+gene_ids = unique(unlist(s))
+
+# This dataframe cointains the average relative reaction abundance for all the GI sites. The average was calculated by taking all Samples of a specific age and a specific
+# site and well taking the mean
+counts_by_age = data.frame(reac = as.character(), cec = as.numeric(), pc = as.numeric(), dc = as.numeric())
+for(current_reaction in gene_ids) {
+  #current_reaction =  "rxn00473_c0"
+  t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, current_reaction)
+  f = t %>%  group_by(Organ) %>%
+    summarize(mean = mean(Count))
+  counts_by_age[nrow(counts_by_age) + 1, ] = c(current_reaction, f[1, 2], f[2, 2], f[3, 2])
+}
+
+rxn_to_ss = readRDS("../data/df_rxn2subsys20230711MetaMouse.rds") %>% select(ReactionID, SubsystemShort)
+counts_by_age = merge(counts_by_age, rxn_to_ss, by.x = "reac", by.y = "ReactionID")
+colnames(counts_by_age) = c("reac", "c_cec", "c_pc", "c_dc")
+counts_by_age2 = counts_by_age[c(2:5)]
+colnames(counts_by_age2) = c("c_cec", "c_pc", "c_dc", "ss")
+fin = counts_by_age2 %>% group_by(ss) %>%
+  summarise(across(starts_with("c_"), ~mean(.)))
+
+# TODO Annotate counts_by_age with SS and again do the average
+long_data <- fin %>%
+  pivot_longer(cols = -ss, names_to = "key", values_to = "value")
+hm = ggplot(long_data, aes(key, ss, fill= value)) +
+  geom_tile()
+ggsave("../data/plots/enrichment_plot_2M.pdf", hm, height = 40)
+te
 ```
 
 ```{r}
