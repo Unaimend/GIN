@@ -27,7 +27,7 @@ filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_m
   {
     result3 <- apply(result3, 2, function(col) {col/sum(col)})
   }
-  return(result3)
+  return(as.data.frame(result3))
 }
 
 load_and_calc = function(filepath, pattern, grp) {
