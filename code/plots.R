@@ -103,10 +103,10 @@ stool_counts = filter_per_organ(metadata, count_data, "stool")
 
 
 rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label = F) {
-  taxonomy = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
+  taxonomy  = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
   phylum = taxonomy %>% select(user_genome, Phylum )
-
   cecum = cecum %>% select(matches(pattern))
+  cecum = merge(cecum, phylum, by.x = 0, by.y = "user_genome")
   cecum <- cecum %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
   cecum = cecum %>%  pivot_longer(cols = starts_with("Sum_"),    # Specify the columns to pivot
                                   names_to = "variable",         # Name of the new variable column
@@ -135,6 +135,11 @@ rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label
   overall = data.frame(Phylum = as.character(), variable = as.character(), value = as.character(), organ = as.character())
   overall = overall %>% rbind(cecum) %>% rbind(colon) %>% rbind(stool)
   overall$organ = factor(overall$organ, levels = c("Cecum", "Proximal C.", "Distal C."))
+  all_samples = unique(overall$variable)
+
+ missing_in_cecum = setdiff(all_samples, bac_order$variable)
+
+  overall$variable = factor(overall$variable, levels = c(bac_order$variable, missing_in_cecum))
 
   p1 <- overall %>%
     ggplot(aes(x = variable, y = value)) +
@@ -155,7 +160,7 @@ thirty_month = rel_tax(cecum_counts, colon_counts, stool_counts, "30", "30/", co
 final_tax = wrap_plots( two_month + nine_month + fifteen_month,
                              twentyfour_month + thirty_month,
                         ncol = 1)
-ggsave(final_tax, filename = "../data/plots/rel_tax.pdf", width = 12, height = 10)
+ggsave(final_tax, filename = "../data/plots/rel_tax.pdf", width = 12, height = 12)
 
 
 

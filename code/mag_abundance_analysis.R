@@ -107,20 +107,20 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 #Two_month <- calculate_p_values(cecum_counts, colon_counts, stool_counts)
 
 # Load 16S to MAG mapping
-# 161
+# 124
 cecumMAGCounts <- cecum_counts
-# 161
+# 124
 colonMAGCounts <- colon_counts
 
-# 161
+# 124
 stoolMAGCounts <- stool_counts
 
 cecumMAGCounts = read.csv(file = "../data/filtered_relative_cecum_mag_counts.csv", row.names = 1)
-# 150            read
+# 118
 colonMAGCounts = read.csv(file = "../data/filtered_relative_colon_mag_counts.csv", row.names = 1)
-# 154
+# 120
 stoolMAGCounts = read.csv(file = "../data/filtered_relative_stool_mag_counts.csv", row.names = 1)
-# 154
+# 119
 
 ### Check if we have the same MAGs in all three communities
 all.equal(rownames(stoolMAGCounts), rownames(colonMAGCounts))

@@ -7,7 +7,7 @@ OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, che
 OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
 
 # Returns normalized count data for a specific organ
-filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_mags = TRUE, zero_var_filt = F) {
+filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_mags = TRUE, zero_var_filt = F, filter_HQ_only = T) {
   metadata_organ = metadata %>% filter(TissueID == organ)
   filtered_count_data = countdata[, metadata_organ$PatID]
   # Normalize data
@@ -19,6 +19,12 @@ filter_per_organ = function (metadata, countdata, organ, normalize = T, map_to_m
   } else
   {
     result3 = filtered_count_data
+  }
+  if(filter_HQ_only) {
+    taxonomy  = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t") %>% select(user_genome)
+    filter_hq = rownames(result3) %in% as.vector(taxonomy$user_genome)
+    result3 = result3[filter_hq, ]
+
   }
   if(zero_var_filt) {
     result3 = result3[-nearZeroVar(t(result3)), ]
