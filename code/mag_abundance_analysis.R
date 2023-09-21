@@ -11,18 +11,12 @@ cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
 colon_counts = filter_per_organ(metadata, count_data, "Colon")
 stool_counts = filter_per_organ(metadata, count_data, "stool")
 
-#colon_counts = filter_per_organ(metadata, count_data, "Colon", map_to_mags = F)
-#stool_counts = filter_per_organ(metadata, count_data, "stool", map_to_mags = F)
-#cecum_counts = cecum_counts[-nearZeroVar(t(cecum_counts)), ]
-#colon_counts = colon_counts[-nearZeroVar(t(colon_counts)), ]
-#stool_counts = stool_counts[-nearZeroVar(t(stool_counts)), ]
-
 absolute_cecum_counts = filter_per_organ(metadata, count_data, "Cecum", normalize = F)
 absolute_colon_counts = filter_per_organ(metadata, count_data, "Colon", normalize = F)
 absolute_stool_counts = filter_per_organ(metadata, count_data, "stool", normalize = F)
-write.csv(absolute_cecum_counts, file = "../data/cecum_mag_counts.csv")
-write.csv(absolute_colon_counts, file = "../data/colon_mag_counts.csv")
-write.csv(absolute_stool_counts, file = "../data/stool_mag_counts.csv")
+write.csv(absolute_cecum_counts, file = "../data/cecum_mag_counts.csv", row.names = F)
+write.csv(absolute_colon_counts, file = "../data/colon_mag_counts.csv", row.names = F)
+write.csv(absolute_stool_counts, file = "../data/stool_mag_counts.csv", row.names = F)
 
 
 
