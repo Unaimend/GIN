@@ -12,6 +12,75 @@ library(tidyr)
 library(caret)
 
 
+### load normalized reaction data, we used variance filtered data for the linear models
+cecumRxNCounts = as.matrix(read.csv("../data/relative_cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
+cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
+
+
+colonRxNCounts = as.matrix(read.csv("../data/relative_colon_rxn_abundance.csv", check.names = F, row.names = 1))
+colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
+colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
+
+stoolRxNCounts = as.matrix(read.csv("../data/relative_stool_rxn_abundance.csv", check.names = F, row.names = 1))
+stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
+stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
+
+metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
+
+
+getTableForOtu <- function(counts1, counts2, counts3, otu, age = 2)
+{
+    current_otu = as.data.frame(counts1[otu, ])
+    current_otu2 = merge(current_otu,  as.data.frame(counts2[otu, ]) , by.x = 0, by.y = 0 )
+    current_otu3 = merge(current_otu2,  as.data.frame(counts3[otu, ]) , by.x = "Row.names", by.y = 0 )
+    colnames(current_otu3) <- c("patID", "cecum_count", "colon_count", "stool_count")
+    rownames(current_otu3) <- gsub(".*/", "", current_otu3$patID)
+    temp_meta = metadata %>% select(c(Age, ID))
+    temp_meta$ID =  gsub("_.", "", temp_meta$ID)
+    temp_meta = unique(temp_meta)
+    temp_meta$fullID = apply(temp_meta, 1, function (row) { str_trim(paste0(row[[1]], ".", row[[2]]))})
+    temp_meta$fullID = as.character(temp_meta$fullID)
+    current_otu3$patID = as.character(current_otu3$patID)
+    current_otu3$patID
+    temp_meta$fullID
+    intersect(current_otu3$patID, temp_meta$fullID)
+    # MAGS USE DIFFERENT IDS
+    current_otu3$patID   = gsub("Sum_", "", current_otu3$patID )
+    current_otu3$patID   = gsub("/", ".", current_otu3$patID )
+    current_otu4 = merge(current_otu3, temp_meta,  by.x = "patID", by.y = "fullID")
+    if(nrow(current_otu4) != nrow(current_otu)) {
+      stop()
+    }
+    current_otu4 = current_otu4[current_otu4$Age == age, ]
+    rownames(current_otu4) = current_otu4$Row.names
+    current_otu4 = current_otu4[-c(1)]
+    colnames(current_otu4) <- c("1_","2_","3_","Age", "ID")
+    long_data <- pivot_longer(
+      data = current_otu4,
+      cols = ends_with("_"),
+      names_to = "Organ",
+      values_to = "Count"
+    )
+    return(long_data)
+}
+
+t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0")
+trp1= ggplot(t, aes(x = Organ, y = Count)) +
+  geom_boxplot() +
+  labs(title = "Tryptophanase", x = "Groups", y = "Values")
+trp1
+enrichment_map = readRDS("../data/subsysMap-cognition-cohort.RDS")
+all_cecum_reaction_names = rownames(cecumRxNCounts)
+all_colon_reaction_names = rownames(colonRxNCounts)
+all_stool_reaction_names = rownames(stoolRxNCounts)
+
+# I think because we are drawing from all three sites we have to take the union as a universe
+all_reaction_names = union(all_cecum_reaction_names, all_colon_reaction_names)
+all_reaction_names = union(all_reaction_names, all_stool_reaction_names)
+```
+```{r}
+
 OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F) %>% select(V1, V2)
 OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
 rxn_annot = readRDS("../data/df_rxnAnnotation.rds")
@@ -32,60 +101,6 @@ thirty_rxn <- read.csv("../data/rxn_correlations_30M.csv")
 thirty_sig_rxn <- thirty_rxn %>% filter(p.adj < 0.05)
 
 
-### load normalized reaction data
-cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
-cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
-cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
-
-
-colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
-colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
-colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
-
-stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
-stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
-stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
-
-metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
-
-
-getTableForOtu <- function(counts1, counts2, counts3, otu, age = 2)
-{
-    current_otu = as.data.frame(counts1[otu, ])
-    current_otu2 = merge(current_otu,  as.data.frame(counts2[otu, ]) , by.x = 0, by.y = 0 )
-    current_otu3 = merge(current_otu2,  as.data.frame(counts3[otu, ]) , by.x = "Row.names", by.y = 0 )
-    colnames(current_otu3) <- c("patID", "cecum_count", "colon_count", "stool_count")
-    rownames(current_otu3) <- gsub(".*/", "", current_otu3$patID)
-    temp_meta = metadata %>% select(c(Age, ID))
-    temp_meta$ID =  gsub("_.", "", temp_meta$ID)
-    temp_meta = unique(temp_meta)
-    current_otu4 = merge(current_otu3, temp_meta,  by.x = 0, by.y = "ID")
-    current_otu4 = current_otu4[current_otu4$Age == age, ]
-    rownames(current_otu4) = current_otu4$Row.names
-    current_otu4 = current_otu4[-c(1)]
-    colnames(current_otu4) <- c("ID", "1_","2_","3_","Age")
-    long_data <- pivot_longer(
-      data = current_otu4,
-      cols = ends_with("_"),
-      names_to = "Organ",
-      values_to = "Count"
-    )
-    return(long_data)
-}
-
-t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0")
-trp1= ggplot(t, aes(x = Organ, y = Count)) +
-  geom_boxplot() +
-  labs(title = "Tryptophanase", x = "Groups", y = "Values")
-
-enrichment_map = readRDS("../data/subsysMap-cognition-cohort.RDS")
-all_cecum_reaction_names = rownames(cecumRxNCounts)
-all_colon_reaction_names = rownames(colonRxNCounts)
-all_stool_reaction_names = rownames(stoolRxNCounts)
-
-# I think because we are drawing from all three sites we have to take the union as a universe
-all_reaction_names = union(all_cecum_reaction_names, all_colon_reaction_names)
-all_reaction_names = union(all_reaction_names, all_stool_reaction_names)
 
 ## Alternatively use FVA reactions
 obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_MetamouseHQBins20211001.RDS")
