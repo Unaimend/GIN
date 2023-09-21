@@ -50,24 +50,24 @@ filter_per_organ2 = function (metadata, countdata, organ) {
 
 
 cecum_counts = filter_per_organ2(metadata, count_data, "Cecum")
+nrow(cecum_counts) == 702
 cecum_counts = cecum_counts[-nearZeroVar(t(cecum_counts)), ]
+nrow(cecum_counts) == 527
 colon_counts = filter_per_organ2(metadata, count_data, "Colon")
+nrow(colon_counts) == 702
 colon_counts = colon_counts[-nearZeroVar(t(colon_counts)), ]
+nrow(colon_counts) == 590
 stool_counts = filter_per_organ2(metadata, count_data, "stool")
+nrow(stool_counts) == 702
 stool_counts = stool_counts[-nearZeroVar(t(stool_counts)), ]
+nrow(stool_counts) == 575
 
-# Load 16S to MAG mapping
-OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F)
-OTUtoMAG = OTUtoMAG %>% select(V1, V2)
-OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
-
-cecumMAGCounts <- cecum_counts[rownames(cecum_counts) %in% OTUtoMAG$V1, ]
-colonMAGCounts <- colon_counts[rownames(colon_counts) %in% OTUtoMAG$V1, ]
-stoolMAGCounts <- stool_counts[rownames(stool_counts) %in% OTUtoMAG$V1, ]
- 
-
-calculateRXNAbundances <- function (organMAGCounts)
+calculateRXNAbundances <- function (organMAGCounts, normalize = F)
 {
+  OTUtoMAG <- read.csv("../data/VsearchMap6Out99.tsv", sep = "\t", header = F, check.names = F)
+  OTUtoMAG = OTUtoMAG %>% select(V1, V2)
+  OTUtoMAG$V2 = gsub("::.*", "", OTUtoMAG$V2)
+
   # Merge otu and mag information
   organMAGCounts <- merge(organMAGCounts, OTUtoMAG, by.x = 0 , by.y = "V1")
   organMAGCounts$Row.names = organMAGCounts$V2
@@ -88,14 +88,27 @@ calculateRXNAbundances <- function (organMAGCounts)
   #mtx_test = mtx_rxnInModels[1:5, 1:5]
   #organCount = organFinalOTUCount[1:5, 1:5]
   #res_test = mtx_test %*% organCount
-  organFinalActivateOTUCount = mtx_rxnInModels %*% organFinalOTUCount
-  colnames(organFinalActivateOTUCount) = gsub("Sum_", "", colnames(organFinalActivateOTUCount))
-  return(organFinalActivateOTUCount)
+  organFinalActivateRxNCount = mtx_rxnInModels %*% organFinalOTUCount
+  colnames(organFinalActivateRxNCount) = gsub("Sum_", "", colnames(organFinalActivateRxNCount))
+  if(normalize) {
+    organFinalActivateRxNCount <- apply(organFinalActivateRxNCount, 2, function(col) {col/sum(col)})
+  }
+  return(organFinalActivateRxNCount)
 }
 
-cecum = calculateRXNAbundances(cecum_counts)
-stool = calculateRXNAbundances(stool_counts)
-colon = calculateRXNAbundances(colon_counts)
-write.csv(cecum, "../data/absolute_cecum_rxn_abundance.csv", row.names = T)
-write.csv(colon, "../data/absolute_colon_rxn_abundance.csv", row.names = T)
-write.csv(stool, "../data/absolute_stool_rxn_abundance.csv", row.names = T)
+abs_cecum = calculateRXNAbundances(cecum_counts)
+abs_stool = calculateRXNAbundances(stool_counts)
+abs_colon = calculateRXNAbundances(colon_counts)
+# Base on NOT normalized zero variance-filtered MAG counts, also only MAGs only reactionsa are included that have a
+# MAG in our list
+write.csv(abs_cecum, "../data/absolute_cecum_rxn_abundance.csv", row.names = T)
+write.csv(abs_colon, "../data/absolute_colon_rxn_abundance.csv", row.names = T)
+write.csv(abs_stool, "../data/absolute_stool_rxn_abundance.csv", row.names = T)
+
+rel_cecum = calculateRXNAbundances(cecum_counts, normalize = T)
+rel_stool = calculateRXNAbundances(stool_counts, normalize = T)
+rel_colon = calculateRXNAbundances(colon_counts, normalize = T)
+# Base on NORMALIZED zero variance-filtered OTU counts, then mapped to mags, before counts were calculated and normalized
+write.csv(rel_cecum, "../data/relative_cecum_rxn_abundance.csv", row.names = T)
+write.csv(rel_colon, "../data/relative_colon_rxn_abundance.csv", row.names = T)
+write.csv(rel_stool, "../data/relative_stool_rxn_abundance.csv", row.names = T)
