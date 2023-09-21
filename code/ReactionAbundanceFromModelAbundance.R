@@ -42,7 +42,7 @@ filter_per_organ2 = function (metadata, countdata, organ) {
   # Get only the count data for the organ
   filtered_count_data = countdata[, metadata_organ$PatID]
   # Normalize OTU abundances
-  filtered_count_data <- apply(filtered_count_data, 2, function(col) {col/sum(col)})
+  #filtered_count_data <- apply(filtered_count_data, 2, function(col) {col/sum(col)})
   colnames(filtered_count_data) = gsub("_.", "", colnames(filtered_count_data))
   return(filtered_count_data)
 }
@@ -96,6 +96,6 @@ calculateRXNAbundances <- function (organMAGCounts)
 cecum = calculateRXNAbundances(cecum_counts)
 stool = calculateRXNAbundances(stool_counts)
 colon = calculateRXNAbundances(colon_counts)
-write.csv(cecum, "../data/cecum_rxn_abundance.csv", row.names = T)
-write.csv(colon, "../data/colon_rxn_abundance.csv", row.names = T)
-write.csv(stool, "../data/stool_rxn_abundance.csv", row.names = T)
+write.csv(cecum, "../data/absolute_cecum_rxn_abundance.csv", row.names = T)
+write.csv(colon, "../data/absolute_colon_rxn_abundance.csv", row.names = T)
+write.csv(stool, "../data/absolute_stool_rxn_abundance.csv", row.names = T)
