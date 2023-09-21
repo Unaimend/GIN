@@ -25,30 +25,28 @@ for(str_modelName in names(obj_metabolicModelsMouse)) {
   mtx_rxnInModels[obj_model$active,str_modelName] <- 1
 }
 
-absolute_cecum_counts = read.csv(file = "../data/absolute_cecum_mag_counts.csv")
-nrow(absolute_cecum_counts) == 161
-absolute_colon_counts = read.csv(file = "../data/absolute_colon_mag_counts.csv")
-nrow(absolute_colon_counts) == 161
-absolute_stool_counts = read.csv(file = "../data/absolute_stool_mag_counts.csv")
-nrow(absolute_stool_counts) == 161
+absolute_cecum_counts = read.csv(file = "../data/absolute_cecum_mag_counts.csv", row.names = 1)
+nrow(absolute_cecum_counts) == 124
+absolute_colon_counts = read.csv(file = "../data/absolute_colon_mag_counts.csv", row.names = 1)
+nrow(absolute_colon_counts) == 124
+absolute_stool_counts = read.csv(file = "../data/absolute_stool_mag_counts.csv", row.names = 1)
+nrow(absolute_stool_counts) == 124
 
 calculateRXNAbundances <- function (organMAGCounts, normalize = F)
 {
   # The rows of the counts should be the same as the columns as the  activity matrix
-  int = intersect(organMAGCounts$V2, colnames(mtx_rxnInModels))
+  int = intersect(rownames(organMAGCounts), colnames(mtx_rxnInModels))
   length(int) == 124
   mtx_rxnInModels <- as.matrix(as.data.frame(mtx_rxnInModels)[int] %>% mutate_all(as.numeric))
-  organFinalOTUCount = organMAGCounts[organMAGCounts$V2 %in% int, ]
+  organFinalOTUCount = organMAGCounts[rownames(organMAGCounts) %in% int, ]
   nrow(organFinalOTUCount) == 124
   # 124 Models of the 161 models have reaction information
-  print(all.equal(organFinalOTUCount$V2, colnames(mtx_rxnInModels)))
-  rownames(organFinalOTUCount) = organFinalOTUCount$V2
-  organFinalOTUCount = as.matrix(organFinalOTUCount %>% select(-V2))
+  print(all.equal(rownames(organFinalOTUCount), colnames(mtx_rxnInModels)))
   # Small example to check if the math works out
   #mtx_test = mtx_rxnInModels[1:5, 1:5]
   #organCount = organFinalOTUCount[1:5, 1:5]
   #res_test = mtx_test %*% organCount
-  organFinalActivateRxNCount = mtx_rxnInModels %*% organFinalOTUCount
+  organFinalActivateRxNCount = mtx_rxnInModels %*% as.matrix(organFinalOTUCount)
   colnames(organFinalActivateRxNCount) = gsub("Sum_", "", colnames(organFinalActivateRxNCount))
   if(normalize) {
     organFinalActivateRxNCount <- apply(organFinalActivateRxNCount, 2, function(col) {col/sum(col)})
