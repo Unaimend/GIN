@@ -10,8 +10,6 @@ library(rstatix)
 cecum_mag_counts <- t(read.table("../data/absolute_cecum_mag_counts.csv", sep = ",", header = T, row.names = 1))
 colon_mag_counts = t(read.table("../data/absolute_colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
 stool_mag_counts = t(read.table("../data/absolute_stool_mag_counts.csv", sep = ",", header = T, row.names = 1))
-
-
 mag= function(cecum_counts, colon_counts, stool_counts,  month,
               show_label = F, kind = "MAG", pattern, lim = c(1,4.5),
               breaks = c(1,2,3,4), step = 0) {
@@ -74,7 +72,7 @@ mag= function(cecum_counts, colon_counts, stool_counts,  month,
   final = arranged_plots
   ggsave(final, filename = "../data/plots/mag_alpha_div_along_sites.pdf", width = 12, height  = 12)
   }
-{
+#{
 #cecum_rxn_counts = t(as.matrix(read.csv("../data/absolute_cecum_rxn_abundance.csv", check.names = F, row.names = 1)))
 #colon_rxn_counts = t(as.matrix(read.csv("../data/absolute_colon_rxn_abundance.csv", check.names = F, row.names = 1)))
 #stool_rxn_counts = t(as.matrix(read.csv("../data/absolute_stool_rxn_abundance.csv", check.names = F, row.names = 1)))
@@ -91,7 +89,7 @@ mag= function(cecum_counts, colon_counts, stool_counts,  month,
 #)
 #final_rxn = arranged_plots_rxn
 #ggsave(final_rxn, filename = "../data/plots/rxn_alpha_div_along_sites.pdf", width = 12, height  = 12)
-}
+#}
 
 
 cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
