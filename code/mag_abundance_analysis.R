@@ -14,10 +14,18 @@ stool_counts = filter_per_organ(metadata, count_data, "stool")
 absolute_cecum_counts = filter_per_organ(metadata, count_data, "Cecum", normalize = F)
 absolute_colon_counts = filter_per_organ(metadata, count_data, "Colon", normalize = F)
 absolute_stool_counts = filter_per_organ(metadata, count_data, "stool", normalize = F)
-write.csv(absolute_cecum_counts, file = "../data/cecum_mag_counts.csv", row.names = F)
-write.csv(absolute_colon_counts, file = "../data/colon_mag_counts.csv", row.names = F)
-write.csv(absolute_stool_counts, file = "../data/stool_mag_counts.csv", row.names = F)
 
+filt_cecum_counts = filter_per_organ(metadata, count_data, "Cecum", zero_var_filt = T)
+filt_colon_counts = filter_per_organ(metadata, count_data, "Colon", zero_var_filt = T)
+filt_stool_counts = filter_per_organ(metadata, count_data, "stool", zero_var_filt = T)
+
+write.csv(absolute_cecum_counts, file = "../data/absolute_cecum_mag_counts.csv", row.names = T)
+write.csv(absolute_colon_counts, file = "../data/absolute_colon_mag_counts.csv", row.names = T)
+write.csv(absolute_stool_counts, file = "../data/absolute_stool_mag_counts.csv", row.names = T)
+
+write.csv(filt_cecum_counts, file = "../data/filtered_relative_cecum_mag_counts.csv")
+write.csv(filt_colon_counts, file = "../data/filtered_relative_colon_mag_counts.csv")
+write.csv(filt_stool_counts, file = "../data/filtered_relative_stool_mag_counts.csv")
 
 
 
@@ -41,7 +49,7 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
     d3 =  as.data.frame(t(counts3[otu, ]))
     current_otu = d1
     current_otu2 = merge(current_otu, d2   , by.x = 0, by.y = 0 )
-    current_otu3 = merge(current_otu2, d3  , by.x = "Row.names", by.y = 0 )
+    current_otu3 <- merge(current_otu2, d3  , by.x = "Row.names", by.y = 0 )
     colnames(current_otu3) <- c("patID", "cecum_count", "colon_count", "stool_count")
     #rownames(current_otu3) <- gsub(".*/", "", current_otu3$patID)
     temp_meta = metadata %>% select(c(Age, ID))
@@ -101,29 +109,26 @@ calculate_p_values <- function(counts1,counts2, counts3,age = 2)
 # Load 16S to MAG mapping
 # 161
 cecumMAGCounts <- cecum_counts
-cecumMAGCounts = cecumMAGCounts %>% column_to_rownames("V2")
 # 161
 colonMAGCounts <- colon_counts
-colonMAGCounts = colonMAGCounts %>% column_to_rownames("V2")
 
 # 161
 stoolMAGCounts <- stool_counts
-stoolMAGCounts = stoolMAGCounts %>% column_to_rownames("V2")
 
-cecumMAGCounts = cecumMAGCounts[-nearZeroVar(t(cecumMAGCounts)), ]
-# 150
-colonMAGCounts = colonMAGCounts[-nearZeroVar(t(colonMAGCounts)), ]
+cecumMAGCounts = read.csv(file = "../data/filtered_relative_cecum_mag_counts.csv", row.names = 1)
+# 150            read
+colonMAGCounts = read.csv(file = "../data/filtered_relative_colon_mag_counts.csv", row.names = 1)
 # 154
-stoolMAGCounts = stoolMAGCounts[-nearZeroVar(t(stoolMAGCounts)), ]
+stoolMAGCounts = read.csv(file = "../data/filtered_relative_stool_mag_counts.csv", row.names = 1)
 # 154
 
 ### Check if we have the same MAGs in all three communities
 all.equal(rownames(stoolMAGCounts), rownames(colonMAGCounts))
 all.equal(rownames(cecumMAGCounts), rownames(colonMAGCounts))
 
-write.csv(cecumMAGCounts, file = "../data/filtered_relative_cecum_mag_counts.csv")
-write.csv(colonMAGCounts, file = "../data/filtered_relative_colon_mag_counts.csv")
-write.csv(stoolMAGCounts, file = "../data/filtered_relative_stool_mag_counts.csv")
+
+
+
 
 Two_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stoolMAGCounts)
 Nine_month_MAG <- calculate_p_values(cecumMAGCounts, colonMAGCounts, stoolMAGCounts, age = "9")

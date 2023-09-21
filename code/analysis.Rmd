@@ -203,16 +203,16 @@ library(clusterProfiler)
 #}
 
 setwd("/home/td/Projects/Aging/Baseline/GIN/code")
-cecumRxNCounts = as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1))
+cecumRxNCounts = as.matrix(read.csv("../data/relative_cecum_rxn_abundance.csv", check.names = F, row.names = 1))
 cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
 cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
 
 
-colonRxNCounts = as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1))
+colonRxNCounts = as.matrix(read.csv("../data/relative_colon_rxn_abundance.csv", check.names = F, row.names = 1))
 colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
 colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
 
-stoolRxNCounts = as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1))
+stoolRxNCounts = as.matrix(read.csv("../data/relative_stool_rxn_abundance.csv", check.names = F, row.names = 1))
 stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
 stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
 
@@ -257,13 +257,13 @@ colnames(counts_by_age2) = c("c_cec", "c_pc", "c_dc", "ss")
 fin = counts_by_age2 %>% group_by(ss) %>%
   summarise(across(starts_with("c_"), ~mean(.)))
 
+fin2 = fin[fin$ss %in% enricher_all_2M$Description, ]
 # TODO Annotate counts_by_age with SS and again do the average
-long_data <- fin %>%
+long_data <- fin2 %>%
   pivot_longer(cols = -ss, names_to = "key", values_to = "value")
 hm = ggplot(long_data, aes(key, ss, fill= value)) +
   geom_tile()
-ggsave("../data/plots/enrichment_plot_2M.pdf", hm, height = 40)
-te
+ggsave("../data/plots/enrichment_plot_2M.pdf", hm, height = 12)
 ```
 
 ```{r}

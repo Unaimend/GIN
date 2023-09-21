@@ -7,9 +7,9 @@ library(ggpubr)
 library(rstatix)
 
 # MAP TO MAGS AND  AND CHECK IF WE CAN USE RELATIVE COUNTS, AND FILTER DOUBLES
-cecum_mag_counts <- t(read.table("../data/cecum_mag_counts.csv", sep = ",", header = T, row.names = 1))
-colon_mag_counts = t(read.table("../data/colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
-stool_mag_counts = t(read.table("../data/stool_mag_counts.csv", sep = ",", header = T, row.names = 1))
+cecum_mag_counts <- t(read.table("../data/absolute_cecum_mag_counts.csv", sep = ",", header = T, row.names = 1))
+colon_mag_counts = t(read.table("../data/absolute_colon_mag_counts.csv", sep = ",", header = T, row.names = 1))
+stool_mag_counts = t(read.table("../data/absolute_stool_mag_counts.csv", sep = ",", header = T, row.names = 1))
 
 
 mag= function(cecum_counts, colon_counts, stool_counts,  month,
@@ -75,22 +75,22 @@ mag= function(cecum_counts, colon_counts, stool_counts,  month,
   ggsave(final, filename = "../data/plots/mag_alpha_div_along_sites.pdf", width = 12, height  = 12)
   }
 {
-cecum_rxn_counts = t(as.matrix(read.csv("../data/cecum_rxn_abundance.csv", check.names = F, row.names = 1)))
-colon_rxn_counts = t(as.matrix(read.csv("../data/colon_rxn_abundance.csv", check.names = F, row.names = 1)))
-stool_rxn_counts = t(as.matrix(read.csv("../data/stool_rxn_abundance.csv", check.names = F, row.names = 1)))
-
-r2  = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "2",     show_label = T, kind = "Reaction","2/" , lim = c(6.9, 7.4), breaks = waiver(), step = 0.05)
-r9  = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "9",     show_label = F, kind = "Reaction","9/" , lim = c(6.9, 7.4), breaks = waiver(), step = 0.09)
-r15 = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "15",    show_label = F, kind = "Reaction","15/", lim = c(6.9, 7.4), breaks = waiver(), step = 0.09)
-r24 = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "24",    show_label = T, kind = "Reaction","24/", lim = c(6.8, 7.4), breaks = waiver(), step = 0.07)
-r30 = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "30",    show_label = F, kind = "Reaction","30/", lim = c(6.8, 7.4), breaks = waiver(), step = 0.07)
-arranged_plots_rxn <- wrap_plots(
-  r2 + r9 + r15,
-  r24 + r30,
-  ncol = 1
-)
-final_rxn = arranged_plots_rxn
-ggsave(final_rxn, filename = "../data/plots/rxn_alpha_div_along_sites.pdf", width = 12, height  = 12)
+#cecum_rxn_counts = t(as.matrix(read.csv("../data/absolute_cecum_rxn_abundance.csv", check.names = F, row.names = 1)))
+#colon_rxn_counts = t(as.matrix(read.csv("../data/absolute_colon_rxn_abundance.csv", check.names = F, row.names = 1)))
+#stool_rxn_counts = t(as.matrix(read.csv("../data/absolute_stool_rxn_abundance.csv", check.names = F, row.names = 1)))
+#
+#r2  = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "2",     show_label = T, kind = "Reaction","2/" , lim = c(6.9, 7.4), breaks = waiver(), step = 0.05)
+#r9  = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "9",     show_label = F, kind = "Reaction","9/" , lim = c(6.9, 7.4), breaks = waiver(), step = 0.09)
+#r15 = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "15",    show_label = F, kind = "Reaction","15/", lim = c(6.9, 7.4), breaks = waiver(), step = 0.09)
+#r24 = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "24",    show_label = T, kind = "Reaction","24/", lim = c(6.8, 7.4), breaks = waiver(), step = 0.07)
+#r30 = mag(cecum_rxn_counts, colon_rxn_counts, stool_rxn_counts,  "30",    show_label = F, kind = "Reaction","30/", lim = c(6.8, 7.4), breaks = waiver(), step = 0.07)
+#arranged_plots_rxn <- wrap_plots(
+#  r2 + r9 + r15,
+#  r24 + r30,
+#  ncol = 1
+#)
+#final_rxn = arranged_plots_rxn
+#ggsave(final_rxn, filename = "../data/plots/rxn_alpha_div_along_sites.pdf", width = 12, height  = 12)
 }
 
 
@@ -99,13 +99,13 @@ colon_counts = filter_per_organ(metadata, count_data, "Colon")
 stool_counts = filter_per_organ(metadata, count_data, "stool")
 
 
-taxonomy = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
-phylum = taxonomy %>% select(user_genome, Phylum )
 
 
 
 rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label = F) {
-  cecum = filter_per_organ(metadata, count_data, "Cecum")
+  taxonomy = read.csv("../data/TaxonomyHQDraftMAGs.csv", sep = "\t")
+  phylum = taxonomy %>% select(user_genome, Phylum )
+
   cecum = cecum %>% select(matches(pattern))
   cecum = merge(cecum, phylum, by.x = 0, by.y = "user_genome")
   cecum <- cecum %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
@@ -115,7 +115,6 @@ rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label
 
   cecum$organ = "Cecum"
 
-  colon = filter_per_organ(metadata, count_data, "Colon")
   colon = colon %>% select(matches(pattern))
   colon = merge(colon, phylum, by.x = 0, by.y = "user_genome")
   colon <- colon %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
@@ -125,7 +124,6 @@ rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label
   colon$organ = "Proximal C."
 
 
-  stool = filter_per_organ(metadata, count_data, "stool")
   stool = stool %>% select(matches(pattern))
   stool = merge(stool, phylum, by.x = 0, by.y = "user_genome")
   stool <- stool %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
