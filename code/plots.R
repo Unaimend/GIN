@@ -152,8 +152,14 @@ rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label
 two_month = rel_tax(cecum_counts, colon_counts, stool_counts, "2", "2/", show_label = T)
 nine_month = rel_tax(cecum_counts, colon_counts, stool_counts, "9", "9/")
 fifteen_month = rel_tax(cecum_counts, colon_counts, stool_counts, "15", "15/", color_desc = T)
-
-final_tax = two_month | nine_month | fifteen_month
+twentyfour_month = rel_tax(cecum_counts, colon_counts, stool_counts, "24", "24/", color_desc = F)
+thirty_month = rel_tax(cecum_counts, colon_counts, stool_counts, "30", "30/", color_desc = T)
+final_tax = wrap_plots( two_month + nine_month + fifteen_month,
+                             twentyfour_month + thirty_month,
+                        ncol = 1)
 ggsave(final_tax, filename = "../data/plots/rel_tax.pdf", width = 12, height = 10)
 
 
+
+
+t = readRDS("../data/df_rxn2subsys20230711MetaMouse.rds")
