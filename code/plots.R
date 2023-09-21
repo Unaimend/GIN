@@ -107,12 +107,12 @@ rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label
   phylum = taxonomy %>% select(user_genome, Phylum )
 
   cecum = cecum %>% select(matches(pattern))
-  cecum = merge(cecum, phylum, by.x = 0, by.y = "user_genome")
   cecum <- cecum %>% group_by(Phylum) %>% summarize(across(matches(".*/"), sum, .names = "Sum_{.col}"))
   cecum = cecum %>%  pivot_longer(cols = starts_with("Sum_"),    # Specify the columns to pivot
                                   names_to = "variable",         # Name of the new variable column
                                   values_to = "value")
 
+  bac_order = cecum %>% filter(Phylum == "Bacteroidota") %>% arrange(value)
   cecum$organ = "Cecum"
 
   colon = colon %>% select(matches(pattern))
