@@ -4,6 +4,8 @@ output: html_notebook
 ---
 
 ```{r}
+setwd("/home/td/Projects/Aging/Baseline/GIN/code")
+
 library(dplyr)
 library(dplyr)
 library(ggplot2)
@@ -32,11 +34,6 @@ metadata <- read.csv("../data/Jena_mouse_clean_RNA.csv")
 
 
 
-t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0")
-trp1= ggplot(t, aes(x = Organ, y = Count)) +
-  geom_boxplot() +
-  labs(title = "Tryptophanase", x = "Groups", y = "Values")
-trp1
 enrichment_map = readRDS("../data/subsysMap-cognition-cohort.RDS")
 all_cecum_reaction_names = rownames(cecumRxNCounts)
 all_colon_reaction_names = rownames(colonRxNCounts)
@@ -45,6 +42,33 @@ all_stool_reaction_names = rownames(stoolRxNCounts)
 # I think because we are drawing from all three sites we have to take the union as a universe
 all_reaction_names = union(all_cecum_reaction_names, all_colon_reaction_names)
 all_reaction_names = union(all_reaction_names, all_stool_reaction_names)
+
+
+
+
+t2 <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0")
+trp1_2= ggplot(t2, aes(x = Organ, y = Count)) +
+        geom_boxplot() +
+        labs(title = "Tryptophanase", x = "Groups", y = "Values")
+trp1_2
+
+
+t15 <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0", age = 15)
+trp1_15= ggplot(t15, aes(x = Organ, y = Count)) +
+        geom_boxplot() +
+        labs(title = "Tryptophanase", x = "Groups", y = "Values")
+trp1_15
+
+
+t15 <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00997_c0", age = 15)
+trp1_15= ggplot(t15, aes(x = Organ, y = Count)) +
+        geom_boxplot() +
+        labs(title = "Tryptophanase", x = "Groups", y = "Values")
+trp1_15
+
+#t24 <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, "rxn00473_c0")
+
+
 ```
 ```{r}
 
@@ -141,96 +165,6 @@ write.csv(both, "../data/up_and_down_terms_15M.csv", row.names = F)
 
 ```
 
-```{r}
-library(dplyr)
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-library(tidyr)
-library(caret)
-library(clusterProfiler)
-
-#ss_up_9M  = read.csv("../data/upregulated_ss_9M.csv")
-#ss_up_15M = read.csv("../data/upregulated_ss_15M.csv")
-#
-#ss_down_9M  = read.csv("../data/downregulated_ss_9M.csv")
-#ss_down_15M = read.csv("../data/downregulated_ss_15M.csv")
-#
-#ss_all_9M = rbind(ss_up_9M, ss_down_9M)
-#ss_all_15M = rbind(ss_up_15M, ss_down_15M)
-#
-#common_ss_up1 = Reduce(intersect, list(ss_all_2M$name, ss_all_9M$name))
-#common_ss_up2 = Reduce(intersect, list(ss_all_2M$name, ss_all_15M$name))
-#common_ss_up3 = Reduce(intersect, list(ss_all_9M$name, ss_all_15M$name))
-#
-#in_at_least_two = unique(c(common_ss_up1, common_ss_up2, common_ss_up3))
-#if(length(in_at_least_two) != 112) {
-#  stop()
-#}
-
-setwd("/home/td/Projects/Aging/Baseline/GIN/code")
-cecumRxNCounts = as.matrix(read.csv("../data/relative_cecum_rxn_abundance.csv", check.names = F, row.names = 1))
-cecumRxNCounts <- apply(cecumRxNCounts, 2, function(col) {col/sum(col)})
-cecumRxNCounts = cecumRxNCounts[-nearZeroVar(t(cecumRxNCounts)), ]
-
-
-colonRxNCounts = as.matrix(read.csv("../data/relative_colon_rxn_abundance.csv", check.names = F, row.names = 1))
-colonRxNCounts <- apply(colonRxNCounts, 2, function(col) {col/sum(col)})
-colonRxNCounts = colonRxNCounts[-nearZeroVar(t(colonRxNCounts)), ]
-
-stoolRxNCounts = as.matrix(read.csv("../data/relative_stool_rxn_abundance.csv", check.names = F, row.names = 1))
-stoolRxNCounts <- apply(stoolRxNCounts, 2, function(col) {col/sum(col)})
-stoolRxNCounts = stoolRxNCounts[-nearZeroVar(t(stoolRxNCounts)), ]
-
-
-
-ss_up_2M  = read.csv("../data/upregulated_terms_2M.csv")
-ss_down_2M  = read.csv("../data/downregulated_terms_2M.csv")
-ss_all_2M = rbind(ss_up_2M, ss_down_2M)
-
-# TODO Restrict to the "in at least two genes"
-enricher_up_2M = readRDS("../data/enricher_up_2M.RDS")@result
-enricher_down_2M = readRDS("../data/enricher_down_2M.RDS")@result
-enricher_up_2M = enricher_up_2M[enricher_up_2M$p.adjust < 0.05, ]
-enricher_down_2M = enricher_down_2M[enricher_down_2M$p.adjust < 0.05, ]
-enricher_all_2M = rbind(enricher_up_2M, enricher_down_2M)
-# Get all gene ids in all sub subsytems
-t = as.data.frame(enricher_all_2M$geneID)
-s = c()
-# gene all reactions
-for(i in 1:nrow(t)){
-  s = c(s, strsplit(t[i, ], "/"))
-}
-#TODO now we can figure out what kind of reactions are in the geneID column
-gene_ids = unique(unlist(s))
-
-# This dataframe cointains the average relative reaction abundance for all the GI sites. The average was calculated by taking all Samples of a specific age and a specific
-# site and well taking the mean
-counts_by_age = data.frame(reac = as.character(), cec = as.numeric(), pc = as.numeric(), dc = as.numeric())
-for(current_reaction in gene_ids) {
-  #current_reaction =  "rxn00473_c0"
-  t <- getTableForOtu(cecumRxNCounts, colonRxNCounts, stoolRxNCounts, current_reaction)
-  f = t %>%  group_by(Organ) %>%
-    summarize(mean = mean(Count))
-  counts_by_age[nrow(counts_by_age) + 1, ] = c(current_reaction, f[1, 2], f[2, 2], f[3, 2])
-}
-
-rxn_to_ss = readRDS("../data/df_rxn2subsys20230711MetaMouse.rds") %>% select(ReactionID, SubsystemShort)
-counts_by_age = merge(counts_by_age, rxn_to_ss, by.x = "reac", by.y = "ReactionID")
-colnames(counts_by_age) = c("reac", "c_cec", "c_pc", "c_dc")
-counts_by_age2 = counts_by_age[c(2:5)]
-colnames(counts_by_age2) = c("c_cec", "c_pc", "c_dc", "ss")
-fin = counts_by_age2 %>% group_by(ss) %>%
-  summarise(across(starts_with("c_"), ~mean(.)))
-
-fin2 = fin[fin$ss %in% enricher_all_2M$Description, ]
-# TODO Annotate counts_by_age with SS and again do the average
-long_data <- fin2 %>%
-  pivot_longer(cols = -ss, names_to = "key", values_to = "value")
-hm = ggplot(long_data, aes(key, ss, fill= value)) +
-  geom_tile()
-ggsave("../data/plots/enrichment_plot_2M.pdf", hm, height = 12)
-```
 
 ```{r}
 library(ggplot2)

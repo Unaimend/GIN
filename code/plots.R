@@ -5,6 +5,7 @@ library(ggplot2)
 source("utils.R")
 library(ggpubr)
 library(rstatix)
+library(dplyr)
 
 # MAP TO MAGS AND  AND CHECK IF WE CAN USE RELATIVE COUNTS, AND FILTER DOUBLES
 cecum_mag_counts <- t(read.table("../data/rarefied_cecum.csv", sep = ",", header = T, row.names = 1))
@@ -135,10 +136,15 @@ rel_tax = function(cecum, colon, stool, age, pattern, color_desc = F, show_label
   overall$organ = factor(overall$organ, levels = c("Cecum", "Proximal C.", "Distal C."))
   all_samples = unique(overall$variable)
 
- missing_in_cecum = setdiff(all_samples, bac_order$variable)
+  missing_in_cecum = setdiff(all_samples, bac_order$variable)
+  overall$variable = gsub("Sum_Sum_", "", overall$variable)
+
+  missing_in_cecum =  gsub("Sum_Sum_", "", missing_in_cecum)
+  bac_order$variable = gsub("Sum_Sum_", "", bac_order$variable)
 
   overall$variable = factor(overall$variable, levels = c(bac_order$variable, missing_in_cecum))
-
+  overall = overall %>% filter(variable != "30/91")
+  overall = overall %>% filter(variable != "30/92")
   p1 <- overall %>%
     ggplot(aes(x = variable, y = value)) +
     geom_bar(aes(fill = Phylum), stat = "identity", position = "fill") +

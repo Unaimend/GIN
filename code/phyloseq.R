@@ -1,3 +1,5 @@
+# Alpha div. with phyoseq
+
 library("phyloseq")
 cecum_mag_counts <- read.table("../data/absolute_cecum_mag_counts.csv", sep = ",", header = T, row.names = 1)
 # REMOVE 30.91 becausre it only has one read

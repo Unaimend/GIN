@@ -6,14 +6,16 @@ filtered_rel_colon = read.csv("../data/filtered_relative_colon_rxn_abundance.csv
 filtered_rel_stool = read.csv("../data/filtered_relative_stool_rxn_abundance.csv", row.names = 1, check.names = F)
 
 
-make_matrix = function(path_enrich_up, path_enrich_down) {
+make_matrix = function(path_enrich_up, path_enrich_down, pval = 0.001) {
   # Load enricher results
   enricher_up = readRDS(path_enrich_up)@result
   enricher_down = readRDS(path_enrich_down)@result
   # We want to include up and downregulated sub systems because we want to see the difference in the plot
   enricher_all = rbind(enricher_up, enricher_down)
-  enricher_all = enricher_all[enricher_all$p.adjust < 0.001, ]
+  enricher_all = enricher_all[enricher_all$p.adjust < 0.0001, ]
 
+  enricher_all = enricher_all %>% arrange("p.adjust")
+  #enricher_all = enricher_all[1:20, ]
   # TODO Does the geneID column only represent reaction that we "put into enricher?"
   # TODO Check if all reactions occour in our significant lists
   ss_to_rxn = enricher_all %>% select(Description, geneID)
@@ -65,23 +67,31 @@ make_matrix = function(path_enrich_up, path_enrich_down) {
 
 
   averaged_bs_ss_rxn_ss_count_across_all_samples = averaged_bs_ss_rxn_ss_count_across_all_samples %>% column_to_rownames("sss")
+  colnames(averaged_bs_ss_rxn_ss_count_across_all_samples) = c("Cecum", "Proximal C.", "Distal C.")
   return(averaged_bs_ss_rxn_ss_count_across_all_samples)
 }
 
+WIDTH = 12
+HEIGHT = 18
+RES = 1200
  {
  mat2M = make_matrix("../data/enricher_up_2M.RDS",  "../data/enricher_down_2M.RDS")
- pdf("../data/plots/sse_heatmap_2M.pdf")
+
+pdf("../data/plots/sse_heatmap_2M.pdf" ,
+     width     = WIDTH,
+     height    = HEIGHT)
  map2M =  gplots::heatmap.2(as.matrix(mat2M),
                            Colv = FALSE,
                            scale = "row",
                            trace = "none",
                            dendrogram = "none",
                             main = "2M",
-                            ylab =  "Subsystems",
-                            xlab =  "GI Site",
                             #offsetRow = -56,
                             key = F,
-                            cexRow = 0.5,
+                            labCol=as.expression(lapply(colnames(mat2M), function(a) bquote(bold(.(a))))),
+                            cexRow = 1.4,
+                            cexCol = 1.6,
+                            margins = c(0, 40),
                           col = c(colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 9))(50))
  )
  dev.off()
@@ -118,37 +128,45 @@ make_matrix = function(path_enrich_up, path_enrich_down) {
 }
 
 mat9M = make_matrix("../data/enricher_up_9M.RDS",  "../data/enricher_down_9M.RDS")
-pdf("../data/plots/sse_heatmap_9M.pdf")
+pdf("../data/plots/sse_heatmap_9M.pdf" ,
+    width     = WIDTH,
+    height    = HEIGHT)
+
 map9M =  gplots::heatmap.2(as.matrix(mat9M),
                            Colv = FALSE,
                            scale = "row",
                            trace = "none",
                            dendrogram = "none",
                            main = "9M",
-                           ylab =  "Subsystems",
-                           xlab =  "GI Site",
                            #offsetRow = -56,
                            key = F,
-                           cexRow = 0.5,
-                           cexCol = 0.5,
+                           labCol=as.expression(lapply(colnames(mat9M), function(a) bquote(bold(.(a))))),
+                           cexRow = 1.4,
+                           cexCol = 1.6,
+                           margins = c(0, 40),
                            col = colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 9))(50)
 )
 dev.off()
 
 mat15M = make_matrix("../data/enricher_up_15M.RDS",  "../data/enricher_down_15M.RDS")
-pdf("../data/plots/sse_heatmap_15M.pdf")
+pdf("../data/plots/sse_heatmap_15M.pdf",
+    width     = WIDTH,
+    height    = HEIGHT
+   )
 map15M =  gplots::heatmap.2(as.matrix(mat15M),
                            Colv = FALSE,
                            scale = "row",
                            trace = "none",
                            dendrogram = "none",
                            main = "15M",
-                           ylab =  "Subsystems",
-                           xlab =  "GI Site",
                            #offsetRow = -56,
                            key = F,
-                           cexRow = 0.5,
-                           cexCol = 0.5,
-                           col = c(colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 15))(50))
+                           labCol=as.expression(lapply(colnames(mat15M), function(a) bquote(bold(.(a))))),
+                           cexRow = 1.4,
+                           cexCol = 1.6,
+                            margins = c(0, 40),
+                            #density.info = "none",
+                           col = c(colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 9))(50))
 )
 dev.off()
+c(colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 9))(50))
