@@ -310,13 +310,18 @@ amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(twentyfour_sig_rxn[twentyf
 amount_sig_reac[nrow(amount_sig_reac) + 1, ] = c(nrow(thirty_sig_rxn[thirty_sig_rxn$coefficient >= 0, ]), nrow(thirty_sig_rxn[thirty_sig_rxn$coefficient < 0, ]), 30)
 
 amount_sig_reac_long <- melt(amount_sig_reac, id.vars = "age")
-ggplot(amount_sig_reac_long, aes(x = age, y = value, fill = variable)) +
+colnames(amount_sig_reac_long) = c("Age", "variable", "Count")
+amount_sig_reac_long$Count = as.integer(amount_sig_reac_long$Count)
+amount_sig_reac_long$Age  = as.integer(amount_sig_reac_long$Age)
+ggplot(amount_sig_reac_long, aes(x = Age, y = Count, fill = variable)) +
   geom_bar(stat = "identity") +
   scale_fill_manual(values = c("count_pos" = "blue", "count_neg" = "orange")) +
-  scale_x_discrete(
+        ggtitle("Amount of sig. correlated Rxns") +
+      scale_x_discrete(
     limits = c(2, 9, 15, 24, 30) # Specify the desired order of categories
   )  + 
   theme_minimal()
+ggsave("../data/plots/amount_of_sig_rxn.pdf")
 ```
 
 
@@ -377,6 +382,8 @@ stool_16S_counts = t(filter_per_organ(metadata, count_data, "stool", normalize =
 mag_vs_16s_alpha = function(mag_counts, sixteenS_counts, organ) {
   mag_shannon <- as.data.frame(diversity(mag_counts, index = "shannon"))                          
   mag_shannon$grp = "MAG"
+
+
   ss_shannon <- as.data.frame(diversity(sixteenS_counts, index = "shannon"))                          
   ss_shannon$grp = "16S"
   colnames(mag_shannon)= c("alpha", "grp")
