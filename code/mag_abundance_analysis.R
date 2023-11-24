@@ -24,9 +24,16 @@ absolute_colon_counts_intersected = absolute_colon_counts[samples_in_all_three]
 absolute_stool_counts_intersected = absolute_stool_counts[samples_in_all_three]
 
 # Remove Sub_ so the names are again the same as in the gapseqs
-colnames(absolute_cecum_counts_intersected) =  gsub("Sum_", "",   colnames(absolute_cecum_counts_intersected))
-colnames(absolute_colon_counts_intersected) =  gsub("Sum_", "",   colnames(absolute_colon_counts_intersected))
-colnames(absolute_stool_counts_intersected) =  gsub("Sum_", "",   colnames(absolute_stool_counts_intersected))
+colnames(absolute_cecum_counts_intersected) =  gsub("sum_", "",   colnames(absolute_cecum_counts_intersected))
+colnames(absolute_colon_counts_intersected) =  gsub("sum_", "",   colnames(absolute_colon_counts_intersected))
+colnames(absolute_stool_counts_intersected) =  gsub("sum_", "",   colnames(absolute_stool_counts_intersected))
+
+
+colnames(absolute_cecum_counts_intersected) =  gsub("/", "_",   colnames(absolute_cecum_counts_intersected))
+colnames(absolute_colon_counts_intersected) =  gsub("/", "_",   colnames(absolute_colon_counts_intersected))
+colnames(absolute_stool_counts_intersected) =  gsub("/", "_",   colnames(absolute_stool_counts_intersected))
+
+
 write.table(absolute_cecum_counts_intersected, file = "../MicrobiomeGS/data/absolute_cecum_counts_intersected.tsv", sep = '\t')
 write.table(absolute_colon_counts_intersected, file = "../MicrobiomeGS/data/absolute_colon_counts_intersected.tsv", sep = '\t')
 write.table(absolute_stool_counts_intersected, file = "../MicrobiomeGS/data/absolute_stool_counts_intersected.tsv", sep = '\t')
