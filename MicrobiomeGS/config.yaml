@@ -1,0 +1,19 @@
+# IMPORTANT: THE FIRST ROW MUST BE THE SAMPLE NAMES
+# AND THE FIRST COLUMN MUST BE THE NAMES OF THE GAPSEQS
+# See tutorial_files for an example
+abundance_file: "../data/absolute_cecum_counts_intersected.tsv"
+# THE ABOVE MENTIONED FIRST COLUMN MUST CONTAIN THE SAME ELEMENTS
+# AS THE INDICES OF THE LIST BELOW
+# List that contains gapeqs (The list must be in rds format).
+# See tutorial_files for an example
+gapseq_models_path: "../data/metamouse_HQBins-20230711.RDS"
+# TODO: Explaine what this is
+single_model_growth: "../data/mice_cog2_growth.csv"
+growth_thr:  "0.000005"
+# TODO: Add abundance thresh
+# This variable defines where the single-sample communities will be stored
+# SHOULD NOT BE CHANGED FOR KNOW (If necessary please inform Thomas)
+out_filepath: "models/"
+# This variable defines where the single-samples communities aggregated into a single list
+# will be stored and what this RDS will be called
+merged_out_filepath: "merged_models/merged.RDS"

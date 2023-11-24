@@ -5,6 +5,7 @@ library(tidyr)
 library(caret)
 library(lmerTest)
 library(tidyverse)
+setwd("/home/td/Projects/Aging/Baseline/GIN/code")
 source("utils.R")
 
 cecum_counts = filter_per_organ(metadata, count_data, "Cecum")
@@ -14,6 +15,21 @@ stool_counts = filter_per_organ(metadata, count_data, "stool")
 absolute_cecum_counts = filter_per_organ(metadata, count_data, "Cecum", normalize = F)
 absolute_colon_counts = filter_per_organ(metadata, count_data, "Colon", normalize = F)
 absolute_stool_counts = filter_per_organ(metadata, count_data, "stool", normalize = F)
+
+# We dont not have all samples for all three organs thus we take the intersection
+samples_in_all_three = intersect(colnames(absolute_cecum_counts), colnames(absolute_colon_counts))
+samples_in_all_three = intersect(samples_in_all_three, colnames(absolute_stool_counts))
+absolute_cecum_counts_intersected = absolute_cecum_counts[samples_in_all_three]
+absolute_colon_counts_intersected = absolute_colon_counts[samples_in_all_three]
+absolute_stool_counts_intersected = absolute_stool_counts[samples_in_all_three]
+
+# Remove Sub_ so the names are again the same as in the gapseqs
+colnames(absolute_cecum_counts_intersected) =  gsub("Sum_", "",   colnames(absolute_cecum_counts_intersected))
+colnames(absolute_colon_counts_intersected) =  gsub("Sum_", "",   colnames(absolute_colon_counts_intersected))
+colnames(absolute_stool_counts_intersected) =  gsub("Sum_", "",   colnames(absolute_stool_counts_intersected))
+write.table(absolute_cecum_counts_intersected, file = "../MicrobiomeGS/data/absolute_cecum_counts_intersected.tsv", sep = '\t')
+write.table(absolute_colon_counts_intersected, file = "../MicrobiomeGS/data/absolute_colon_counts_intersected.tsv", sep = '\t')
+write.table(absolute_stool_counts_intersected, file = "../MicrobiomeGS/data/absolute_stool_counts_intersected.tsv", sep = '\t')
 
 filt_cecum_counts = filter_per_organ(metadata, count_data, "Cecum", zero_var_filt = T)
 filt_colon_counts = filter_per_organ(metadata, count_data, "Colon", zero_var_filt = T)

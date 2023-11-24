@@ -1,0 +1,3 @@
+[submodule "MicrobiomeGS/community_modeling_coupling"]
+	path = MicrobiomeGS/community_modeling_coupling
+	url = git@cau-git.rz.uni-kiel.de:MSB/community_modeling_coupling.git
