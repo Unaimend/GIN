@@ -1,4 +1,5 @@
 library("phyloseq")
+library("vegan")
 cecum_mag_counts <- read.table("../data/absolute_cecum_mag_counts.csv", sep = ",", header = T, row.names = 1)
 # REMOVE 30.91 becausre it only has one read
 cecum_mag_counts = cecum_mag_counts %>% select(-Sum_30.91)

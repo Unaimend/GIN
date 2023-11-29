@@ -7,7 +7,7 @@ library(caret)
 source("utils.R")
 ####################
 ## Alternatively use FVA reactions
-obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_MetamouseHQBins20211001.RDS")
+obj_metabolicModelsMouse <- readRDS("../data/fva_99_reactions_thr06_metamouse_HQBins-20230711.RDS")
 
 ##Get list of all reactions contained in the models
 lst_allRxns <- c()

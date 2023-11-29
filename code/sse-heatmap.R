@@ -169,4 +169,3 @@ map15M =  gplots::heatmap.2(as.matrix(mat15M),
                            col = c(colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 9))(50))
 )
 dev.off()
-c(colorRampPalette(RColorBrewer::brewer.pal("Reds", n = 9))(50))
