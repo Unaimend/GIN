@@ -1,0 +1,3487 @@
+Loading required package: Matrix
+Loading required package: lattice
+[1] "Loading models from: ../data/metamouse_HQBins-20230711.RDS"
+model name:             cluster_DBSCAN_round1_16_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1845 
+number of metabolites:  1548 
+number of unique genes: 418 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3690 optimizations ... OK
+model name:             cluster_DBSCAN_round1_19 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1948 
+number of metabolites:  1652 
+number of unique genes: 517 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3896 optimizations ... OK
+model name:             cluster_DBSCAN_round5_48 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1689 
+number of metabolites:  1472 
+number of unique genes: 352 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3378 optimizations ... OK
+model name:             concoct_1 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1204 
+number of metabolites:  1115 
+number of unique genes: 318 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2408 optimizations ... OK
+model name:             concoct_102 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1286 
+number of metabolites:  1167 
+number of unique genes: 227 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2572 optimizations ... OK
+model name:             concoct_103 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1458 
+number of metabolites:  1345 
+number of unique genes: 340 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2916 optimizations ... OK
+model name:             concoct_105_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1601 
+number of metabolites:  1440 
+number of unique genes: 361 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3202 optimizations ... OK
+model name:             concoct_112 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1978 
+number of metabolites:  1672 
+number of unique genes: 516 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3956 optimizations ... OK
+model name:             concoct_12 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2002 
+number of metabolites:  1737 
+number of unique genes: 525 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4004 optimizations ... OK
+model name:             concoct_127_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1800 
+number of metabolites:  1544 
+number of unique genes: 428 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3600 optimizations ... OK
+model name:             concoct_128_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1808 
+number of metabolites:  1570 
+number of unique genes: 417 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3616 optimizations ... OK
+model name:             concoct_130_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1947 
+number of metabolites:  1707 
+number of unique genes: 574 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3894 optimizations ... OK
+model name:             concoct_131_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1996 
+number of metabolites:  1716 
+number of unique genes: 501 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3992 optimizations ... OK
+model name:             concoct_137_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1986 
+number of metabolites:  1762 
+number of unique genes: 505 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3972 optimizations ... OK
+model name:             concoct_143_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1906 
+number of metabolites:  1684 
+number of unique genes: 554 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3812 optimizations ... OK
+model name:             concoct_148_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1817 
+number of metabolites:  1619 
+number of unique genes: 501 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3634 optimizations ... OK
+model name:             concoct_151 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2125 
+number of metabolites:  1884 
+number of unique genes: 699 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4250 optimizations ... OK
+model name:             concoct_172_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1529 
+number of metabolites:  1389 
+number of unique genes: 369 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3058 optimizations ... OK
+model name:             concoct_179 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1499 
+number of metabolites:  1310 
+number of unique genes: 272 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2998 optimizations ... OK
+model name:             concoct_182 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1485 
+number of metabolites:  1302 
+number of unique genes: 328 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2970 optimizations ... OK
+model name:             concoct_187_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1731 
+number of metabolites:  1482 
+number of unique genes: 375 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3462 optimizations ... OK
+model name:             concoct_188_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1744 
+number of metabolites:  1486 
+number of unique genes: 382 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3488 optimizations ... OK
+model name:             concoct_191 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1804 
+number of metabolites:  1565 
+number of unique genes: 456 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3608 optimizations ... OK
+model name:             concoct_192_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2109 
+number of metabolites:  1852 
+number of unique genes: 578 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4218 optimizations ... OK
+model name:             concoct_194 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1984 
+number of metabolites:  1683 
+number of unique genes: 585 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3968 optimizations ... OK
+model name:             concoct_195_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1891 
+number of metabolites:  1648 
+number of unique genes: 450 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3782 optimizations ... OK
+model name:             concoct_198 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2118 
+number of metabolites:  1820 
+number of unique genes: 727 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4236 optimizations ... OK
+model name:             concoct_199 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1760 
+number of metabolites:  1535 
+number of unique genes: 427 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3520 optimizations ... OK
+model name:             concoct_225_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1759 
+number of metabolites:  1545 
+number of unique genes: 420 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3518 optimizations ... OK
+model name:             concoct_256 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1948 
+number of metabolites:  1693 
+number of unique genes: 519 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3896 optimizations ... OK
+model name:             concoct_257 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1682 
+number of metabolites:  1485 
+number of unique genes: 422 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3364 optimizations ... OK
+model name:             concoct_262 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1644 
+number of metabolites:  1411 
+number of unique genes: 368 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3288 optimizations ... OK
+model name:             concoct_263 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1998 
+number of metabolites:  1749 
+number of unique genes: 559 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3996 optimizations ... OK
+model name:             concoct_265_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1788 
+number of metabolites:  1586 
+number of unique genes: 439 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3576 optimizations ... OK
+model name:             concoct_289_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1622 
+number of metabolites:  1414 
+number of unique genes: 376 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3244 optimizations ... OK
+model name:             concoct_293 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1914 
+number of metabolites:  1687 
+number of unique genes: 478 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3828 optimizations ... OK
+model name:             concoct_294_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1468 
+number of metabolites:  1282 
+number of unique genes: 333 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2936 optimizations ... OK
+model name:             concoct_304 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1738 
+number of metabolites:  1490 
+number of unique genes: 416 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3476 optimizations ... OK
+model name:             concoct_305 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1397 
+number of metabolites:  1305 
+number of unique genes: 325 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2794 optimizations ... OK
+model name:             concoct_309 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1891 
+number of metabolites:  1622 
+number of unique genes: 532 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3782 optimizations ... OK
+model name:             concoct_42 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2298 
+number of metabolites:  1910 
+number of unique genes: 657 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4596 optimizations ... OK
+model name:             concoct_43 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2099 
+number of metabolites:  1715 
+number of unique genes: 547 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4198 optimizations ... OK
+model name:             concoct_49_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2237 
+number of metabolites:  1938 
+number of unique genes: 748 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4474 optimizations ... OK
+model name:             concoct_55_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1857 
+number of metabolites:  1610 
+number of unique genes: 480 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3714 optimizations ... OK
+model name:             concoct_56_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1665 
+number of metabolites:  1463 
+number of unique genes: 435 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3330 optimizations ... OK
+model name:             concoct_62 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1547 
+number of metabolites:  1384 
+number of unique genes: 326 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3094 optimizations ... OK
+model name:             concoct_76 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2082 
+number of metabolites:  1770 
+number of unique genes: 514 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4164 optimizations ... OK
+model name:             concoct_87 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2181 
+number of metabolites:  1784 
+number of unique genes: 649 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4362 optimizations ... OK
+model name:             concoct_88 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1964 
+number of metabolites:  1687 
+number of unique genes: 551 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3928 optimizations ... OK
+model name:             concoct_94 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1286 
+number of metabolites:  1131 
+number of unique genes: 269 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2572 optimizations ... OK
+model name:             maxbin.003 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1924 
+number of metabolites:  1637 
+number of unique genes: 466 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3848 optimizations ... OK
+model name:             maxbin.004 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1726 
+number of metabolites:  1471 
+number of unique genes: 412 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3452 optimizations ... OK
+model name:             maxbin.008 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1734 
+number of metabolites:  1499 
+number of unique genes: 394 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3468 optimizations ... OK
+model name:             maxbin.009 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1577 
+number of metabolites:  1412 
+number of unique genes: 349 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3154 optimizations ... OK
+model name:             maxbin.011 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1861 
+number of metabolites:  1577 
+number of unique genes: 435 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3722 optimizations ... OK
+model name:             maxbin.013 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1910 
+number of metabolites:  1618 
+number of unique genes: 464 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3820 optimizations ... OK
+model name:             maxbin.018_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1585 
+number of metabolites:  1372 
+number of unique genes: 358 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3170 optimizations ... OK
+model name:             maxbin.020 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1924 
+number of metabolites:  1705 
+number of unique genes: 540 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3848 optimizations ... OK
+model name:             maxbin.021 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1704 
+number of metabolites:  1458 
+number of unique genes: 391 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3408 optimizations ... OK
+model name:             maxbin.025 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1944 
+number of metabolites:  1650 
+number of unique genes: 456 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3888 optimizations ... OK
+model name:             maxbin.026 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1784 
+number of metabolites:  1559 
+number of unique genes: 425 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3568 optimizations ... OK
+model name:             maxbin.027 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1659 
+number of metabolites:  1434 
+number of unique genes: 371 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3318 optimizations ... OK
+model name:             maxbin.028_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1593 
+number of metabolites:  1405 
+number of unique genes: 348 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3186 optimizations ... OK
+model name:             maxbin.029_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1721 
+number of metabolites:  1507 
+number of unique genes: 396 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3442 optimizations ... OK
+model name:             maxbin.033 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1931 
+number of metabolites:  1670 
+number of unique genes: 459 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3862 optimizations ... OK
+model name:             maxbin.035_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1876 
+number of metabolites:  1582 
+number of unique genes: 427 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3752 optimizations ... OK
+model name:             maxbin.041 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1780 
+number of metabolites:  1528 
+number of unique genes: 390 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3560 optimizations ... OK
+model name:             maxbin.050 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1610 
+number of metabolites:  1417 
+number of unique genes: 362 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3220 optimizations ... OK
+model name:             maxbin.054_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1628 
+number of metabolites:  1404 
+number of unique genes: 377 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3256 optimizations ... OK
+model name:             maxbin.055 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1618 
+number of metabolites:  1438 
+number of unique genes: 363 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3236 optimizations ... OK
+model name:             maxbin.057_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1634 
+number of metabolites:  1406 
+number of unique genes: 425 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3268 optimizations ... OK
+model name:             maxbin.060_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2054 
+number of metabolites:  1750 
+number of unique genes: 523 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4108 optimizations ... OK
+model name:             maxbin.063 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1607 
+number of metabolites:  1404 
+number of unique genes: 365 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3214 optimizations ... OK
+model name:             maxbin.067 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1799 
+number of metabolites:  1543 
+number of unique genes: 447 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3598 optimizations ... OK
+model name:             maxbin.074 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1656 
+number of metabolites:  1465 
+number of unique genes: 368 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3312 optimizations ... OK
+model name:             maxbin.077 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1949 
+number of metabolites:  1565 
+number of unique genes: 559 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3898 optimizations ... OK
+model name:             maxbin.080_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1664 
+number of metabolites:  1530 
+number of unique genes: 479 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3328 optimizations ... OK
+model name:             maxbin.085 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1655 
+number of metabolites:  1455 
+number of unique genes: 399 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3310 optimizations ... OK
+model name:             maxbin.089 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1981 
+number of metabolites:  1720 
+number of unique genes: 586 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3962 optimizations ... OK
+model name:             maxbin.090 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1850 
+number of metabolites:  1589 
+number of unique genes: 433 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3700 optimizations ... OK
+model name:             maxbin.091 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1810 
+number of metabolites:  1559 
+number of unique genes: 385 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3620 optimizations ... OK
+model name:             maxbin.096 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1835 
+number of metabolites:  1591 
+number of unique genes: 496 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3670 optimizations ... OK
+model name:             maxbin.101 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1655 
+number of metabolites:  1520 
+number of unique genes: 383 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3310 optimizations ... OK
+model name:             maxbin.108 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2213 
+number of metabolites:  1912 
+number of unique genes: 627 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4426 optimizations ... OK
+model name:             maxbin.115 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1624 
+number of metabolites:  1415 
+number of unique genes: 356 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3248 optimizations ... OK
+model name:             maxbin.118 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2033 
+number of metabolites:  1753 
+number of unique genes: 532 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4066 optimizations ... OK
+model name:             maxbin.126 
+number of compartments  2 
+                        c0 
+                        e0 
+number of reactions:    911 
+number of metabolites:  900 
+number of unique genes: 126 
+objective function:     +1 EX_cpd11416_c0 
+calculating 1822 optimizations ... OK
+model name:             maxbin.134 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1692 
+number of metabolites:  1530 
+number of unique genes: 442 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3384 optimizations ... OK
+model name:             maxbin.137 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1913 
+number of metabolites:  1596 
+number of unique genes: 464 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3826 optimizations ... OK
+model name:             maxbin.143 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1603 
+number of metabolites:  1423 
+number of unique genes: 384 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3206 optimizations ... OK
+model name:             maxbin.146 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1855 
+number of metabolites:  1568 
+number of unique genes: 409 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3710 optimizations ... OK
+model name:             maxbin.161 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1783 
+number of metabolites:  1620 
+number of unique genes: 441 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3566 optimizations ... OK
+model name:             maxbin.180 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1632 
+number of metabolites:  1384 
+number of unique genes: 422 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3264 optimizations ... OK
+model name:             maxbin.184_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1953 
+number of metabolites:  1695 
+number of unique genes: 519 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3906 optimizations ... OK
+model name:             maxbin.186 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1690 
+number of metabolites:  1500 
+number of unique genes: 410 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3380 optimizations ... OK
+model name:             maxbin.187 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1358 
+number of metabolites:  1278 
+number of unique genes: 340 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2716 optimizations ... OK
+model name:             maxbin.190 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1812 
+number of metabolites:  1546 
+number of unique genes: 432 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3624 optimizations ... OK
+model name:             maxbin.193 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1470 
+number of metabolites:  1223 
+number of unique genes: 276 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2940 optimizations ... OK
+model name:             maxbin.207 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2156 
+number of metabolites:  1882 
+number of unique genes: 613 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4312 optimizations ... OK
+model name:             maxbin.210 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1682 
+number of metabolites:  1458 
+number of unique genes: 391 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3364 optimizations ... OK
+model name:             maxbin.212 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1351 
+number of metabolites:  1221 
+number of unique genes: 273 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2702 optimizations ... OK
+model name:             maxbin.216 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1821 
+number of metabolites:  1658 
+number of unique genes: 524 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3642 optimizations ... OK
+model name:             maxbin.218 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1936 
+number of metabolites:  1632 
+number of unique genes: 500 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3872 optimizations ... OK
+model name:             maxbin.221 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1994 
+number of metabolites:  1696 
+number of unique genes: 525 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3988 optimizations ... OK
+model name:             maxbin.231 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1534 
+number of metabolites:  1361 
+number of unique genes: 358 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3068 optimizations ... OK
+model name:             maxbin.234 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1274 
+number of metabolites:  1210 
+number of unique genes: 214 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2548 optimizations ... OK
+model name:             maxbin.250 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1549 
+number of metabolites:  1356 
+number of unique genes: 411 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3098 optimizations ... OK
+model name:             maxbin.252 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1287 
+number of metabolites:  1201 
+number of unique genes: 205 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2574 optimizations ... OK
+model name:             maxbin.260 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2093 
+number of metabolites:  1822 
+number of unique genes: 634 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4186 optimizations ... OK
+model name:             maxbin.261_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2005 
+number of metabolites:  1782 
+number of unique genes: 537 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4010 optimizations ... OK
+model name:             maxbin.279 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1978 
+number of metabolites:  1710 
+number of unique genes: 589 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3956 optimizations ... OK
+model name:             maxbin.285_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1748 
+number of metabolites:  1473 
+number of unique genes: 391 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3496 optimizations ... OK
+model name:             maxbin.288 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1933 
+number of metabolites:  1727 
+number of unique genes: 582 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3866 optimizations ... OK
+model name:             maxbin.290 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1261 
+number of metabolites:  1097 
+number of unique genes: 239 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2522 optimizations ... OK
+model name:             maxbin.293_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1808 
+number of metabolites:  1598 
+number of unique genes: 455 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3616 optimizations ... OK
+model name:             maxbin.294 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1382 
+number of metabolites:  1196 
+number of unique genes: 253 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2764 optimizations ... OK
+model name:             maxbin.297_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1930 
+number of metabolites:  1743 
+number of unique genes: 489 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3860 optimizations ... OK
+model name:             maxbin.299_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2055 
+number of metabolites:  1810 
+number of unique genes: 607 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4110 optimizations ... OK
+model name:             maxbin.300_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1902 
+number of metabolites:  1637 
+number of unique genes: 561 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3804 optimizations ... OK
+model name:             maxbin.301 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1681 
+number of metabolites:  1425 
+number of unique genes: 301 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3362 optimizations ... OK
+model name:             maxbin.308 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2007 
+number of metabolites:  1752 
+number of unique genes: 554 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4014 optimizations ... OK
+model name:             maxbin.310 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1651 
+number of metabolites:  1397 
+number of unique genes: 409 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3302 optimizations ... OK
+model name:             maxbin.325 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1409 
+number of metabolites:  1290 
+number of unique genes: 281 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2818 optimizations ... OK
+model name:             maxbin.337_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1817 
+number of metabolites:  1626 
+number of unique genes: 443 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3634 optimizations ... OK
+model name:             maxbin.341 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1793 
+number of metabolites:  1599 
+number of unique genes: 462 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3586 optimizations ... OK
+model name:             maxbin.346 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1470 
+number of metabolites:  1338 
+number of unique genes: 295 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2940 optimizations ... OK
+model name:             maxbin.349 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    3227 
+number of metabolites:  2539 
+number of unique genes: 1276 
+objective function:     +1 EX_cpd11416_c0 
+calculating 6454 optimizations ... OK
+model name:             maxbin.351 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1547 
+number of metabolites:  1365 
+number of unique genes: 341 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3094 optimizations ... OK
+model name:             maxbin.353 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    871 
+number of metabolites:  863 
+number of unique genes: 112 
+objective function:     +1 EX_cpd11416_c0 
+calculating 1742 optimizations ... OK
+model name:             maxbin.356 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1304 
+number of metabolites:  1216 
+number of unique genes: 259 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2608 optimizations ... OK
+model name:             maxbin.357 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1093 
+number of metabolites:  1087 
+number of unique genes: 150 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2186 optimizations ... OK
+model name:             maxbin.366_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1583 
+number of metabolites:  1430 
+number of unique genes: 418 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3166 optimizations ... OK
+model name:             maxbin.374 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1709 
+number of metabolites:  1464 
+number of unique genes: 337 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3418 optimizations ... OK
+model name:             maxbin.376 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1887 
+number of metabolites:  1675 
+number of unique genes: 477 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3774 optimizations ... OK
+model name:             maxbin.380 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1829 
+number of metabolites:  1586 
+number of unique genes: 477 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3658 optimizations ... OK
+model name:             maxbin.383 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1950 
+number of metabolites:  1723 
+number of unique genes: 474 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3900 optimizations ... OK
+model name:             maxbin.388 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1448 
+number of metabolites:  1285 
+number of unique genes: 261 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2896 optimizations ... OK
+model name:             maxbin.390 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1293 
+number of metabolites:  1187 
+number of unique genes: 327 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2586 optimizations ... OK
+model name:             maxbin.401 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1756 
+number of metabolites:  1510 
+number of unique genes: 380 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3512 optimizations ... OK
+model name:             maxbin.404 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1270 
+number of metabolites:  1185 
+number of unique genes: 192 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2540 optimizations ... OK
+model name:             maxbin.411 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1652 
+number of metabolites:  1459 
+number of unique genes: 419 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3304 optimizations ... OK
+model name:             maxbin.414 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2240 
+number of metabolites:  1851 
+number of unique genes: 714 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4480 optimizations ... OK
+model name:             maxbin.417 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1399 
+number of metabolites:  1275 
+number of unique genes: 288 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2798 optimizations ... OK
+model name:             maxbin.418 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1652 
+number of metabolites:  1461 
+number of unique genes: 315 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3304 optimizations ... OK
+model name:             maxbin.419 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    780 
+number of metabolites:  780 
+number of unique genes: 83 
+objective function:     +1 EX_cpd11416_c0 
+calculating 1560 optimizations ... OK
+model name:             maxbin.424 
+number of compartments  2 
+                        c0 
+                        e0 
+number of reactions:    912 
+number of metabolites:  875 
+number of unique genes: 81 
+objective function:     +1 EX_cpd11416_c0 
+calculating 1824 optimizations ... OK
+model name:             maxbin.426 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1711 
+number of metabolites:  1508 
+number of unique genes: 382 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3422 optimizations ... OK
+model name:             metabat.1_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1770 
+number of metabolites:  1585 
+number of unique genes: 419 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3540 optimizations ... OK
+model name:             metabat.103 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1864 
+number of metabolites:  1668 
+number of unique genes: 511 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3728 optimizations ... OK
+model name:             metabat.106 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1977 
+number of metabolites:  1740 
+number of unique genes: 542 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3954 optimizations ... OK
+model name:             metabat.108 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1952 
+number of metabolites:  1698 
+number of unique genes: 557 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3904 optimizations ... OK
+model name:             metabat.110 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2072 
+number of metabolites:  1777 
+number of unique genes: 615 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4144 optimizations ... OK
+model name:             metabat.117 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1560 
+number of metabolites:  1408 
+number of unique genes: 385 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3120 optimizations ... OK
+model name:             metabat.12 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1366 
+number of metabolites:  1218 
+number of unique genes: 289 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2732 optimizations ... OK
+model name:             metabat.132 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1718 
+number of metabolites:  1526 
+number of unique genes: 434 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3436 optimizations ... OK
+model name:             metabat.14 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1596 
+number of metabolites:  1448 
+number of unique genes: 352 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3192 optimizations ... OK
+model name:             metabat.143 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    887 
+number of metabolites:  886 
+number of unique genes: 128 
+objective function:     +1 EX_cpd11416_c0 
+calculating 1774 optimizations ... OK
+model name:             metabat.148 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1408 
+number of metabolites:  1313 
+number of unique genes: 284 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2816 optimizations ... OK
+model name:             metabat.154 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1335 
+number of metabolites:  1204 
+number of unique genes: 246 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2670 optimizations ... OK
+model name:             metabat.158 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1914 
+number of metabolites:  1647 
+number of unique genes: 504 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3828 optimizations ... OK
+model name:             metabat.163 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1587 
+number of metabolites:  1383 
+number of unique genes: 311 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3174 optimizations ... OK
+model name:             metabat.17_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1388 
+number of metabolites:  1288 
+number of unique genes: 362 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2776 optimizations ... OK
+model name:             metabat.170_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1662 
+number of metabolites:  1417 
+number of unique genes: 361 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3324 optimizations ... OK
+model name:             metabat.178 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1576 
+number of metabolites:  1432 
+number of unique genes: 368 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3152 optimizations ... OK
+model name:             metabat.181 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1789 
+number of metabolites:  1560 
+number of unique genes: 450 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3578 optimizations ... OK
+model name:             metabat.184 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1862 
+number of metabolites:  1582 
+number of unique genes: 426 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3724 optimizations ... OK
+model name:             metabat.189 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1846 
+number of metabolites:  1582 
+number of unique genes: 402 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3692 optimizations ... OK
+model name:             metabat.19 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1775 
+number of metabolites:  1543 
+number of unique genes: 407 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3550 optimizations ... OK
+model name:             metabat.190 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2000 
+number of metabolites:  1773 
+number of unique genes: 557 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4000 optimizations ... OK
+model name:             metabat.199 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1684 
+number of metabolites:  1454 
+number of unique genes: 390 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3368 optimizations ... OK
+model name:             metabat.208 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1641 
+number of metabolites:  1480 
+number of unique genes: 356 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3282 optimizations ... OK
+model name:             metabat.220 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1657 
+number of metabolites:  1458 
+number of unique genes: 378 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3314 optimizations ... OK
+model name:             metabat.221_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2026 
+number of metabolites:  1745 
+number of unique genes: 571 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4052 optimizations ... OK
+model name:             metabat.224 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2139 
+number of metabolites:  1883 
+number of unique genes: 609 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4278 optimizations ... OK
+model name:             metabat.226 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1851 
+number of metabolites:  1606 
+number of unique genes: 467 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3702 optimizations ... OK
+model name:             metabat.236 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1849 
+number of metabolites:  1637 
+number of unique genes: 459 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3698 optimizations ... OK
+model name:             metabat.238 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1469 
+number of metabolites:  1303 
+number of unique genes: 253 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2938 optimizations ... OK
+model name:             metabat.245 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1445 
+number of metabolites:  1271 
+number of unique genes: 275 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2890 optimizations ... OK
+model name:             metabat.252 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1912 
+number of metabolites:  1713 
+number of unique genes: 547 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3824 optimizations ... OK
+model name:             metabat.254 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1880 
+number of metabolites:  1641 
+number of unique genes: 519 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3760 optimizations ... OK
+model name:             metabat.255 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1941 
+number of metabolites:  1748 
+number of unique genes: 427 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3882 optimizations ... OK
+model name:             metabat.259_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1370 
+number of metabolites:  1211 
+number of unique genes: 331 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2740 optimizations ... OK
+model name:             metabat.26 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1955 
+number of metabolites:  1687 
+number of unique genes: 506 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3910 optimizations ... OK
+model name:             metabat.263_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1862 
+number of metabolites:  1637 
+number of unique genes: 485 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3724 optimizations ... OK
+model name:             metabat.267 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1716 
+number of metabolites:  1444 
+number of unique genes: 402 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3432 optimizations ... OK
+model name:             metabat.270 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1812 
+number of metabolites:  1599 
+number of unique genes: 488 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3624 optimizations ... OK
+model name:             metabat.271 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1839 
+number of metabolites:  1549 
+number of unique genes: 437 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3678 optimizations ... OK
+model name:             metabat.273 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1676 
+number of metabolites:  1508 
+number of unique genes: 392 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3352 optimizations ... OK
+model name:             metabat.28 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1745 
+number of metabolites:  1483 
+number of unique genes: 388 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3490 optimizations ... OK
+model name:             metabat.288 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1338 
+number of metabolites:  1221 
+number of unique genes: 239 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2676 optimizations ... OK
+model name:             metabat.294_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1557 
+number of metabolites:  1394 
+number of unique genes: 320 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3114 optimizations ... OK
+model name:             metabat.30_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2013 
+number of metabolites:  1738 
+number of unique genes: 566 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4026 optimizations ... OK
+model name:             metabat.307 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1386 
+number of metabolites:  1279 
+number of unique genes: 273 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2772 optimizations ... OK
+model name:             metabat.312 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1985 
+number of metabolites:  1763 
+number of unique genes: 523 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3970 optimizations ... OK
+model name:             metabat.315 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1786 
+number of metabolites:  1557 
+number of unique genes: 379 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3572 optimizations ... OK
+model name:             metabat.320 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1685 
+number of metabolites:  1501 
+number of unique genes: 383 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3370 optimizations ... OK
+model name:             metabat.333 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1672 
+number of metabolites:  1456 
+number of unique genes: 394 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3344 optimizations ... OK
+model name:             metabat.351 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1645 
+number of metabolites:  1466 
+number of unique genes: 433 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3290 optimizations ... OK
+model name:             metabat.357_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1729 
+number of metabolites:  1554 
+number of unique genes: 491 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3458 optimizations ... OK
+model name:             metabat.359 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1819 
+number of metabolites:  1569 
+number of unique genes: 445 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3638 optimizations ... OK
+model name:             metabat.361 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1986 
+number of metabolites:  1728 
+number of unique genes: 520 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3972 optimizations ... OK
+model name:             metabat.366 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1894 
+number of metabolites:  1667 
+number of unique genes: 466 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3788 optimizations ... OK
+model name:             metabat.367 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2060 
+number of metabolites:  1688 
+number of unique genes: 500 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4120 optimizations ... OK
+model name:             metabat.370 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1737 
+number of metabolites:  1524 
+number of unique genes: 389 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3474 optimizations ... OK
+model name:             metabat.381 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2015 
+number of metabolites:  1726 
+number of unique genes: 645 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4030 optimizations ... OK
+model name:             metabat.391 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1897 
+number of metabolites:  1678 
+number of unique genes: 504 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3794 optimizations ... OK
+model name:             metabat.403 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1284 
+number of metabolites:  1219 
+number of unique genes: 198 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2568 optimizations ... OK
+model name:             metabat.404_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1481 
+number of metabolites:  1333 
+number of unique genes: 281 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2962 optimizations ... OK
+model name:             metabat.405 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1832 
+number of metabolites:  1578 
+number of unique genes: 487 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3664 optimizations ... OK
+model name:             metabat.409 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1779 
+number of metabolites:  1559 
+number of unique genes: 466 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3558 optimizations ... OK
+model name:             metabat.411 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1995 
+number of metabolites:  1705 
+number of unique genes: 588 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3990 optimizations ... OK
+model name:             metabat.415 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2094 
+number of metabolites:  1800 
+number of unique genes: 634 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4188 optimizations ... OK
+model name:             metabat.422 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1695 
+number of metabolites:  1518 
+number of unique genes: 433 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3390 optimizations ... OK
+model name:             metabat.428_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1915 
+number of metabolites:  1679 
+number of unique genes: 511 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3830 optimizations ... OK
+model name:             metabat.43 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1810 
+number of metabolites:  1612 
+number of unique genes: 450 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3620 optimizations ... OK
+model name:             metabat.430 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1964 
+number of metabolites:  1733 
+number of unique genes: 531 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3928 optimizations ... OK
+model name:             metabat.434_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1670 
+number of metabolites:  1488 
+number of unique genes: 357 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3340 optimizations ... OK
+model name:             metabat.44_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1944 
+number of metabolites:  1680 
+number of unique genes: 592 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3888 optimizations ... OK
+model name:             metabat.441 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1932 
+number of metabolites:  1680 
+number of unique genes: 585 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3864 optimizations ... OK
+model name:             metabat.442 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1401 
+number of metabolites:  1293 
+number of unique genes: 273 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2802 optimizations ... OK
+model name:             metabat.455 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1686 
+number of metabolites:  1484 
+number of unique genes: 391 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3372 optimizations ... OK
+model name:             metabat.460 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1838 
+number of metabolites:  1584 
+number of unique genes: 463 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3676 optimizations ... OK
+model name:             metabat.486 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1871 
+number of metabolites:  1656 
+number of unique genes: 513 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3742 optimizations ... OK
+model name:             metabat.49 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1442 
+number of metabolites:  1233 
+number of unique genes: 282 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2884 optimizations ... OK
+model name:             metabat.497_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1867 
+number of metabolites:  1640 
+number of unique genes: 468 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3734 optimizations ... OK
+model name:             metabat.515 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1459 
+number of metabolites:  1284 
+number of unique genes: 324 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2918 optimizations ... OK
+model name:             metabat.516_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1909 
+number of metabolites:  1619 
+number of unique genes: 485 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3818 optimizations ... OK
+model name:             metabat.52 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1878 
+number of metabolites:  1568 
+number of unique genes: 446 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3756 optimizations ... OK
+model name:             metabat.520_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1803 
+number of metabolites:  1566 
+number of unique genes: 410 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3606 optimizations ... OK
+model name:             metabat.522_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1791 
+number of metabolites:  1536 
+number of unique genes: 402 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3582 optimizations ... OK
+model name:             metabat.531 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1598 
+number of metabolites:  1438 
+number of unique genes: 412 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3196 optimizations ... OK
+model name:             metabat.534 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1593 
+number of metabolites:  1456 
+number of unique genes: 398 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3186 optimizations ... OK
+model name:             metabat.536_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1572 
+number of metabolites:  1381 
+number of unique genes: 346 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3144 optimizations ... OK
+model name:             metabat.54_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1624 
+number of metabolites:  1482 
+number of unique genes: 469 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3248 optimizations ... OK
+model name:             metabat.544_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1442 
+number of metabolites:  1316 
+number of unique genes: 322 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2884 optimizations ... OK
+model name:             metabat.546 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1796 
+number of metabolites:  1578 
+number of unique genes: 402 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3592 optimizations ... OK
+model name:             metabat.550 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1871 
+number of metabolites:  1640 
+number of unique genes: 470 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3742 optimizations ... OK
+model name:             metabat.552_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2044 
+number of metabolites:  1839 
+number of unique genes: 527 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4088 optimizations ... OK
+model name:             metabat.553_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1940 
+number of metabolites:  1669 
+number of unique genes: 551 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3880 optimizations ... OK
+model name:             metabat.554 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1440 
+number of metabolites:  1296 
+number of unique genes: 282 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2880 optimizations ... OK
+model name:             metabat.563 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1883 
+number of metabolites:  1678 
+number of unique genes: 541 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3766 optimizations ... OK
+model name:             metabat.57 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1955 
+number of metabolites:  1738 
+number of unique genes: 513 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3910 optimizations ... OK
+model name:             metabat.587 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1631 
+number of metabolites:  1438 
+number of unique genes: 373 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3262 optimizations ... OK
+model name:             metabat.592 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1748 
+number of metabolites:  1470 
+number of unique genes: 426 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3496 optimizations ... OK
+model name:             metabat.60 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2135 
+number of metabolites:  1815 
+number of unique genes: 559 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4270 optimizations ... OK
+model name:             metabat.64_sub 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1457 
+number of metabolites:  1290 
+number of unique genes: 314 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2914 optimizations ... OK
+model name:             metabat.68 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1486 
+number of metabolites:  1365 
+number of unique genes: 309 
+objective function:     +1 EX_cpd11416_c0 
+calculating 2972 optimizations ... OK
+model name:             metabat.85 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    2007 
+number of metabolites:  1782 
+number of unique genes: 516 
+objective function:     +1 EX_cpd11416_c0 
+calculating 4014 optimizations ... OK
+model name:             metabat.92 
+number of compartments  3 
+                        c0 
+                        e0 
+                        p0 
+number of reactions:    1876 
+number of metabolites:  1580 
+number of unique genes: 516 
+objective function:     +1 EX_cpd11416_c0 
+calculating 3752 optimizations ... OK
+[1] "cluster_DBSCAN_round1_16_sub"
+$cluster_DBSCAN_round1_16_sub
+[1] 1
+
+[1] "cluster_DBSCAN_round1_19"
+$cluster_DBSCAN_round1_19
+[1] 1
+
+[1] "cluster_DBSCAN_round5_48"
+$cluster_DBSCAN_round5_48
+[1] 1
+
+[1] "concoct_1"
+$concoct_1
+[1] 1
+
+[1] "concoct_102"
+$concoct_102
+[1] 1
+
+[1] "concoct_103"
+$concoct_103
+[1] 1
+
+[1] "concoct_105_sub"
+$concoct_105_sub
+[1] 1
+
+[1] "concoct_112"
+$concoct_112
+[1] 1
+
+[1] "concoct_12"
+$concoct_12
+[1] 1
+
+[1] "concoct_127_sub"
+$concoct_127_sub
+[1] 1
+
+[1] "concoct_128_sub"
+$concoct_128_sub
+[1] 1
+
+[1] "concoct_130_sub"
+$concoct_130_sub
+[1] 1
+
+[1] "concoct_131_sub"
+$concoct_131_sub
+[1] 1
+
+[1] "concoct_137_sub"
+$concoct_137_sub
+[1] 1
+
+[1] "concoct_143_sub"
+$concoct_143_sub
+[1] 1
+
+[1] "concoct_148_sub"
+$concoct_148_sub
+[1] 1
+
+[1] "concoct_151"
+$concoct_151
+[1] 1
+
+[1] "concoct_172_sub"
+$concoct_172_sub
+[1] 1
+
+[1] "concoct_179"
+$concoct_179
+[1] 1 3
+
+[1] "concoct_182"
+$concoct_182
+[1] 1
+
+[1] "concoct_187_sub"
+$concoct_187_sub
+[1] 1
+
+[1] "concoct_188_sub"
+$concoct_188_sub
+[1] 1
+
+[1] "concoct_191"
+$concoct_191
+[1] 1
+
+[1] "concoct_192_sub"
+$concoct_192_sub
+[1] 1
+
+[1] "concoct_194"
+$concoct_194
+[1] 1
+
+[1] "concoct_195_sub"
+$concoct_195_sub
+[1] 1
+
+[1] "concoct_198"
+$concoct_198
+[1] 1
+
+[1] "concoct_199"
+$concoct_199
+[1] 1
+
+[1] "concoct_225_sub"
+$concoct_225_sub
+[1] 1
+
+[1] "concoct_256"
+$concoct_256
+[1] 1
+
+[1] "concoct_257"
+$concoct_257
+[1] 1
+
+[1] "concoct_262"
+$concoct_262
+[1] 1
+
+[1] "concoct_263"
+$concoct_263
+[1] 1
+
+[1] "concoct_265_sub"
+$concoct_265_sub
+[1] 1
+
+[1] "concoct_289_sub"
+$concoct_289_sub
+[1] 1
+
+[1] "concoct_293"
+$concoct_293
+[1] 1
+
+[1] "concoct_294_sub"
+$concoct_294_sub
+[1] 1
+
+[1] "concoct_304"
+$concoct_304
+[1] 1
+
+[1] "concoct_305"
+$concoct_305
+[1] 1
+
+[1] "concoct_309"
+$concoct_309
+[1] 1
+
+[1] "concoct_42"
+$concoct_42
+[1] 1
+
+[1] "concoct_43"
+$concoct_43
+[1] 1
+
+[1] "concoct_49_sub"
+$concoct_49_sub
+[1] 1
+
+[1] "concoct_55_sub"
+$concoct_55_sub
+[1] 1
+
+[1] "concoct_56_sub"
+$concoct_56_sub
+[1] 1
+
+[1] "concoct_62"
+$concoct_62
+[1] 1
+
+[1] "concoct_76"
+$concoct_76
+[1] 1
+
+[1] "concoct_87"
+$concoct_87
+[1] 1
+
+[1] "concoct_88"
+$concoct_88
+[1] 1
+
+[1] "concoct_94"
+$concoct_94
+[1] 1
+
+[1] "maxbin.003"
+$maxbin.003
+[1] 1
+
+[1] "maxbin.004"
+$maxbin.004
+[1] 1
+
+[1] "maxbin.008"
+$maxbin.008
+[1] 1
+
+[1] "maxbin.009"
+$maxbin.009
+[1] 1
+
+[1] "maxbin.011"
+$maxbin.011
+[1] 1
+
+[1] "maxbin.013"
+$maxbin.013
+[1] 1
+
+[1] "maxbin.018_sub"
+$maxbin.018_sub
+[1] 1
+
+[1] "maxbin.020"
+$maxbin.020
+[1] 1
+
+[1] "maxbin.021"
+$maxbin.021
+[1] 1
+
+[1] "maxbin.025"
+$maxbin.025
+[1] 1
+
+[1] "maxbin.026"
+$maxbin.026
+[1] 1
+
+[1] "maxbin.027"
+$maxbin.027
+[1] 1
+
+[1] "maxbin.028_sub"
+$maxbin.028_sub
+[1] 1
+
+[1] "maxbin.029_sub"
+$maxbin.029_sub
+[1] 1
+
+[1] "maxbin.033"
+$maxbin.033
+[1] 1
+
+[1] "maxbin.035_sub"
+$maxbin.035_sub
+[1] 1
+
+[1] "maxbin.041"
+$maxbin.041
+[1] 1
+
+[1] "maxbin.050"
+$maxbin.050
+[1] 1
+
+[1] "maxbin.054_sub"
+$maxbin.054_sub
+[1] 1
+
+[1] "maxbin.055"
+$maxbin.055
+[1] 1
+
+[1] "maxbin.057_sub"
+$maxbin.057_sub
+[1] 1
+
+[1] "maxbin.060_sub"
+$maxbin.060_sub
+[1] 1
+
+[1] "maxbin.063"
+$maxbin.063
+[1] 1
+
+[1] "maxbin.067"
+$maxbin.067
+[1] 1
+
+[1] "maxbin.074"
+$maxbin.074
+[1] 1
+
+[1] "maxbin.077"
+$maxbin.077
+[1] 1
+
+[1] "maxbin.080_sub"
+$maxbin.080_sub
+[1] 1
+
+[1] "maxbin.085"
+$maxbin.085
+[1] 1
+
+[1] "maxbin.089"
+$maxbin.089
+[1] 1
+
+[1] "maxbin.090"
+$maxbin.090
+[1] 1
+
+[1] "maxbin.091"
+$maxbin.091
+[1] 1
+
+[1] "maxbin.096"
+$maxbin.096
+[1] 1
+
+[1] "maxbin.101"
+$maxbin.101
+[1] 1
+
+[1] "maxbin.108"
+$maxbin.108
+[1] 1
+
+[1] "maxbin.115"
+$maxbin.115
+[1] 1
+
+[1] "maxbin.118"
+$maxbin.118
+[1] 1
+
+[1] "maxbin.126"
+$maxbin.126
+[1] 1
+
+[1] "maxbin.134"
+$maxbin.134
+[1] 1
+
+[1] "maxbin.137"
+$maxbin.137
+[1] 1
+
+[1] "maxbin.143"
+$maxbin.143
+[1] 1
+
+[1] "maxbin.146"
+$maxbin.146
+[1] 1
+
+[1] "maxbin.161"
+$maxbin.161
+[1] 1
+
+[1] "maxbin.180"
+$maxbin.180
+[1] 1
+
+[1] "maxbin.184_sub"
+$maxbin.184_sub
+[1] 1
+
+[1] "maxbin.186"
+$maxbin.186
+[1] 1
+
+[1] "maxbin.187"
+$maxbin.187
+[1] 1
+
+[1] "maxbin.190"
+$maxbin.190
+[1] 1
+
+[1] "maxbin.193"
+$maxbin.193
+[1] 1
+
+[1] "maxbin.207"
+$maxbin.207
+[1] 1
+
+[1] "maxbin.210"
+$maxbin.210
+[1] 1
+
+[1] "maxbin.212"
+$maxbin.212
+[1] 1
+
+[1] "maxbin.216"
+$maxbin.216
+[1] 1
+
+[1] "maxbin.218"
+$maxbin.218
+[1] 1
+
+[1] "maxbin.221"
+$maxbin.221
+[1] 1
+
+[1] "maxbin.231"
+$maxbin.231
+[1] 1
+
+[1] "maxbin.234"
+$maxbin.234
+[1] 1
+
+[1] "maxbin.250"
+$maxbin.250
+[1] 1
+
+[1] "maxbin.252"
+$maxbin.252
+[1] 1
+
+[1] "maxbin.260"
+$maxbin.260
+[1] 1
+
+[1] "maxbin.261_sub"
+$maxbin.261_sub
+[1] 1
+
+[1] "maxbin.279"
+$maxbin.279
+[1] 1
+
+[1] "maxbin.285_sub"
+$maxbin.285_sub
+[1] 1
+
+[1] "maxbin.288"
+$maxbin.288
+[1] 1
+
+[1] "maxbin.290"
+$maxbin.290
+[1] 1
+
+[1] "maxbin.293_sub"
+$maxbin.293_sub
+[1] 1
+
+[1] "maxbin.294"
+$maxbin.294
+[1] 1
+
+[1] "maxbin.297_sub"
+$maxbin.297_sub
+[1] 1
+
+[1] "maxbin.299_sub"
+$maxbin.299_sub
+[1] 1
+
+[1] "maxbin.300_sub"
+$maxbin.300_sub
+[1] 1
+
+[1] "maxbin.301"
+$maxbin.301
+[1] 1
+
+[1] "maxbin.308"
+$maxbin.308
+[1] 1
+
+[1] "maxbin.310"
+$maxbin.310
+[1] 1
+
+[1] "maxbin.325"
+$maxbin.325
+[1] 1
+
+[1] "maxbin.337_sub"
+$maxbin.337_sub
+[1] 1
+
+[1] "maxbin.341"
+$maxbin.341
+[1] 1
+
+[1] "maxbin.346"
+$maxbin.346
+[1] 1
+
+[1] "maxbin.349"
+$maxbin.349
+[1] 1
+
+[1] "maxbin.351"
+$maxbin.351
+[1] 1
+
+[1] "maxbin.353"
+$maxbin.353
+[1] 1
+
+[1] "maxbin.356"
+$maxbin.356
+[1] 1
+
+[1] "maxbin.357"
+$maxbin.357
+[1] 1
+
+[1] "maxbin.366_sub"
+$maxbin.366_sub
+[1] 1
+
+[1] "maxbin.374"
+$maxbin.374
+[1] 1
+
+[1] "maxbin.376"
+$maxbin.376
+[1] 1
+
+[1] "maxbin.380"
+$maxbin.380
+[1] 1
+
+[1] "maxbin.383"
+$maxbin.383
+[1] 1
+
+[1] "maxbin.388"
+$maxbin.388
+[1] 1
+
+[1] "maxbin.390"
+$maxbin.390
+[1] 1
+
+[1] "maxbin.401"
+$maxbin.401
+[1] 1
+
+[1] "maxbin.404"
+$maxbin.404
+[1] 1
+
+[1] "maxbin.411"
+$maxbin.411
+[1] 1
+
+[1] "maxbin.414"
+$maxbin.414
+[1] 1
+
+[1] "maxbin.417"
+$maxbin.417
+[1] 1
+
+[1] "maxbin.418"
+$maxbin.418
+[1] 1
+
+[1] "maxbin.419"
+$maxbin.419
+[1] 1
+
+[1] "maxbin.424"
+$maxbin.424
+[1] 1
+
+[1] "maxbin.426"
+$maxbin.426
+[1] 1
+
+[1] "metabat.1_sub"
+$metabat.1_sub
+[1] 1
+
+[1] "metabat.103"
+$metabat.103
+[1] 1
+
+[1] "metabat.106"
+$metabat.106
+[1] 1
+
+[1] "metabat.108"
+$metabat.108
+[1] 1
+
+[1] "metabat.110"
+$metabat.110
+[1] 1
+
+[1] "metabat.117"
+$metabat.117
+[1] 1
+
+[1] "metabat.12"
+$metabat.12
+[1] 1
+
+[1] "metabat.132"
+$metabat.132
+[1] 1
+
+[1] "metabat.14"
+$metabat.14
+[1] 1
+
+[1] "metabat.143"
+$metabat.143
+[1] 1
+
+[1] "metabat.148"
+$metabat.148
+[1] 1
+
+[1] "metabat.154"
+$metabat.154
+[1] 1
+
+[1] "metabat.158"
+$metabat.158
+[1] 1
+
+[1] "metabat.163"
+$metabat.163
+[1] 1
+
+[1] "metabat.17_sub"
+$metabat.17_sub
+[1] 1
+
+[1] "metabat.170_sub"
+$metabat.170_sub
+[1] 1
+
+[1] "metabat.178"
+$metabat.178
+[1] 1
+
+[1] "metabat.181"
+$metabat.181
+[1] 1
+
+[1] "metabat.184"
+$metabat.184
+[1] 1
+
+[1] "metabat.189"
+$metabat.189
+[1] 1
+
+[1] "metabat.19"
+$metabat.19
+[1] 1
+
+[1] "metabat.190"
+$metabat.190
+[1] 1
+
+[1] "metabat.199"
+$metabat.199
+[1] 1
+
+[1] "metabat.208"
+$metabat.208
+[1] 1
+
+[1] "metabat.220"
+$metabat.220
+[1] 1
+
+[1] "metabat.221_sub"
+$metabat.221_sub
+[1] 1
+
+[1] "metabat.224"
+$metabat.224
+[1] 1
+
+[1] "metabat.226"
+$metabat.226
+[1] 1
+
+[1] "metabat.236"
+$metabat.236
+[1] 1
+
+[1] "metabat.238"
+$metabat.238
+[1] 1
+
+[1] "metabat.245"
+$metabat.245
+[1] 1
+
+[1] "metabat.252"
+$metabat.252
+[1] 1
+
+[1] "metabat.254"
+$metabat.254
+[1] 1
+
+[1] "metabat.255"
+$metabat.255
+[1] 1
+
+[1] "metabat.259_sub"
+$metabat.259_sub
+[1] 1
+
+[1] "metabat.26"
+$metabat.26
+[1] 1
+
+[1] "metabat.263_sub"
+$metabat.263_sub
+[1] 1
+
+[1] "metabat.267"
+$metabat.267
+[1] 1
+
+[1] "metabat.270"
+$metabat.270
+[1] 1
+
+[1] "metabat.271"
+$metabat.271
+[1] 1
+
+[1] "metabat.273"
+$metabat.273
+[1] 1
+
+[1] "metabat.28"
+$metabat.28
+[1] 1
+
+[1] "metabat.288"
+$metabat.288
+[1] 1
+
+[1] "metabat.294_sub"
+$metabat.294_sub
+[1] 1
+
+[1] "metabat.30_sub"
+$metabat.30_sub
+[1] 1
+
+[1] "metabat.307"
+$metabat.307
+[1] 1
+
+[1] "metabat.312"
+$metabat.312
+[1] 1
+
+[1] "metabat.315"
+$metabat.315
+[1] 1
+
+[1] "metabat.320"
+$metabat.320
+[1] 1
+
+[1] "metabat.333"
+$metabat.333
+[1] 1
+
+[1] "metabat.351"
+$metabat.351
+[1] 1
+
+[1] "metabat.357_sub"
+$metabat.357_sub
+[1] 1
+
+[1] "metabat.359"
+$metabat.359
+[1] 1
+
+[1] "metabat.361"
+$metabat.361
+[1] 1
+
+[1] "metabat.366"
+$metabat.366
+[1] 1
+
+[1] "metabat.367"
+$metabat.367
+[1] 1
+
+[1] "metabat.370"
+$metabat.370
+[1] 1
+
+[1] "metabat.381"
+$metabat.381
+[1] 1
+
+[1] "metabat.391"
+$metabat.391
+[1] 1
+
+[1] "metabat.403"
+$metabat.403
+[1] 1
+
+[1] "metabat.404_sub"
+$metabat.404_sub
+[1] 1
+
+[1] "metabat.405"
+$metabat.405
+[1] 1
+
+[1] "metabat.409"
+$metabat.409
+[1] 1
+
+[1] "metabat.411"
+$metabat.411
+[1] 1
+
+[1] "metabat.415"
+$metabat.415
+[1] 1
+
+[1] "metabat.422"
+$metabat.422
+[1] 1
+
+[1] "metabat.428_sub"
+$metabat.428_sub
+[1] 1
+
+[1] "metabat.43"
+$metabat.43
+[1] 1
+
+[1] "metabat.430"
+$metabat.430
+[1] 1
+
+[1] "metabat.434_sub"
+$metabat.434_sub
+[1] 1
+
+[1] "metabat.44_sub"
+$metabat.44_sub
+[1] 1
+
+[1] "metabat.441"
+$metabat.441
+[1] 1
+
+[1] "metabat.442"
+$metabat.442
+[1] 1
+
+[1] "metabat.455"
+$metabat.455
+[1] 1
+
+[1] "metabat.460"
+$metabat.460
+[1] 1
+
+[1] "metabat.486"
+$metabat.486
+[1] 1
+
+[1] "metabat.49"
+$metabat.49
+[1] 1
+
+[1] "metabat.497_sub"
+$metabat.497_sub
+[1] 1
+
+[1] "metabat.515"
+$metabat.515
+[1] 1
+
+[1] "metabat.516_sub"
+$metabat.516_sub
+[1] 1
+
+[1] "metabat.52"
+$metabat.52
+[1] 1
+
+[1] "metabat.520_sub"
+$metabat.520_sub
+[1] 1
+
+[1] "metabat.522_sub"
+$metabat.522_sub
+[1] 1
+
+[1] "metabat.531"
+$metabat.531
+[1] 1
+
+[1] "metabat.534"
+$metabat.534
+[1] 1
+
+[1] "metabat.536_sub"
+$metabat.536_sub
+[1] 1
+
+[1] "metabat.54_sub"
+$metabat.54_sub
+[1] 1
+
+[1] "metabat.544_sub"
+$metabat.544_sub
+[1] 1
+
+[1] "metabat.546"
+$metabat.546
+[1] 1
+
+[1] "metabat.550"
+$metabat.550
+[1] 1
+
+[1] "metabat.552_sub"
+$metabat.552_sub
+[1] 1
+
+[1] "metabat.553_sub"
+$metabat.553_sub
+[1] 1
+
+[1] "metabat.554"
+$metabat.554
+[1] 1
+
+[1] "metabat.563"
+$metabat.563
+[1] 1
+
+[1] "metabat.57"
+$metabat.57
+[1] 1
+
+[1] "metabat.587"
+$metabat.587
+[1] 1
+
+[1] "metabat.592"
+$metabat.592
+[1] 1
+
+[1] "metabat.60"
+$metabat.60
+[1] 1
+
+[1] "metabat.64_sub"
+$metabat.64_sub
+[1] 1
+
+[1] "metabat.68"
+$metabat.68
+[1] 1
+
+[1] "metabat.85"
+$metabat.85
+[1] 1
+
+[1] "metabat.92"
+$metabat.92
+[1] 1
+
