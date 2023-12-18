@@ -4,7 +4,7 @@ out_folder: ""
 # File ending of the MAGS
 mag_ending: ".fna"
 # Folder of the MAGs. All the MAGs should end in `mag_ending`
-input_folder: "tutorial_files/"
+input_folder: "../../data/mags/"
 # Currently unused due to the fact the we do use the predicted media
 medium: "../../data/metamouse_diet2.csv"
 # Use the above specified medium or not not. Can be set to "true" or "false"
