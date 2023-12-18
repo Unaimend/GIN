@@ -4,3 +4,6 @@
 [submodule "constrained-base-analysis"]
 	path = constrained-base-analysis
 	url = git@github.com:Unaimend/constrained-base-analysis.git
+[submodule "submodules/msb_gapseq_pipeline"]
+	path = submodules/msb_gapseq_pipeline
+	url = https://github.com/Unaimend/msb_gapseq_pipeline

@@ -1,0 +1,23 @@
+---
+---
+
+
+```{r}
+hq_mq <- read.csv("../../data/HQ_MQ_Assignment.csv", header = FALSE)
+all_assigned_names <- hq_mq$V1
+length(all_assigned_names) == 290
+hq_models <- readRDS("../../data/metamouse_HQBins-20230711.RDS")
+hq_models_names <- names(hq_models)
+length(hq_models_names) == 249
+length(t)
+missing_mags <- setdiff(all_assigned_names, hq_models_names)
+length(missing_mags) == 87
+# Interestingly there are 87 MAGs that don't have a model.
+# Those should only be MQ MAGs, let's test this
+missing_mags_qual <- hq_mq[hq_mq$V1 %in% missing_mags, ]
+# Some of the missing ones are HQ
+missing_hqs <- missing_mags_qual[missing_mags_qual$V2 == "HQ", ]
+# And indeed they are not in the list
+missing_hqs$V1 %in% hq_models_names
+```
+
