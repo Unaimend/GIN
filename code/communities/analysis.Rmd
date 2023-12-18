@@ -15,6 +15,8 @@ length(missing_mags) == 87
 # Interestingly there are 87 MAGs that don't have a model.
 # Those should only be MQ MAGs, let's test this
 missing_mags_qual <- hq_mq[hq_mq$V1 %in% missing_mags, ]
+# Those are the mags for which we still need mode;ls
+write.table(missing_mags_qual$V1, "../../data/communities/missing_models.csv", row.names = FALSE, col.names = FALSE)
 # Some of the missing ones are HQ
 missing_hqs <- missing_mags_qual[missing_mags_qual$V2 == "HQ", ]
 # And indeed they are not in the list
