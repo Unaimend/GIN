@@ -2,7 +2,7 @@
 # WARNING: Currently only "" was tested
 out_folder: ""
 # File ending of the MAGS
-mag_ending: ".fna"
+mag_ending: ".fa"
 # Folder of the MAGs. All the MAGs should end in `mag_ending`
 input_folder: "../../data/mags/"
 # Currently unused due to the fact the we do use the predicted media
