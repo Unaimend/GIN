@@ -1,9 +1,9 @@
-[submodule "MicrobiomeGS/community_modeling_coupling"]
-	path = submodules/MicrobiomeGS/community_modeling_coupling
-	url = git@cau-git.rz.uni-kiel.de:MSB/community_modeling_coupling.git
 [submodule "constrained-base-analysis"]
 	path = constrained-base-analysis
 	url = git@github.com:Unaimend/constrained-base-analysis.git
 [submodule "submodules/msb_gapseq_pipeline"]
 	path = submodules/msb_gapseq_pipeline
 	url = https://github.com/Unaimend/msb_gapseq_pipeline
+[submodule "submodules/MicrobiomeGS/microbiomegs_pipeline"]
+	path = submodules/MicrobiomeGS/microbiomegs_pipeline
+	url = git@cau-git.rz.uni-kiel.de:MSB/pipelines/microbiomegs_pipeline.git
