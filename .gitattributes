@@ -6,3 +6,4 @@ data/fva_99_reactions_thr06_MetamouseHQBins20211001.RDS filter=lfs diff=lfs merg
 data/Jena_mouse_170927_2.xls filter=lfs diff=lfs merge=lfs -text
 data/otu_count.csv filter=lfs diff=lfs merge=lfs -text
 *.fa filter=lfs diff=lfs merge=lfs -text
+*.RDS filter=lfs diff=lfs merge=lfs -text
