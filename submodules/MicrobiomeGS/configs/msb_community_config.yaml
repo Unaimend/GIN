@@ -6,9 +6,7 @@ abundance_file: "../../data/absolute_cecum_counts_intersected.tsv"
 # AS THE INDICES OF THE LIST BELOW
 # List that contains gapeqs (The list must be in rds format).
 # See tutorial_files for an example
-gapseq_models_path: "../../data/metamouse_HQBins-20230711.RDS"
-# TODO: Explaine what this is
-single_model_growth: "../../data/mice_cog2_growth.csv"
+gapseq_models_path: "../../../../data/metamouse_HQBins-20230711_MQBIns-20240109.RDS"
 growth_thr:  "0.0005" # Samer original thresh
 # TODO: Add abundance thresh
 # This variable defines where the single-sample communities will be stored
@@ -16,4 +14,4 @@ growth_thr:  "0.0005" # Samer original thresh
 out_filepath: "../results/models/"
 # This variable defines where the single-samples communities aggregated into a single list
 # will be stored and what this RDS will be called
-merged_out_filepath: "../results/merged_oldmodels/"
+merged_out_filepath: "../results/merged_models/"
