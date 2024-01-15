@@ -1,6 +1,6 @@
 # Folder where we want to store all the output files
 # WARNING: Currently only "" was tested
-out_folder: ""
+out_folder: "../../data/communities/gapseq_out/"
 # File ending of the MAGS
 mag_ending: ".fa"
 # Folder of the MAGs. All the MAGs should end in `mag_ending`
@@ -9,3 +9,4 @@ input_folder: "../../data/mags/"
 medium: "../../data/metamouse_diet2.csv"
 # Use the above specified medium or not not. Can be set to "true" or "false"
 use_medium: "true"
+keep_list: "../../data/communities/MQBinsList"
