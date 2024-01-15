@@ -15,3 +15,6 @@ out_filepath: "../results/models/"
 # This variable defines where the single-samples communities aggregated into a single list
 # will be stored and what this RDS will be called
 merged_out_filepath: "../results/merged_models/"
+
+excluded_samples: ["24_1119"]
+
