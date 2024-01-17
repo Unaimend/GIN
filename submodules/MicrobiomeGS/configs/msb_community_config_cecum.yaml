@@ -1,7 +1,7 @@
 # IMPORTANT: THE FIRST ROW MUST BE THE SAMPLE NAMES
 # AND THE FIRST COLUMN MUST BE THE NAMES OF THE GAPSEQS
 # See tutorial_files for an example
-abundance_file: "../../data/absolute_stool_counts_intersected.tsv"
+abundance_file: "../../data/absolute_cecum_counts_intersected.tsv"
 # THE ABOVE MENTIONED FIRST COLUMN MUST CONTAIN THE SAME ELEMENTS
 # AS THE INDICES OF THE LIST BELOW
 # List that contains gapeqs (The list must be in rds format).
@@ -11,10 +11,10 @@ growth_thr:  "0.0005" # Samer original thresh
 # TODO: Add abundance thresh
 # This variable defines where the single-sample communities will be stored
 # SHOULD NOT BE CHANGED FOR KNOW (If necessary please inform Thomas)
-out_filepath: "../../distal_com/models/"
+out_filepath: "../../cecum_com/models/"
 # This variable defines where the single-samples communities aggregated into a single list
 # will be stored and what this RDS will be called
-merged_out_filepath: "../../distal_com/merged_models/"
+merged_out_filepath: "../../cecum_com/merged_models/"
 
 excluded_samples: ["24_1119"]
 
