@@ -16,5 +16,5 @@ out_filepath: "../../distal_com/models/"
 # will be stored and what this RDS will be called
 merged_out_filepath: "../../distal_com/merged_models/"
 
-excluded_samples: ["24_1119"]
+excluded_samples: ["24_1119", "2_1180"]
 
