@@ -1,25 +1,162 @@
----
+--
+title: "My R Markdown Document"
+output: pdf_document
 ---
 
-
+### Plot the growth distribution for single models 
 ```{r}
-hq_mq <- read.csv("../../data/HQ_MQ_Assignment.csv", header = FALSE)
-all_assigned_names <- hq_mq$V1
-length(all_assigned_names) == 290
-hq_models <- readRDS("../../data/metamouse_HQBins-20230711.RDS")
-hq_models_names <- names(hq_models)
-length(hq_models_names) == 249
-length(t)
-missing_mags <- setdiff(all_assigned_names, hq_models_names)
-length(missing_mags) == 87
-# Interestingly there are 87 MAGs that don't have a model.
-# Those should only be MQ MAGs, let's test this
-missing_mags_qual <- hq_mq[hq_mq$V1 %in% missing_mags, ]
-# Those are the mags for which we still need mode;ls
-write.table(missing_mags_qual$V1, "../../data/communities/missing_models.csv", row.names = FALSE, col.names = FALSE)
-# Some of the missing ones are HQ
-missing_hqs <- missing_mags_qual[missing_mags_qual$V2 == "HQ", ]
-# And indeed they are not in the list
-missing_hqs$V1 %in% hq_models_names
+library(dplyr)
+single_model_growth <- read.table("../../submodules/MicrobiomeGS/cecum_com/models/single_model_growth.tsv",
+                                  sep = ",", header = TRUE) %>% select(-X)
+
+library(ggplot2)
+p <- ggplot(single_model_growth, aes(y = Growth)) +
+  geom_boxplot(fill = "lightblue", color = "blue") +
+  labs(title = "Single model growth", x = "Model", y = "Growth")
+p
 ```
 
+
+
+## Community plots
+```{r}
+library(dplyr)
+library(data.table)
+library(patchwork)
+
+proximal_comm_mods <- readRDS("../../submodules/MicrobiomeGS/proximal_com/merged_models/merged.RDS")
+names(proximal_comm_mods) <- gsub(".RDS", "", names(proximal_comm_mods))
+
+proximal_extracted_growths <- as.data.frame(lapply(proximal_comm_mods, function(model) {
+  model$community.growth
+})) %>% transpose()
+
+library(ggplot2)
+proximal_p <- ggplot(proximal_extracted_growths, aes(y = V1)) +
+  geom_boxplot(fill = "lightblue", color = "blue") +
+  labs(title = "Proximal Colon. com growth", x = "Model", y = "Growth")
+
+cecal_comm_mods <- readRDS("../../submodules/MicrobiomeGS/cecum_com/merged_models/merged.RDS")
+names(cecal_comm_mods) <- gsub(".RDS", "", names(cecal_comm_mods))
+
+cecal_extracted_growths <- as.data.frame(lapply(cecal_comm_mods, function(model) {
+  model$community.growth
+})) %>% transpose()
+
+library(ggplot2)
+cecal_p <- ggplot(cecal_extracted_growths, aes(y = V1)) +
+  geom_boxplot(fill = "lightblue", color = "blue") +
+  labs(title = "Cecum com growth", x = "Model", y = "Growth")
+
+
+distal_comm_mods <- readRDS("../../submodules/MicrobiomeGS/distal_com/merged_models/merged.RDS")
+names(distal_comm_mods) <- gsub(".RDS", "", names(distal_comm_mods))
+
+distal_extracted_growths <- as.data.frame(lapply(distal_comm_mods, function(model) {
+  model$community.growth
+})) %>% transpose()
+
+distal_p <- ggplot(distal_extracted_growths, aes(y = V1)) +
+  geom_boxplot(fill = "lightblue", color = "blue") +
+  labs(title = "Cecum com growth", x = "Model", y = "Growth")
+
+cecal_p | proximal_p | distal_p
+```
+
+### Plot which MAG is in which community
+
+```{r}
+
+plot_model_presence_absence <- function(com) {
+  union_of_names <- list()
+
+  for (model in com) {
+    union_of_names <- union(union_of_names, model$models$model.name)
+  }
+
+  sample_row_com <- as.data.frame(matrix(nrow = 0, ncol = 3))
+  colnames(sample_row_com) <- c("mag", "sample", "value")
+
+  library(dplyr)
+
+  for (model_name in names(com)) {
+    model <- com[[model_name]]
+    sample_row_com_loc <- as.data.frame(union_of_names) %>% transpose()
+    sample_row_com_loc["sample"] <- model_name
+    sample_row_com_loc[sample_row_com_loc$V1 %in% model$models$model.name, "value"] <- 1
+    sample_row_com_loc[!(sample_row_com_loc$V1 %in% model$models$model.name), "value"] <- 0
+    colnames(sample_row_com_loc) <- c("mag", "sample", "value")
+    sample_row_com <- rbind(sample_row_com, sample_row_com_loc)
+  }
+  library(ggplot2)
+  library(patchwork)
+
+  library("ggdendro")
+  library(grid)
+  library(tidyr)
+
+  ## https://jcoliver.github.io/learn-r/008-ggplot-dendrograms-and-heatmaps.html
+
+  # Convert long format to wide format
+  wide_data <- pivot_wider(sample_row_com, names_from = c("mag"), values_from = "value")
+  wider_names <- wide_data$sample
+  wide_matrix <- as.matrix(wide_data[, -c(1)])
+  rownames(wide_matrix) <- wider_names
+  sample_dendro <- as.dendrogram(hclust(d = dist(x = wide_matrix)))
+
+  dendro_plot <- ggdendrogram(data = sample_dendro, rotate = TRUE)
+
+  sample_order <- order.dendrogram(sample_dendro)
+
+  sample_row_com$accession <- factor(x = sample_row_com$sample,
+                                     levels = wider_names[sample_order],
+                                     ordered = TRUE)
+
+  # Create a heatmap using ggplot2
+  heatmap_plot <- ggplot(sample_row_com, aes(x = mag, y = accession, fill = value)) +
+    geom_tile() +
+    scale_fill_gradient(low = "blue", high = "red") +
+    labs(title = "Heatmap of DataFrame",
+         x = "Sample",
+         y = "Magnitude",
+         fill = "Value")
+
+  heatmap_plot
+  #grid.newpage()
+  #png(filepath)
+  #print(heatmap_plot,
+  #      vp = viewport(x = 0.4, y = 0.5, width = 0.8, height = 1.0))
+  #print(dendro_plot,
+  #      vp = viewport(x = 0.90, y = 0.510, width = 0.2, height = 1.0))
+  #recorded_plot <- recordPlot()
+  #dev.off()
+  #
+  return(heatmap_plot)
+}
+
+
+
+cecum_plot <-  plot_model_presence_absence(cecal_comm_mods)
+proximal_plot <-  plot_model_presence_absence(proximal_comm_mods)
+distal_plot <-  plot_model_presence_absence(distal_comm_mods)
+
+```
+
+## Cecal community
+
+```{r}
+cecum_plot
+```
+
+## Proximal community
+
+```{r}
+proximal_plot
+```
+
+
+## Distal community
+
+```{r}
+distal_plot
+```
