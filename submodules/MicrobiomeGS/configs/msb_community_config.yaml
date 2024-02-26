@@ -15,6 +15,7 @@ out_filepath: "../../distal_com/models/"
 # This variable defines where the single-samples communities aggregated into a single list
 # will be stored and what this RDS will be called
 merged_out_filepath: "../../distal_com/merged_models/"
+fluxes_out_filepath: "../../distal_com/results/fluxes/"
 
 excluded_samples: ["24_1119"]
 

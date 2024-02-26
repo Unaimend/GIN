@@ -2,3 +2,7 @@
 *.tmp.R
 code/analysis.nb.html
 
+code/communities/analysis.aux
+code/communities/analysis.html
+code/communities/analysis.pdf
+code/communities/test.png
