@@ -21,7 +21,8 @@ nrow(stool_counts_inc_mq_intersected) == 161
 nrow(colon_counts_inc_mq_intersected) == 161
 nrow(cecum_counts_inc_mq_intersected) == 161
 
-
-write.csv(cecum_counts_inc_mq_intersected, file = "cecum_counts_inc_mq_intersected.tsv")
-write.csv(colon_counts_inc_mq_intersected, file = "colon_counts_inc_mq_intersected.tsv")
-write.csv(stool_counts_inc_mq_intersected, file = "stool_counts_inc_mq_intersected.tsv")
+# Those now also contain the mq mags
+# Used in building the communities
+write.csv(cecum_counts_inc_mq_intersected, file = "../data/communities/cecum_counts_inc_mq_intersected.tsv")
+write.csv(colon_counts_inc_mq_intersected, file = "../data/communities/colon_counts_inc_mq_intersected.tsv")
+write.csv(stool_counts_inc_mq_intersected, file = "../data/communities/stool_counts_inc_mq_intersected.tsv")
