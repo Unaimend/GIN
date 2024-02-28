@@ -1,4 +1,4 @@
-setwd("/home/td/Projects/Aging/Baseline/GIN/code")
+#setwd("/home/td/Projects/Aging/Baseline/GIN/code")
 source("utils.R")
 # Unnnormalized, unfiltered (by HQness) ABSOLUTE MAG counts
 cecum_counts_inc_mq  <-  filter_per_organ(metadata, count_data, "Cecum", filter_HQ_only = FALSE, normalize = FALSE)
@@ -23,6 +23,6 @@ nrow(cecum_counts_inc_mq_intersected) == 161
 
 # Those now also contain the mq mags
 # Used in building the communities
-write.csv(cecum_counts_inc_mq_intersected, file = "../data/communities/cecum_counts_inc_mq_intersected.tsv")
-write.csv(colon_counts_inc_mq_intersected, file = "../data/communities/colon_counts_inc_mq_intersected.tsv")
-write.csv(stool_counts_inc_mq_intersected, file = "../data/communities/stool_counts_inc_mq_intersected.tsv")
+write.table(cecum_counts_inc_mq_intersected, sep = "\t", file = "../data/communities/cecum_counts_inc_mq_intersected.tsv")
+write.table(colon_counts_inc_mq_intersected, sep = "\t", file = "../data/communities/colon_counts_inc_mq_intersected.tsv")
+write.table(stool_counts_inc_mq_intersected, sep = "\t", file = "../data/communities/stool_counts_inc_mq_intersected.tsv")
