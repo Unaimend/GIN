@@ -1,7 +1,7 @@
 # IMPORTANT: THE FIRST ROW MUST BE THE SAMPLE NAMES
 # AND THE FIRST COLUMN MUST BE THE NAMES OF THE GAPSEQS
 # See tutorial_files for an example
-abundance_file: "../../data/absolute_stool_counts_intersected.tsv"
+abundance_file: "../../../../data/communities/stool_counts_inc_mq_intersected.tsv"
 # THE ABOVE MENTIONED FIRST COLUMN MUST CONTAIN THE SAME ELEMENTS
 # AS THE INDICES OF THE LIST BELOW
 # List that contains gapeqs (The list must be in rds format).
@@ -17,5 +17,5 @@ out_filepath: "../../distal_com/models/"
 merged_out_filepath: "../../distal_com/merged_models/"
 fluxes_out_filepath: "../../distal_com/fluxes/"
 
-excluded_samples: ["24_1119", "2_1180"]
+excluded_samples: []
 
